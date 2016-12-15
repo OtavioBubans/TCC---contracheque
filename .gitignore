@@ -58,3 +58,7 @@ bld/
 /contra-cheque/contra-cheque-web/target/
 =======
 >>>>>>> master
+/contra-cheque/contra-cheque-entity/target/
+/contra-cheque/contra-cheque-security/target/
+/contra-cheque/contra-cheque-service/target/
+/contra-cheque/contra-cheque-web/target/
