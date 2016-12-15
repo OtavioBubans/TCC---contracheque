@@ -12,7 +12,6 @@
 *.war
 *.ear
 
-
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 hs_err_pid*
 src/modulo-01-java-OO/projeto-lotr-bluej/doc/
@@ -52,3 +51,10 @@ bld/
 # MSTest test Results
 [Tt]est[Rr]esult*/
 [Bb]uild[Ll]og.*
+<<<<<<< HEAD
+/contra-cheque/contra-cheque-entity/target/
+/contra-cheque/contra-cheque-security/target/
+/contra-cheque/contra-cheque-service/target/
+/contra-cheque/contra-cheque-web/target/
+=======
+>>>>>>> master
