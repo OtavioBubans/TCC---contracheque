@@ -5,13 +5,18 @@
  */
 package br.com.crescer.contra.cheque.security;
 
+
 import br.com.crescer.contra.cheque.entity.Usuario;
 import br.com.crescer.contra.cheque.service.UsuarioService;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 /**
@@ -30,11 +35,16 @@ public class CCDetailsService implements UserDetailsService {
             throw new UsernameNotFoundException(String.format("User with username=%s was not found", username));
         }
         Usuario usuarioEncontrado = usuarioService.findByEmail(username);
-        ContraChequeRoles role;
-        if(usuarioEncontrado.getRole().equals("admin")){
-            role = ContraChequeRoles.ROLE_ADMIN;
+        Collection<ContraChequeRoles> roles = new ArrayList();
+        if(usuarioEncontrado == null){
+            throw new UsernameNotFoundException(String.format("User with username=%s was not found", username));
         }
-        return new User(username, usuarioEncontrado.getSenha(), ContraChequeRoles.valuesToList());
+        if(usuarioEncontrado.getRole().equals("admin")){
+            roles = ContraChequeRoles.valuesToList();
+        }else if(usuarioEncontrado.getRole().equals("user")){
+            roles.add(ContraChequeRoles.ROLE_USER);
+        }
+        return new User(username, new BCryptPasswordEncoder().encode(usuarioEncontrado.getSenha()), roles);
 
     }
 }
