@@ -15,6 +15,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
@@ -23,18 +24,19 @@ import javax.persistence.TemporalType;
  * @author Otávio
  */
 @Entity
+@Table(name="LOG")
 public class Log implements Serializable {
     
     private final String SEQ_NAME = "SEQ_LOG";
 
     @Id
-    @Column(name = "ID", nullable = false)
+    @Column(name = "ID_LOG")
     @GeneratedValue(strategy = SEQUENCE, generator = SEQ_NAME)
     @SequenceGenerator(name = SEQ_NAME, sequenceName = SEQ_NAME, allocationSize = 1)
     private Long id;
     
     @ManyToOne
-    @JoinColumn(name = "ID_COLABORADOR", referencedColumnName = "ID")
+    @JoinColumn(name = "ID_COLABORADOR", referencedColumnName = "ID_COLABORADOR")
     private Colaborador colaborador;
     
     @Column(name="IP", nullable= false, length = 15)

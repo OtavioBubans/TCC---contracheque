@@ -6,51 +6,52 @@
 package br.com.crescer.contra.cheque.entity;
 
 import java.io.Serializable;
+import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import static javax.persistence.GenerationType.SEQUENCE;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
 
 /**
  *
- * @author Otávio
+ * @author otavio.bubans
  */
 @Entity
+@Table(name = "ACESSO")
 public class Acesso implements Serializable {
-    
-    private final String SEQ_NAME = "SEQ_ACESSO";
-    
+
+    private static final String SQ_NAME = "SEQ_ACESSO";
+
     @Id
-    @Column(name = "ID", nullable = false)
-    @GeneratedValue(strategy = SEQUENCE, generator = SEQ_NAME)
-    @SequenceGenerator(name = SEQ_NAME, sequenceName = SEQ_NAME, allocationSize = 1)
-    private Long id;
-    
-    
+    @GeneratedValue(strategy = SEQUENCE, generator = SQ_NAME)
+    @SequenceGenerator(name = SQ_NAME, sequenceName = SQ_NAME, allocationSize = 1)
+    @Column(name = "ID_ACESSO")
+    private int id;
+
     @ManyToOne
     private Colaborador colaborador;
-    
-    
-    @Column(name ="DIA_SEMANA", nullable = false, length= 13)
-    private String diaSemana;
-    
-    @Column(name = "HORA", nullable = false,length = 1 )
-    private int hora;
-    
-    
-    
-    @Column(name="QTD_ACESSO", nullable = false, length = 2)
+
+    @Basic(optional = false)
+    @Column(name = "DIA_SEMANA")
+    private String diaDaSemana;
+
+    @Basic(optional = false)
+    @Column(name = "HORA_ACESSO")
+    private int horaAcesso;
+
+    @Basic(optional = false)
+    @Column(name = "QTD_ACESSO")
     private int qtdAcesso;
 
-    public Long getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -62,20 +63,20 @@ public class Acesso implements Serializable {
         this.colaborador = colaborador;
     }
 
-    public String getDiaSemana() {
-        return diaSemana;
+    public String getDiaDaSemana() {
+        return diaDaSemana;
     }
 
-    public void setDiaSemana(String diaSemana) {
-        this.diaSemana = diaSemana;
+    public void setDiaDaSemana(String diaDaSemana) {
+        this.diaDaSemana = diaDaSemana;
     }
 
-    public int getHora() {
-        return hora;
+    public int getHoraAcesso() {
+        return horaAcesso;
     }
 
-    public void setHora(int hora) {
-        this.hora = hora;
+    public void setHoraAcesso(int horaAcesso) {
+        this.horaAcesso = horaAcesso;
     }
 
     public int getQtdAcesso() {
@@ -85,7 +86,5 @@ public class Acesso implements Serializable {
     public void setQtdAcesso(int qtdAcesso) {
         this.qtdAcesso = qtdAcesso;
     }
-    
-    
-    
+
 }

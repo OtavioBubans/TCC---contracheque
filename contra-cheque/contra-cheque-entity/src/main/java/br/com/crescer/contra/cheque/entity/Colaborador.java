@@ -7,15 +7,14 @@ package br.com.crescer.contra.cheque.entity;
 
 import java.io.Serializable;
 import java.util.Date;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import static javax.persistence.GenerationType.SEQUENCE;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
-import javax.persistence.SequenceGenerator;
+import javax.persistence.PrimaryKeyJoinColumn;
+import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
@@ -23,31 +22,50 @@ import javax.persistence.TemporalType;
  *
  * @author Otávio
  */
-
 @Entity
+@Table(name = "COLABORADOR")
 public class Colaborador implements Serializable {
-    
-   //private final String SEQ_NAME = "SEQ_COLABORADOR";
 
     @Id
-    @OneToOne
-    @JoinColumn(name = "ID_USUARIO", referencedColumnName = "ID")
-    private Usuario usuario; 
-    
-    
+    @Column(name = "ID_COLABORADOR")
+    private Long id;
+
     @ManyToOne
     private CentroDeCusto centroDeCusto;
-    
-    @Column(name="NOME", nullable= false, length=50)
+
+    @Column(name = "NOME", nullable = false, length = 50)
     private String nome;
-    
-    @Column(name="TIPO_SALARIO")
+
+    @Column(name = "TIPO_SALARIO")
     private char tipoSalario;
-    
+
     @Temporal(TemporalType.DATE)
-    @Column(name="DT_ADIMISSAO")
+    @Column(name = "DT_ADIMISSAO")
     private Date admissao;
-    
+
+    @Temporal(TemporalType.DATE)
+    @Column(name = "DT_NASCIMENTO")
+    private Date nascimento;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @PrimaryKeyJoinColumn
+    private Usuario usuario;
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public Usuario getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
+    }
 
     public CentroDeCusto getCentroDeCusto() {
         return centroDeCusto;
@@ -80,11 +98,13 @@ public class Colaborador implements Serializable {
     public void setAdmissao(Date admissao) {
         this.admissao = admissao;
     }
-    
+
+    public Date getNascimento() {
+        return nascimento;
+    }
+
+    public void setNascimento(Date nascimento) {
+        this.nascimento = nascimento;
+    }
+
 }
-
-
-
-
-
-

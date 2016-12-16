@@ -9,7 +9,6 @@ import java.io.Serializable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.Lob;
 import javax.persistence.Table;
 
 /**
@@ -21,7 +20,7 @@ import javax.persistence.Table;
 public class Usuario implements Serializable {
 
     @Id
-    @Column(name = "ID", nullable = false)
+    @Column(name = "ID_USUARIO")
     private Long id;
 
     @Column(name = "EMAIL", nullable = false, length = 100)
@@ -30,9 +29,9 @@ public class Usuario implements Serializable {
     @Column(name = "SENHA", nullable = false, length = 32)
     private String senha;
 
-    @Column(name = "ROLE", nullable = false, length = 5)
+    @Column(name = "FUNCAO", nullable = false, length = 5)
     private String role;
-    
+
     @Column(name = "LOGIN_VALIDO", nullable = false)
     private boolean loginValido;
 
@@ -75,7 +74,5 @@ public class Usuario implements Serializable {
     public void setLoginValido(boolean loginValido) {
         this.loginValido = loginValido;
     }
-    
-    
 
 }

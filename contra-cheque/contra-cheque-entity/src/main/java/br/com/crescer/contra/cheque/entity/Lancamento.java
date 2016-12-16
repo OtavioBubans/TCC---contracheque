@@ -6,31 +6,43 @@
 package br.com.crescer.contra.cheque.entity;
 
 import java.io.Serializable;
+import java.util.Date;
 import javax.persistence.Column;
+import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import static javax.persistence.GenerationType.SEQUENCE;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 /**
  *
  * @author Otávio
  */
+
+@Entity
+@Table(name="LANCAMENTO")
 public class Lancamento implements Serializable {
     
      private final String SEQ_NAME = "SEQ_LANCAMENTO";
 
     @Id
-    @Column(name = "ID", nullable = false)
+    @Column(name = "ID_LANCAMENTO", nullable = false)
     @GeneratedValue(strategy = SEQUENCE, generator = SEQ_NAME)
     @SequenceGenerator(name = SEQ_NAME, sequenceName = SEQ_NAME, allocationSize = 1)
     private Long id;
     
     @ManyToOne
-    @JoinColumn(name="ID_COLABORADOR",referencedColumnName="ID")
+    @JoinColumn(name="ID_COLABORADOR",referencedColumnName="ID_COLABORADOR")
     private Colaborador colaboraador;
+    
+    @Temporal(TemporalType.DATE)
+    @Column(name = "DT_REGISTRO")
+    private Date registro;
     
     @Column(name="DESCRICAO", nullable=false,length=40)
     private String descricao;
@@ -115,10 +127,12 @@ public class Lancamento implements Serializable {
     public void setTotal(double total) {
         this.total = total;
     }
-    
-    
-    
-    
-    
-    
+
+    public Date getRegistro() {
+        return registro;
+    }
+
+    public void setRegistro(Date registro) {
+        this.registro = registro;
+    }
 }

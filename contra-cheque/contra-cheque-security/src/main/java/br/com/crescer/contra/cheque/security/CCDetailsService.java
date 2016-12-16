@@ -30,14 +30,17 @@ public class CCDetailsService implements UserDetailsService {
     UsuarioService usuarioService;
     
     @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException, LoginInvalidoException {
         if (username.isEmpty()) {
-            throw new UsernameNotFoundException(String.format("User with username=%s was not found", username));
+            throw new UsernameNotFoundException("Usuário não encontrado");
         }
         Usuario usuarioEncontrado = usuarioService.findByEmail(username);
         Collection<ContraChequeRoles> roles = new ArrayList();
         if(usuarioEncontrado == null){
-            throw new UsernameNotFoundException(String.format("User with username=%s was not found", username));
+            throw new UsernameNotFoundException("Usuário não encontrado");
+        }
+        if(!usuarioEncontrado.isLoginValido()){
+            throw new LoginInvalidoException("Usuário necessita de autenticação extra");
         }
         if(usuarioEncontrado.getRole().equals("admin")){
             roles = ContraChequeRoles.valuesToList();
