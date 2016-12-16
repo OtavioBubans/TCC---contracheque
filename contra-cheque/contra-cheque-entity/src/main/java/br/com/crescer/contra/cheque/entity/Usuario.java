@@ -24,15 +24,12 @@ public class Usuario implements Serializable {
     @Column(name = "ID", nullable = false)
     private Long id;
 
-    @Lob
     @Column(name = "EMAIL", nullable = false, length = 100)
     private String email;
 
-    @Lob
     @Column(name = "SENHA", nullable = false, length = 32)
     private String senha;
 
-    @Lob
     @Column(name = "ROLE", nullable = false, length = 5)
     private String role;
     

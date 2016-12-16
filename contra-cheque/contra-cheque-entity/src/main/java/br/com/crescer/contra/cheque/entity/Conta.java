@@ -30,4 +30,30 @@ public class Conta implements Serializable {
     @ManyToOne
     @JoinColumn(name = "ID_AGENCIA", referencedColumnName = "ID")
     private Agencia agencia;
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getCodigo() {
+        return codigo;
+    }
+
+    public void setCodigo(String codigo) {
+        this.codigo = codigo;
+    }
+
+    public Agencia getAgencia() {
+        return agencia;
+    }
+
+    public void setAgencia(Agencia agencia) {
+        this.agencia = agencia;
+    }
+    
+    
 }
