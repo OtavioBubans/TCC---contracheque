@@ -20,13 +20,13 @@ import javax.persistence.Table;
  */
 
 @Entity
-@Table(name="CENTRO_DE_CUSTO")
+@Table(name="CENTRO_CUSTO")
 public class CentroDeCusto implements Serializable{
     
-     private final String SEQ_NAME = "SEQ_CENTRO_DE_CUSTO";
+     private final String SEQ_NAME = "SEQ_CENTRO_CUSTO";
 
     @Id
-    @Column(name = "ID", nullable = false)
+    @Column(name = "ID_CENTRO_CUSTO", nullable = false)
     @GeneratedValue(strategy = SEQUENCE, generator = SEQ_NAME)
     @SequenceGenerator(name = SEQ_NAME, sequenceName = SEQ_NAME, allocationSize = 1)
     private Long id;

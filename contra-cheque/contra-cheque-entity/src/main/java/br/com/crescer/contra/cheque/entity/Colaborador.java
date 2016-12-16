@@ -22,29 +22,31 @@ import javax.persistence.TemporalType;
  *
  * @author Otávio
  */
-
 @Entity
-@Table(name="COLABORADOR")
+@Table(name = "COLABORADOR")
 public class Colaborador implements Serializable {
-    
 
     @Id
-    @Column(name="ID")
-    private Long id; 
-    
+    @Column(name = "ID_COLABORADOR")
+    private Long id;
+
     @ManyToOne
     private CentroDeCusto centroDeCusto;
-    
-    @Column(name="NOME", nullable= false, length=50)
+
+    @Column(name = "NOME", nullable = false, length = 50)
     private String nome;
-    
-    @Column(name="TIPO_SALARIO")
+
+    @Column(name = "TIPO_SALARIO")
     private char tipoSalario;
-    
+
     @Temporal(TemporalType.DATE)
-    @Column(name="DT_ADIMISSAO")
+    @Column(name = "DT_ADIMISSAO")
     private Date admissao;
-    
+
+    @Temporal(TemporalType.DATE)
+    @Column(name = "DT_NASCIMENTO")
+    private Date nascimento;
+
     @OneToOne(cascade = CascadeType.ALL)
     @PrimaryKeyJoinColumn
     private Usuario usuario;
@@ -64,7 +66,7 @@ public class Colaborador implements Serializable {
     public void setUsuario(Usuario usuario) {
         this.usuario = usuario;
     }
-    
+
     public CentroDeCusto getCentroDeCusto() {
         return centroDeCusto;
     }
@@ -96,11 +98,13 @@ public class Colaborador implements Serializable {
     public void setAdmissao(Date admissao) {
         this.admissao = admissao;
     }
-    
+
+    public Date getNascimento() {
+        return nascimento;
+    }
+
+    public void setNascimento(Date nascimento) {
+        this.nascimento = nascimento;
+    }
+
 }
-
-
-
-
-
-

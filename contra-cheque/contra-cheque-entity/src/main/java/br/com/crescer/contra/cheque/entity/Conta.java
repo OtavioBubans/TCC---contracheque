@@ -20,7 +20,7 @@ public class Conta implements Serializable {
     private final String SEQ_NAME = "SEQ_CONTA";
 
     @Id
-    @Column(name = "ID", nullable = false)
+    @Column(name = "ID_CONTA")
     @GeneratedValue(strategy = SEQUENCE, generator = SEQ_NAME)
     @SequenceGenerator(name = SEQ_NAME, sequenceName = SEQ_NAME, allocationSize = 1)
     private Long id;
@@ -29,7 +29,7 @@ public class Conta implements Serializable {
     private String codigo;
 
     @ManyToOne
-    @JoinColumn(name = "ID_AGENCIA", referencedColumnName = "ID")
+    @JoinColumn(name = "ID_AGENCIA", referencedColumnName = "ID_AGENCIA")
     private Agencia agencia;
 
     public Long getId() {

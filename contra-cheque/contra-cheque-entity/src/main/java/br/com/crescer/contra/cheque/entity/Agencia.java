@@ -20,16 +20,16 @@ public class Agencia implements Serializable {
     private final String SEQ_NAME = "SEQ_AGENCIA";
 
     @Id
-    @Column(name = "ID", nullable = false)
     @GeneratedValue(strategy = SEQUENCE, generator = SEQ_NAME)
     @SequenceGenerator(name = SEQ_NAME, sequenceName = SEQ_NAME, allocationSize = 1)
+    @Column(name = "ID_AGENCIA")
     private Long id;
 
     @Column(name = "CODIGO", nullable = false, length = 6)
     private String codigo;
 
     @ManyToOne
-    @JoinColumn(name = "ID_BANCO", referencedColumnName = "ID")
+    @JoinColumn(name = "ID_BANCO", referencedColumnName = "ID_BANCO")
     private Banco banco;
 
     public Long getId() {

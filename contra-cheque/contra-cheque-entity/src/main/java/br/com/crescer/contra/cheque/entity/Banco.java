@@ -20,7 +20,7 @@ public class Banco implements Serializable {
     private final String SEQ_NAME = "SEQ_BANCO";
 
     @Id
-    @Column(name = "ID", nullable = false)
+    @Column(name = "ID_BANCO", nullable = false)
     @GeneratedValue(strategy = SEQUENCE, generator = SEQ_NAME)
     @SequenceGenerator(name = SEQ_NAME, sequenceName = SEQ_NAME, allocationSize = 1)
     private Long id;
