@@ -30,11 +30,13 @@ public class Usuario implements Serializable {
     @Column(name = "SENHA", nullable = false, length = 32)
     private String senha;
 
-    @Column(name = "ROLE", nullable = false, length = 5)
+    @Column(name = "FUNCAO", nullable = false, length = 5)
     private String role;
     
     @Column(name = "LOGIN_VALIDO", nullable = false)
     private boolean loginValido;
+    
+    
 
     public Long getId() {
         return id;

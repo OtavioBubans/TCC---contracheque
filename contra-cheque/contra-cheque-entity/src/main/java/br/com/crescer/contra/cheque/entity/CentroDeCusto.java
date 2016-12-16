@@ -5,12 +5,14 @@
  */
 package br.com.crescer.contra.cheque.entity;
 
+import java.io.Serializable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import static javax.persistence.GenerationType.SEQUENCE;
 import javax.persistence.Id;
 import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
 
 /**
  *
@@ -18,7 +20,8 @@ import javax.persistence.SequenceGenerator;
  */
 
 @Entity
-public class CentroDeCusto {
+@Table(name="CENTRO_DE_CUSTO")
+public class CentroDeCusto implements Serializable{
     
      private final String SEQ_NAME = "SEQ_CENTRO_DE_CUSTO";
 

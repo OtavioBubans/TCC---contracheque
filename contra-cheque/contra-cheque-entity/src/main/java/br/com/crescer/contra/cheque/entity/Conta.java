@@ -14,6 +14,7 @@ import static javax.persistence.GenerationType.SEQUENCE;
  * @author mateus.teixeira
  */
 @Entity
+@Table(name="CONTA")
 public class Conta implements Serializable {
 
     private final String SEQ_NAME = "SEQ_CONTA";
