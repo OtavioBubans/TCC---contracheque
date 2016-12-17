@@ -6,7 +6,6 @@
 package br.com.crescer.contra.cheque.entity;
 
 import java.io.Serializable;
-import java.util.Collection;
 import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
@@ -15,8 +14,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import static javax.persistence.GenerationType.SEQUENCE;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
@@ -32,63 +29,51 @@ import javax.xml.bind.annotation.XmlTransient;
  * @author matha
  */
 @Entity
-@Table(name = "AGENCIA")
+@Table(name = "CENTRO_CUSTO")
 @XmlRootElement
-public class Agencia implements Serializable {
+public class CentroCusto implements Serializable {
 
-    private static final String SQ_NAME = "SEQ_AGENCIA";
+    private static final String SQ_NAME = "SEQ_CENTRO_CUSTO";
 
     @Id
     @GeneratedValue(strategy = SEQUENCE, generator = SQ_NAME)
     @SequenceGenerator(name = SQ_NAME, sequenceName = SQ_NAME, allocationSize = 1)
     @Basic(optional = false)
     @NotNull
-    @Column(name = "ID_AGENCIA")
-    private Long idAgencia;
+    @Column(name = "ID_CENTRO_CUSTO")
+    private Long idCentroCusto;
     
     @Basic(optional = false)
     @NotNull
-    @Size(min = 1, max = 6)
-    @Column(name = "CODIGO")
-    private String codigo;
+    @Size(min = 1, max = 40)
+    @Column(name = "NOME")
+    private String nome;
     
-    @JoinColumn(name = "ID_BANCO", referencedColumnName = "ID_BANCO")
-    @ManyToOne(optional = false)
-    private Banco idBanco;
-    
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idAgencia")
-    private List<Conta> contas;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idCentroCusto")
+    private List<Colaborador> colaboradores;
 
-    public Long getIdAgencia() {
-        return idAgencia;
+    public Long getIdCentroCusto() {
+        return idCentroCusto;
     }
 
-    public void setIdAgencia(Long idAgencia) {
-        this.idAgencia = idAgencia;
+    public void setIdCentroCusto(Long idCentroCusto) {
+        this.idCentroCusto = idCentroCusto;
     }
 
-    public String getCodigo() {
-        return codigo;
+    public String getNome() {
+        return nome;
     }
 
-    public void setCodigo(String codigo) {
-        this.codigo = codigo;
-    }
-
-    public Banco getIdBanco() {
-        return idBanco;
-    }
-
-    public void setIdBanco(Banco idBanco) {
-        this.idBanco = idBanco;
+    public void setNome(String nome) {
+        this.nome = nome;
     }
 
     @XmlTransient
-    public List<Conta> getContas() {
-        return contas;
+    public List<Colaborador> getColaboradores() {
+        return colaboradores;
     }
 
-    public void setContas(List<Conta> contas) {
-        this.contas = contas;
+    public void setColaboradores(List<Colaborador> colaboradores) {
+        this.colaboradores = colaboradores;
     }
 }

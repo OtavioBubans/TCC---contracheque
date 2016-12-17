@@ -5,8 +5,8 @@
  */
 package br.com.crescer.contra.cheque.service;
 
-import br.com.crescer.contra.cheque.service.repository.LogRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import br.com.crescer.contra.cheque.service.repository.LoggerRepository;
 
 /**
  *
@@ -15,6 +15,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 public class LogService {
     
     @Autowired
-    LogRepository logRepository;
+    LoggerRepository logRepository;
     
 }

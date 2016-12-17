@@ -5,13 +5,13 @@
  */
 package br.com.crescer.contra.cheque.service.repository;
 
-import br.com.crescer.contra.cheque.entity.CentroCusto;
+import br.com.crescer.contra.cheque.entity.Logger;
 import org.springframework.data.repository.CrudRepository;
 
 /**
  *
  * @author otavio.bubans
  */
-public interface CentroDeCustoRepository extends CrudRepository<CentroCusto,Long> {
+public interface LoggerRepository extends CrudRepository<Logger, Long> {
     
 }

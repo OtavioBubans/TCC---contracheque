@@ -6,73 +6,97 @@
 package br.com.crescer.contra.cheque.entity;
 
 import java.io.Serializable;
+import java.util.Collection;
 import java.util.Date;
+import java.util.List;
+import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import static javax.persistence.GenerationType.SEQUENCE;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
-import javax.persistence.PrimaryKeyJoinColumn;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author Otávio
+ * @author matha
  */
 @Entity
 @Table(name = "COLABORADOR")
+@XmlRootElement
 public class Colaborador implements Serializable {
 
+    private static final String SQ_NAME = "SEQ_COLABORADOR";
+
     @Id
+    @GeneratedValue(strategy = SEQUENCE, generator = SQ_NAME)
+    @SequenceGenerator(name = SQ_NAME, sequenceName = SQ_NAME, allocationSize = 1)
+    @Basic(optional = false)
+    @NotNull
     @Column(name = "ID_COLABORADOR")
-    private Long id;
-
-    @ManyToOne
-    private CentroDeCusto centroDeCusto;
-
-    @Column(name = "NOME", nullable = false, length = 50)
+    private Long idColaborador;
+    
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 50)
+    @Column(name = "NOME")
     private String nome;
-
+    
+    @Basic(optional = false)
+    @NotNull
     @Column(name = "TIPO_SALARIO")
-    private char tipoSalario;
-
-    @Temporal(TemporalType.DATE)
-    @Column(name = "DT_ADIMISSAO")
-    private Date admissao;
-
-    @Temporal(TemporalType.DATE)
-    @Column(name = "DT_NASCIMENTO")
+    private Character tipoSalario;
+    
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "NASCIMENTO")
+    @Temporal(TemporalType.TIMESTAMP)
     private Date nascimento;
-
-    @OneToOne(cascade = CascadeType.ALL)
-    @PrimaryKeyJoinColumn
+    
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "ADMISSAO")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date admissao;
+    
+    @JoinColumn(name = "ID_CENTRO_CUSTO", referencedColumnName = "ID_CENTRO_CUSTO")
+    @ManyToOne(optional = false)
+    private CentroCusto idCentroCusto;
+    
+    @JoinColumn(name = "ID_COLABORADOR", referencedColumnName = "ID_USUARIO", insertable = false, updatable = false)
+    @OneToOne(optional = false)
     private Usuario usuario;
+    
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idColaborador")
+    private List<Acesso> acessos;
+    
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idColaborador")
+    private List<Lancamento> lancamentos;
+    
+    @OneToOne(cascade = CascadeType.ALL, mappedBy = "colaborador")
+    private Conta conta;
+    
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idColaborador")
+    private List<Logger> loggers;
 
-    public Long getId() {
-        return id;
+    public Long getIdColaborador() {
+        return idColaborador;
     }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public Usuario getUsuario() {
-        return usuario;
-    }
-
-    public void setUsuario(Usuario usuario) {
-        this.usuario = usuario;
-    }
-
-    public CentroDeCusto getCentroDeCusto() {
-        return centroDeCusto;
-    }
-
-    public void setCentroDeCusto(CentroDeCusto centroDeCusto) {
-        this.centroDeCusto = centroDeCusto;
+    public void setIdColaborador(Long idColaborador) {
+        this.idColaborador = idColaborador;
     }
 
     public String getNome() {
@@ -83,20 +107,12 @@ public class Colaborador implements Serializable {
         this.nome = nome;
     }
 
-    public char getTipoSalario() {
+    public Character getTipoSalario() {
         return tipoSalario;
     }
 
-    public void setTipoSalario(char tipoSalario) {
+    public void setTipoSalario(Character tipoSalario) {
         this.tipoSalario = tipoSalario;
-    }
-
-    public Date getAdmissao() {
-        return admissao;
-    }
-
-    public void setAdmissao(Date admissao) {
-        this.admissao = admissao;
     }
 
     public Date getNascimento() {
@@ -107,4 +123,62 @@ public class Colaborador implements Serializable {
         this.nascimento = nascimento;
     }
 
+    public Date getAdminssao() {
+        return admissao;
+    }
+
+    public void setAdminssao(Date admissao) {
+        this.admissao = admissao;
+    }
+
+    public CentroCusto getIdCentroCusto() {
+        return idCentroCusto;
+    }
+
+    public void setIdCentroCusto(CentroCusto idCentroCusto) {
+        this.idCentroCusto = idCentroCusto;
+    }
+
+    public Usuario getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
+    }
+
+    @XmlTransient
+    public List<Acesso> getAcessos() {
+        return acessos;
+    }
+
+    public void setAcessos(List<Acesso> acessos) {
+        this.acessos = acessos;
+    }
+
+    @XmlTransient
+    public List<Lancamento> getLancamentos() {
+        return lancamentos;
+    }
+
+    public void setLancamentoCollection(List<Lancamento> lancamentos) {
+        this.lancamentos = lancamentos;
+    }
+
+    public Conta getConta() {
+        return conta;
+    }
+
+    public void setConta(Conta conta) {
+        this.conta = conta;
+    }
+
+    @XmlTransient
+    public List<Logger> getLoggers() {
+        return loggers;
+    }
+
+    public void setLoggerCollection(List<Logger> loggers) {
+        this.loggers = loggers;
+    }
 }

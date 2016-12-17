@@ -6,6 +6,7 @@
 package br.com.crescer.contra.cheque.entity;
 
 import java.io.Serializable;
+import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -16,6 +17,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -25,70 +28,84 @@ import javax.xml.bind.annotation.XmlRootElement;
  * @author matha
  */
 @Entity
-@Table(name = "ACESSO")
+@Table(name = "LOGGER")
 @XmlRootElement
-public class Acesso implements Serializable {
+public class Logger implements Serializable {
 
-    private static final String SQ_NAME = "SEQ_ACESSO";
+    private static final String SQ_NAME = "SEQ_LOGGER";
 
     @Id
     @GeneratedValue(strategy = SEQUENCE, generator = SQ_NAME)
     @SequenceGenerator(name = SQ_NAME, sequenceName = SQ_NAME, allocationSize = 1)
     @Basic(optional = false)
     @NotNull
-    @Column(name = "ID_ACESSO")
-    private Long idAcesso;
-
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 13)
-    @Column(name = "DIA_SEMANA")
-    private String diaSemana;
+    @Column(name = "ID_LOG")
+    private Long idLog;
     
     @Basic(optional = false)
     @NotNull
-    @Column(name = "HORA")
-    private Integer hora;
+    @Size(min = 1, max = 15)
+    @Column(name = "IP")
+    private String ip;
     
     @Basic(optional = false)
     @NotNull
-    @Column(name = "QTD_ACESSOS")
-    private Integer qtdAcessos;
-
+    @Column(name = "DATA_HORA")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date dataHora;
+    
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 21)
+    @Column(name = "TIPO_OPERACAO")
+    private String tipoOperacao;
+    
+    @Column(name = "DATA_CONSULTA_CC")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date dataConsultaCc;
+    
     @JoinColumn(name = "ID_COLABORADOR", referencedColumnName = "ID_COLABORADOR")
     @ManyToOne(optional = false)
     private Colaborador idColaborador;
 
-    public Long getIdAcesso() {
-        return idAcesso;
+    public Long getIdLog() {
+        return idLog;
     }
 
-    public void setIdAcesso(Long idAcesso) {
-        this.idAcesso = idAcesso;
+    public void setIdLog(Long idLog) {
+        this.idLog = idLog;
     }
 
-    public String getDiaSemana() {
-        return diaSemana;
+    public String getIp() {
+        return ip;
     }
 
-    public void setDiaSemana(String diaSemana) {
-        this.diaSemana = diaSemana;
+    public void setIp(String ip) {
+        this.ip = ip;
     }
 
-    public Integer getHora() {
-        return hora;
+    public Date getDataHora() {
+        return dataHora;
     }
 
-    public void setHora(Integer hora) {
-        this.hora = hora;
+    public void setDataHora(Date dataHora) {
+        this.dataHora = dataHora;
     }
 
-    public Integer getQtdAcessos() {
-        return qtdAcessos;
+    public String getTipoOperacao() {
+        return tipoOperacao;
     }
 
-    public void setQtdAcessos(Integer qtdAcessos) {
-        this.qtdAcessos = qtdAcessos;
+    public void setTipoOperacao(String tipoOperacao) {
+        this.tipoOperacao = tipoOperacao;
+    }
+
+    public Date getDataConsultaCc() {
+        return dataConsultaCc;
+    }
+
+    public void setDataConsultaCc(Date dataConsultaCc) {
+        this.dataConsultaCc = dataConsultaCc;
     }
 
     public Colaborador getIdColaborador() {

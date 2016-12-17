@@ -42,9 +42,9 @@ public class CCDetailsService implements UserDetailsService {
         if(!usuarioEncontrado.isLoginValido()){
             throw new LoginInvalidoException("Usuário necessita de autenticação extra");
         }
-        if(usuarioEncontrado.getRole().equals("admin")){
+        if(usuarioEncontrado.getFuncao().equals("admin")){
             roles = ContraChequeRoles.valuesToList();
-        }else if(usuarioEncontrado.getRole().equals("user")){
+        }else if(usuarioEncontrado.getFuncao().equals("user")){
             roles.add(ContraChequeRoles.ROLE_USER);
         }
         return new User(username, new BCryptPasswordEncoder().encode(usuarioEncontrado.getSenha()), roles);
