@@ -5,16 +5,22 @@
  */
 package br.com.crescer.contra.cheque.service;
 
+import br.com.crescer.contra.cheque.entity.Log;
 import org.springframework.beans.factory.annotation.Autowired;
-import br.com.crescer.contra.cheque.service.repository.LoggerRepository;
+import org.springframework.stereotype.Service;
+import br.com.crescer.contra.cheque.service.repository.LogRepository;
 
 /**
  *
  * @author otavio.bubans
  */
+@Service
 public class LogService {
     
     @Autowired
-    LoggerRepository logRepository;
+    LogRepository logRepository;
     
+    public Log save(Log log){
+        return logRepository.save(log);
+    }
 }

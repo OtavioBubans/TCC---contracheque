@@ -6,12 +6,14 @@
 package br.com.crescer.contra.cheque.service;
 
 import br.com.crescer.contra.cheque.service.repository.AcessoRepository;
+import org.springframework.stereotype.Service;
 import org.springframework.beans.factory.annotation.Autowired;
 
 /**
  *
  * @author otavio.bubans
  */
+@Service
 public class AcessoService {
     
     @Autowired
