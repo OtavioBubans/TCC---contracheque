@@ -3,12 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package br.com.crescer.contra.cheque.service;
+package br.com.crescer.contra.cheque.entity.enumeration;
 
 /**
  *
- * @author matheus.schmitz
+ * @author matha
  */
-public class Service {
-    
+public enum TipoOperacaoLog {
+    ACESSO, CONSULTA_CC, IMPORTACAO;
 }

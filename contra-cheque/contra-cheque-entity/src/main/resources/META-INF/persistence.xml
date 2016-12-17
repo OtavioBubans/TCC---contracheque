@@ -8,9 +8,9 @@
     <class>br.com.crescer.contra.cheque.entity.Usuario</class>
     <class>br.com.crescer.contra.cheque.entity.Agencia</class>
     <class>br.com.crescer.contra.cheque.entity.Lancamento</class>
-    <class>br.com.crescer.contra.cheque.entity.Logger</class>
     <class>br.com.crescer.contra.cheque.entity.Banco</class>
     <class>br.com.crescer.contra.cheque.entity.Colaborador</class>
+    <class>br.com.crescer.contra.cheque.entity.Log</class>
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:oracle:thin:@localhost:1521:XE"/>
       <property name="javax.persistence.jdbc.user" value="contra_cheque"/>

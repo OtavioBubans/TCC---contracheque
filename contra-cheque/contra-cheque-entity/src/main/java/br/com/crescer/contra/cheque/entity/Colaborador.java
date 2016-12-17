@@ -83,7 +83,7 @@ public class Colaborador implements Serializable {
     private Conta conta;
     
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idColaborador")
-    private List<Logger> loggers;
+    private List<Log> logs;
 
     public Long getIdColaborador() {
         return idColaborador;
@@ -168,11 +168,11 @@ public class Colaborador implements Serializable {
     }
 
     @XmlTransient
-    public List<Logger> getLoggers() {
-        return loggers;
+    public List<Log> getLogs() {
+        return logs;
     }
 
-    public void setLoggerCollection(List<Logger> loggers) {
-        this.loggers = loggers;
+    public void setLogs(List<Log> logs) {
+        this.logs = logs;
     }
 }

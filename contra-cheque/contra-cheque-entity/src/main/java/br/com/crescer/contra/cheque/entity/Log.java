@@ -5,6 +5,7 @@
  */
 package br.com.crescer.contra.cheque.entity;
 
+import br.com.crescer.contra.cheque.entity.enumeration.TipoOperacaoLog;
 import java.io.Serializable;
 import java.util.Date;
 import javax.persistence.Basic;
@@ -30,7 +31,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Entity
 @Table(name = "LOGGER")
 @XmlRootElement
-public class Logger implements Serializable {
+public class Log implements Serializable {
 
     private static final String SQ_NAME = "SEQ_LOGGER";
 
@@ -56,9 +57,8 @@ public class Logger implements Serializable {
     
     @Basic(optional = false)
     @NotNull
-    @Size(min = 1, max = 21)
     @Column(name = "TIPO_OPERACAO")
-    private String tipoOperacao;
+    private TipoOperacaoLog tipoOperacao;
     
     @Column(name = "DATA_CONSULTA_CC")
     @Temporal(TemporalType.TIMESTAMP)
@@ -92,11 +92,11 @@ public class Logger implements Serializable {
         this.dataHora = dataHora;
     }
 
-    public String getTipoOperacao() {
+    public TipoOperacaoLog getTipoOperacao() {
         return tipoOperacao;
     }
 
-    public void setTipoOperacao(String tipoOperacao) {
+    public void setTipoOperacao(TipoOperacaoLog tipoOperacao) {
         this.tipoOperacao = tipoOperacao;
     }
 
