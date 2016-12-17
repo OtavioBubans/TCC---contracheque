@@ -11,6 +11,10 @@ and open the template in the editor.
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     </head>
     <body>
+        <div class="alert alert-danger" th:if="${param.error}">
+            Usuário e/ou senha inválidos!
+            <strong th:text="${param.error[0]}"></strong>
+        </div>
         <form th:action="@{/login}" method="POST" class="form-horizontal">
             <div class="form-group">
                 <label class="col-lg-1 control-label">Usuário</label>

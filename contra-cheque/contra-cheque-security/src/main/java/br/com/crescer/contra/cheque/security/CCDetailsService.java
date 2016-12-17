@@ -9,9 +9,9 @@ package br.com.crescer.contra.cheque.security;
 import br.com.crescer.contra.cheque.entity.Usuario;
 import br.com.crescer.contra.cheque.service.UsuarioService;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collection;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -30,7 +30,7 @@ public class CCDetailsService implements UserDetailsService {
     UsuarioService usuarioService;
     
     @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException, LoginInvalidoException {
+    public UserDetails loadUserByUsername(String username) throws AuthenticationException {
         if (username.isEmpty()) {
             throw new UsernameNotFoundException("Usuário não encontrado");
         }
@@ -40,7 +40,7 @@ public class CCDetailsService implements UserDetailsService {
             throw new UsernameNotFoundException("Usuário não encontrado");
         }
         if(!usuarioEncontrado.isLoginValido()){
-            throw new LoginInvalidoException("Usuário necessita de autenticação extra");
+            throw new LoginInvalidoException("autenticacao extra");
         }
         if(usuarioEncontrado.getFuncao().equals("admin")){
             roles = ContraChequeRoles.valuesToList();
@@ -48,6 +48,5 @@ public class CCDetailsService implements UserDetailsService {
             roles.add(ContraChequeRoles.ROLE_USER);
         }
         return new User(username, new BCryptPasswordEncoder().encode(usuarioEncontrado.getSenha()), roles);
-
     }
 }

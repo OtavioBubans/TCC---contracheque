@@ -19,15 +19,16 @@ import org.springframework.security.web.authentication.AuthenticationFailureHand
 public class CustomAuthenticationHandler implements AuthenticationFailureHandler {
 
     @Override
-    public void onAuthenticationFailure(HttpServletRequest hsr, HttpServletResponse hsr1, AuthenticationException ae) throws IOException, ServletException {
+    public void onAuthenticationFailure(HttpServletRequest hsr, HttpServletResponse hsr1, AuthenticationException ae) 
+            throws IOException, ServletException {
         String msg = ae.getMessage();
-        if (msg != null && msg.equals("Usuário necessita de autenticação extra")) {
-            hsr.setAttribute("param", "validacao");
+        Class a = ae.getClass();
+        if (msg != null && msg.equals("autenticacao extra")) {
+           /* hsr.setAttribute("param", "validacao");
             hsr1.sendRedirect("/login?validacao");
-        } else {
+        } else {*/
             hsr.setAttribute("param", "error");
             hsr1.sendRedirect("/login?error");
         }
-
     }
 }

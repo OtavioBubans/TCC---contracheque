@@ -6,21 +6,17 @@
 package br.com.crescer.contra.cheque.entity;
 
 import java.io.Serializable;
-import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import static javax.persistence.GenerationType.SEQUENCE;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
-import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -38,11 +34,9 @@ import javax.xml.bind.annotation.XmlTransient;
 @XmlRootElement
 public class Colaborador implements Serializable {
 
-    private static final String SQ_NAME = "SEQ_COLABORADOR";
-
+    private static final long serialVersionUID = 1L;
+    
     @Id
-    @GeneratedValue(strategy = SEQUENCE, generator = SQ_NAME)
-    @SequenceGenerator(name = SQ_NAME, sequenceName = SQ_NAME, allocationSize = 1)
     @Basic(optional = false)
     @NotNull
     @Column(name = "ID_COLABORADOR")
