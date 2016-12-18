@@ -12,11 +12,6 @@
     <dependencies>
         <dependency>
             <groupId>br.com.crescer</groupId>
-            <artifactId>contra-cheque-service</artifactId>
-            <version>${project.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>br.com.crescer</groupId>
             <artifactId>contra-cheque-security</artifactId>
             <version>${project.version}</version>
         </dependency>
