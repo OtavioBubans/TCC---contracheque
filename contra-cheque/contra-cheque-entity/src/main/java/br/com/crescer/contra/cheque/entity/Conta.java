@@ -35,8 +35,6 @@ public class Conta implements Serializable {
     @Id
     @GeneratedValue(strategy = SEQUENCE, generator = SQ_NAME)
     @SequenceGenerator(name = SQ_NAME, sequenceName = SQ_NAME, allocationSize = 1)
-    @Basic(optional = false)
-    @NotNull
     @Column(name = "ID_CONTA")
     private Long idConta;
     

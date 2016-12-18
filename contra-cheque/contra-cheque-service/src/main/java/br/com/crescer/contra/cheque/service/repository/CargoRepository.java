@@ -5,12 +5,13 @@
  */
 package br.com.crescer.contra.cheque.service.repository;
 
-import br.com.crescer.contra.cheque.entity.Colaborador;
+import br.com.crescer.contra.cheque.entity.Cargo;
 import org.springframework.data.repository.CrudRepository;
 
 /**
  *
- * @author otavio.bubans
+ * @author Otávio
  */
-public interface ColaboradorRepository extends CrudRepository<Colaborador,Long> {
+public interface CargoRepository extends CrudRepository<Cargo,Long>{
+    
 }

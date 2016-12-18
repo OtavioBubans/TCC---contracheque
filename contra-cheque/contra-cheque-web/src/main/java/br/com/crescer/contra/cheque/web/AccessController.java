@@ -5,11 +5,8 @@
  */
 package br.com.crescer.contra.cheque.web;
 
-import br.com.crescer.contra.cheque.entity.Email;
 import br.com.crescer.contra.cheque.entity.Usuario;
-import br.com.crescer.contra.cheque.service.EmailService;
 import javax.servlet.http.HttpSession;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
