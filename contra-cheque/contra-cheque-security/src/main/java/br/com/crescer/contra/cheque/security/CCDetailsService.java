@@ -39,7 +39,7 @@ public class CCDetailsService implements UserDetailsService {
         if(usuarioEncontrado == null){
             throw new UsernameNotFoundException("Usuário não encontrado");
         }
-        if(!usuarioEncontrado.isLoginValido()){
+        if(usuarioEncontrado.getLoginsSuspeitos() > 0){ 
             throw new LoginInvalidoException("autenticacao extra");
         }
         if(usuarioEncontrado.getFuncao().equals("admin")){

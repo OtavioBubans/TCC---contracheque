@@ -56,8 +56,9 @@ public class Usuario implements Serializable {
     
     @Basic(optional = false)
     @NotNull
-    @Column(name = "LOGIN_VALIDO")
-    private boolean loginValido;
+    @Size(min = 0, max = 2)
+    @Column(name = "LOGINS_SUSPEITOS")
+    private Integer loginsSuspeitos;
     
     @OneToOne(cascade = CascadeType.ALL, mappedBy = "usuario")
     private Colaborador colaborador;
@@ -94,12 +95,12 @@ public class Usuario implements Serializable {
         this.funcao = funcao;
     }
 
-    public boolean isLoginValido() {
-        return loginValido;
+    public Integer getLoginsSuspeitos() {
+        return loginsSuspeitos;
     }
 
-    public void setLoginValido(boolean loginValido) {
-        this.loginValido = loginValido;
+    public void setLoginsSuspeitos(Integer loginsSuspeitos) {
+        this.loginsSuspeitos = loginsSuspeitos;
     }
 
     public Colaborador getColaborador() {
