@@ -30,13 +30,14 @@ public class AdminController {
     String admin(String caminho){
         try {
             if(caminho != null){
-            List<Lancamento> auxiliar = lancamentoService.importarArquivo(caminho, new Date());
-            int count = auxiliar.size();
+            Iterable<Lancamento> auxiliar = lancamentoService.importarArquivo(caminho, new Date());
+            lancamentoService.save(auxiliar);
             }
         } catch (IOException e){
         System.out.println(e);
         }
         
+
         return "admin";
     }
 }

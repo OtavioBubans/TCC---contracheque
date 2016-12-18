@@ -5,6 +5,7 @@
  */
 package br.com.crescer.contra.cheque.service;
 
+import br.com.crescer.contra.cheque.entity.Colaborador;
 import br.com.crescer.contra.cheque.entity.Lancamento;
 import br.com.crescer.contra.cheque.service.repository.ColaboradorRepository;
 import br.com.crescer.contra.cheque.service.repository.LancamentoRepository;
@@ -33,7 +34,7 @@ public class LancamentoService {
     @Autowired
     ColaboradorRepository colaboradorRepository;
 
-    public List<Lancamento> importarArquivo(String caminho, Date dataLancamento) throws IOException {
+    public Iterable<Lancamento> importarArquivo(String caminho, Date dataLancamento) throws IOException {
         Path arquivo = Paths.get(caminho);
         Integer contador = 1;
         Lancamento lancamento = new Lancamento();
@@ -65,7 +66,7 @@ public class LancamentoService {
                             String banco = linha.substring(205, 256).trim();
                             String conta = linha.substring(256, 263).trim();
                             String aux = conta;
-
+                            Colaborador colaborador = colaboradorRepository.findOne(Long.parseLong(id));
                             lancamento.setBase(valorBase.isEmpty() ? 0.0 : Double.parseDouble(valorBase.replace(",", ".")));
                             lancamento.setTipo(tipo.charAt(0));
                             lancamento.setData(dataLancamento);
@@ -73,6 +74,7 @@ public class LancamentoService {
                             lancamento.setValorParam(valorParametro.isEmpty() ? 0.0 : Double.parseDouble(valorParametro.replace(",", ".")));
                             lancamento.setDescricao(desc);
                             lancamento.setCodConta(codigo);
+                            lancamento.setIdColaborador(colaborador);
 
                             listaLancamentos.add(lancamento);
                             contador++;
@@ -82,6 +84,10 @@ public class LancamentoService {
             }
         }
         return listaLancamentos;
+    }
+    
+    public void save(Iterable<Lancamento> lancamentos){
+        lancamentoRepository.save(lancamentos);
     }
 
 }
