@@ -64,6 +64,10 @@ public class Colaborador implements Serializable {
     @Column(name = "ADMISSAO")
     @Temporal(TemporalType.TIMESTAMP)
     private Date admissao;
+       
+    @JoinColumn(name = "ID_CARGO", referencedColumnName = "ID_CARGO")
+    @ManyToOne(optional=false)
+    private Cargo cargo;
     
     @JoinColumn(name = "ID_CENTRO_CUSTO", referencedColumnName = "ID_CENTRO_CUSTO")
     @ManyToOne(optional = false)
@@ -120,6 +124,16 @@ public class Colaborador implements Serializable {
     public Date getAdminssao() {
         return admissao;
     }
+
+    public Cargo getCargo() {
+        return cargo;
+    }
+
+    public void setCargo(Cargo cargo) {
+        this.cargo = cargo;
+    }
+    
+    
 
     public void setAdminssao(Date admissao) {
         this.admissao = admissao;
