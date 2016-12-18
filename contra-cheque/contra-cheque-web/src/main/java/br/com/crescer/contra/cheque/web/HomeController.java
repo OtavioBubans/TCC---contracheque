@@ -5,9 +5,13 @@
  */
 package br.com.crescer.contra.cheque.web;
 
-import javax.servlet.http.HttpSession;
+import br.com.crescer.contra.cheque.service.UsuarioService;
+import br.com.crescer.contra.cheque.entity.Usuario;
+import br.com.crescer.contra.cheque.service.LogService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
-import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -17,6 +21,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
  */
 @Controller
 public class HomeController {
+
+    @Autowired
+    UsuarioService usuarioService;    
+    
+    @Autowired
+    LogService logService;  
+    
+    @Secured({"ROLE_USER"})
     @RequestMapping("/home")
     String home() {
         return "home";
@@ -28,4 +40,10 @@ public class HomeController {
     String logout() {
         return "teste"; <- essa view é uma view que eu criei para testar e que não existe no projeto mais
     }*/
+    
+    private Usuario usuarioLogado(){
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        String username = auth.getName();
+        return usuarioService.findByEmail(username);
+    }
 }

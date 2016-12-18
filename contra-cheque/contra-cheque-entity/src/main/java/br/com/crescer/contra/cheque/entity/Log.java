@@ -38,8 +38,6 @@ public class Log implements Serializable {
     @Id
     @GeneratedValue(strategy = SEQUENCE, generator = SQ_NAME)
     @SequenceGenerator(name = SQ_NAME, sequenceName = SQ_NAME, allocationSize = 1)
-    @Basic(optional = false)
-    @NotNull
     @Column(name = "ID_LOG")
     private Long idLog;
     
@@ -61,7 +59,7 @@ public class Log implements Serializable {
     private TipoOperacaoLog tipoOperacao;
     
     @Column(name = "DATA_CONSULTA_CC")
-    @Temporal(TemporalType.TIMESTAMP)
+    @Temporal(TemporalType.DATE)
     private Date dataConsultaCc;
     
     @JoinColumn(name = "ID_COLABORADOR", referencedColumnName = "ID_COLABORADOR")
