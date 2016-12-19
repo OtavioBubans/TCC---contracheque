@@ -56,7 +56,6 @@ public class Usuario implements Serializable {
     
     @Basic(optional = false)
     @NotNull
-    @Size(min = 0, max = 2)
     @Column(name = "LOGINS_SUSPEITOS")
     private Integer loginsSuspeitos;
     
