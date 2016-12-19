@@ -5,7 +5,6 @@
  */
 package br.com.crescer.contra.cheque.security;
 
-
 import br.com.crescer.contra.cheque.entity.Usuario;
 import br.com.crescer.contra.cheque.service.UsuarioService;
 import java.util.ArrayList;
@@ -28,7 +27,7 @@ public class CCDetailsService implements UserDetailsService {
 
     @Autowired
     UsuarioService usuarioService;
-    
+
     @Override
     public UserDetails loadUserByUsername(String username) throws AuthenticationException {
         if (username.isEmpty()) {
@@ -36,15 +35,15 @@ public class CCDetailsService implements UserDetailsService {
         }
         Usuario usuarioEncontrado = usuarioService.findByEmail(username);
         Collection<ContraChequeRoles> roles = new ArrayList();
-        if(usuarioEncontrado == null){
+        if (usuarioEncontrado == null) {
             throw new UsernameNotFoundException("Usuário não encontrado");
         }
-        if(usuarioEncontrado.getLoginsSuspeitos() > 0){ 
+        if (usuarioEncontrado.getLoginsSuspeitos() > 0) {
             throw new LoginInvalidoException("autenticacao extra");
         }
-        if(usuarioEncontrado.getFuncao().equals("admin")){
+        if (usuarioEncontrado.getFuncao().equals("admin")) {
             roles = ContraChequeRoles.valuesToList();
-        }else if(usuarioEncontrado.getFuncao().equals("user")){
+        } else if (usuarioEncontrado.getFuncao().equals("user")) {
             roles.add(ContraChequeRoles.ROLE_USER);
         }
         return new User(username, new BCryptPasswordEncoder().encode(usuarioEncontrado.getSenha()), roles);

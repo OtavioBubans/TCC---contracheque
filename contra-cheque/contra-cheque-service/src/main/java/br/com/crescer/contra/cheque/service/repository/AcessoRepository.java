@@ -7,6 +7,9 @@ package br.com.crescer.contra.cheque.service.repository;
 
 import br.com.crescer.contra.cheque.entity.Acesso;
 import br.com.crescer.contra.cheque.entity.Colaborador;
+import java.util.List;
+import org.jboss.logging.Param;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 
 /**
@@ -15,6 +18,6 @@ import org.springframework.data.repository.CrudRepository;
  */
 public interface AcessoRepository extends CrudRepository<Acesso, Long> {
 
-    Acesso findByIdColaboradorAndDiaSemanaAndHora(Colaborador colaborador, String diaSemana, int hora);
-
+    Acesso findByIdColaboradorAndDiaSemanaAndHora(Colaborador idColaborador, String diaSemana, int hora);
+        
 }

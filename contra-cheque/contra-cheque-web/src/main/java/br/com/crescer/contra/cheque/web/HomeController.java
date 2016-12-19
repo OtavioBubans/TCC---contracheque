@@ -13,11 +13,16 @@ import br.com.crescer.contra.cheque.entity.Usuario;
 import br.com.crescer.contra.cheque.entity.enumeration.TipoOperacaoLog;
 import br.com.crescer.contra.cheque.service.AcessoService;
 import br.com.crescer.contra.cheque.service.LogService;
+import groovyjarjarcommonscli.ParseException;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
+import java.text.SimpleDateFormat;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
+import java.util.List;
+import java.util.Locale;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.core.Authentication;
@@ -52,41 +57,19 @@ public class HomeController {
         Colaborador colaboradorLogado = usuarioLogado().getColaborador();
         Calendar c = new GregorianCalendar();
         c.setTime(new Date());
-        String nome = "";
+        List<String> diasSemana = Arrays.asList("domingo", "segunda-feira", "terca-feira", "quarta-feira", "quinta-feira", "sexta-feira", "sabado");
         int dia = c.get(Calendar.DAY_OF_WEEK);
-        switch (dia) {
-            case Calendar.SUNDAY:
-                nome = "domingo";
-                break;
-            case Calendar.MONDAY:
-                nome = "segunda-feira";
-                break;
-            case Calendar.TUESDAY:
-                nome = "terça-feira";
-                break;
-            case Calendar.WEDNESDAY:
-                nome = "quarta-feira";
-                break;
-            case Calendar.THURSDAY:
-                nome = "quinta-feira";
-                break;
-            case Calendar.FRIDAY:
-                nome = "sexta-feira";
-                break;
-            case Calendar.SATURDAY:
-                nome = "sábado";
-                break;
-        }
+        String diaSemana = diasSemana.get(dia);
         int hora = c.get(Calendar.HOUR_OF_DAY);
-        Acesso acessoAtual = acessoService.findByIdColaboradorAndDiaSemanaAndHora(colaboradorLogado, nome, hora);
+        Acesso acessoAtual = acessoService.findByIdColaboradorAndDiaSemanaAndHora(colaboradorLogado, diaSemana, hora);
         if (acessoAtual == null) {
             acessoAtual = new Acesso();
-            acessoAtual.setDiaSemana(nome);
+            acessoAtual.setDiaSemana(diaSemana);
             acessoAtual.setHora(hora);
             acessoAtual.setIdColaborador(colaboradorLogado);
             acessoAtual.setQtdAcessos(1);
         } else {
-            acessoAtual.setQtdAcessos(acessoAtual.getQtdAcessos()+1);
+            acessoAtual.setQtdAcessos(acessoAtual.getQtdAcessos() + 1);
         }
         acessoService.save(acessoAtual);
         registrarOperacao(colaboradorLogado, TipoOperacaoLog.ACESSO, null);
@@ -104,15 +87,33 @@ public class HomeController {
             log.setDataConsultaCc(null);
         }
         logService.save(log);
-        verificarAcessoSuspeito(colaboradorLogado, ipLogado);
+        verificarIpSuspeito(colaboradorLogado, ipLogado);
     }
 
-    private void verificarAcessoSuspeito(Colaborador colaboradorLogado, String ipLogado) {
-        int registros = logService.findByIdColaboradorAndTipoOperacao(colaboradorLogado, TipoOperacaoLog.ACESSO).size();
-        int registrosPorIp = logService.findByIdColaboradorAndTipoOperacaoAndIp(colaboradorLogado, TipoOperacaoLog.ACESSO, ipLogado).size();
+    private void verificarIpSuspeito(Colaborador colaboradorLogado, String ipLogado) {
+        Long registros = logService.findByIdColaboradorAndTipoOperacao(colaboradorLogado, TipoOperacaoLog.ACESSO);
+        Long registrosPorIp = logService.findByIdColaboradorAndTipoOperacaoAndIp(colaboradorLogado, TipoOperacaoLog.ACESSO, ipLogado);
         if (registros >= 10 && (ipLogado.equals("unknown") || registrosPorIp == 1)) {
             adicionarInvalidez();
         }
+        verificarAcessoSuspeito(colaboradorLogado);
+    }
+
+    private void verificarAcessoSuspeito(Colaborador colaboradorLogado) {
+        List<Acesso> acessos = colaboradorLogado.getAcessos();
+        Integer totalAcessos = 0;
+        for (Acesso acesso : acessos) {
+            totalAcessos += acesso.getQtdAcessos();
+        }
+        if (totalAcessos >= 10) {
+            for (Acesso acesso : acessos) {
+                int percentualAcesso = acesso.getQtdAcessos() / totalAcessos;
+                if (percentualAcesso < 0.15) {
+                    adicionarInvalidez();
+                }
+            };
+        }
+
     }
 
     private void adicionarInvalidez() {

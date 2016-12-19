@@ -17,6 +17,6 @@ import org.springframework.data.repository.CrudRepository;
  */
 public interface LogRepository extends CrudRepository<Log, Long> {
 
-    List<Log> findByIdColaboradorAndTipoOperacaoAndIp(Colaborador colaborador, TipoOperacaoLog tipoOperacao, String id);
-    List<Log> findByIdColaboradorAndTipoOperacao(Colaborador colaborador, TipoOperacaoLog tipoOperacao);
+    Long countByIdColaboradorAndTipoOperacaoAndIp(Colaborador colaborador, TipoOperacaoLog tipoOperacao, String id);
+    Long countByIdColaboradorAndTipoOperacao(Colaborador colaborador, TipoOperacaoLog tipoOperacao);
 }

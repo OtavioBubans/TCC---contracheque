@@ -13,6 +13,7 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -22,22 +23,21 @@ import org.springframework.web.bind.annotation.RequestMapping;
  */
 @Controller
 public class AdminController {
-    
+
     @Autowired
     LancamentoService lancamentoService;
-    
-    @RequestMapping("/admin")
-    String admin(String caminho){
-        try {
-            if(caminho != null){
-            Iterable<Lancamento> auxiliar = lancamentoService.importarArquivo(caminho, new Date());
-            lancamentoService.save(auxiliar);
-            }
-        } catch (IOException e){
-        System.out.println(e);
-        }
-        
 
+    @Secured({"ROLE_ADMIN"})
+    @RequestMapping("/admin")
+    String admin(String caminho) {
+        try {
+            if (caminho != null) {
+                Iterable<Lancamento> auxiliar = lancamentoService.importarArquivo(caminho, new Date());
+                lancamentoService.save(auxiliar);
+            }
+        } catch (IOException e) {
+            System.out.println(e);
+        }
         return "admin";
     }
 }

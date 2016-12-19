@@ -27,11 +27,11 @@ public class LogService {
         return logRepository.save(log);
     }
     
-    public List<Log> findByIdColaboradorAndTipoOperacaoAndIp(Colaborador colaborador, TipoOperacaoLog tipoOperacao, String id){
-        return logRepository.findByIdColaboradorAndTipoOperacaoAndIp(colaborador, tipoOperacao, id);
+    public Long findByIdColaboradorAndTipoOperacaoAndIp(Colaborador colaborador, TipoOperacaoLog tipoOperacao, String id){
+        return logRepository.countByIdColaboradorAndTipoOperacaoAndIp(colaborador, tipoOperacao, id);
     }
     
-    public List<Log> findByIdColaboradorAndTipoOperacao(Colaborador idColaborador, TipoOperacaoLog tipoOperacao){
-        return logRepository.findByIdColaboradorAndTipoOperacao(idColaborador, tipoOperacao);
+    public Long findByIdColaboradorAndTipoOperacao(Colaborador idColaborador, TipoOperacaoLog tipoOperacao){
+        return logRepository.countByIdColaboradorAndTipoOperacao(idColaborador, tipoOperacao);
     }
 }
