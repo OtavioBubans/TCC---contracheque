@@ -5,10 +5,13 @@
  */
 package br.com.crescer.contra.cheque.service;
 
+import br.com.crescer.contra.cheque.entity.Colaborador;
 import br.com.crescer.contra.cheque.entity.Log;
+import br.com.crescer.contra.cheque.entity.enumeration.TipoOperacaoLog;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import br.com.crescer.contra.cheque.service.repository.LogRepository;
+import java.util.List;
 
 /**
  *
@@ -22,5 +25,13 @@ public class LogService {
     
     public Log save(Log log){
         return logRepository.save(log);
+    }
+    
+    public List<Log> findByIdColaboradorAndTipoOperacaoAndIp(Colaborador colaborador, TipoOperacaoLog tipoOperacao, String id){
+        return logRepository.findByIdColaboradorAndTipoOperacaoAndIp(colaborador, tipoOperacao, id);
+    }
+    
+    public List<Log> findByIdColaboradorAndTipoOperacao(Colaborador idColaborador, TipoOperacaoLog tipoOperacao){
+        return logRepository.findByIdColaboradorAndTipoOperacao(idColaborador, tipoOperacao);
     }
 }
