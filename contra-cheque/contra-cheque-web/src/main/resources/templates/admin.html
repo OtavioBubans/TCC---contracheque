@@ -12,6 +12,23 @@ and open the template in the editor.
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.8/css/materialize.min.css"/>
     </head>
     <body>
+         <nav class="grey darken-1">
+            <div class="nav-wrapper">
+            <a href="#" class="brand-logo">Contracheque</a>
+            <ul id="nav-mobile" class="right hide-on-med-and-down">
+                <li><a href="home">Home</a></li>
+                <li><a href="admin">Importar Arquivo</a></li>
+                <li><a href="logout">Sair</a></li>
+              </ul>
+            </div>
+        </nav>
+        <br/>
+        <br/>
+        <br/>
+        <br/>
+        <br/>
+        <div class="container">
+
         <h1>Carregar Arquivo</h1>
        
         <form th:action="@{/admin}" method="POST" class="form-horizontal">
@@ -23,5 +40,6 @@ and open the template in the editor.
                 <input class="waves-effect waves-light btn" type="submit" value="Sign In"/>
             </div>
         </form>
+        </div>
     </body>
 </html>
