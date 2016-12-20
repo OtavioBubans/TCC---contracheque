@@ -14,15 +14,19 @@ import java.util.Date;
 public class Email {
     
     private String texto;
-    private String assunto;
+    private final String assunto;
     private String destinatario;
-    private final Date data;
+    private final String emailEnviador;
+    
 
-    public Email(String texto, String assunto, String destinatario) {
-        this.texto = texto;
-        this.assunto = assunto;
+    public Email( String destinatario, String ip, String usuario) {
+        this.assunto = "EMAIL SEGUNÇA CONTRACHEQUE";
         this.destinatario = destinatario;
-        this.data = new Date();
+        this.emailEnviador = "otaviobubans@hotmail.com"; // email do admin;
+        this.texto = "Houve uma incorfomidade suspeita no acesso do contracheque. /n"
+                    + "Informações do IP: "+ip +"/n"
+                    + "Usuário: "+usuario;
+         
     }
     
     public String getTexto() {
@@ -36,11 +40,7 @@ public class Email {
     public String getAssunto() {
         return assunto;
     }
-
-    public void setAssunto(String assunto) {
-        this.assunto = assunto;
-    }
-
+    
     public String getDestinatario() {
         return destinatario;
     }
@@ -49,9 +49,14 @@ public class Email {
         this.destinatario = destinatario;
     }
 
-    public Date getData() {
-        return data;
+    public String getEmailAdmin() {
+        return emailEnviador;
     }
+
+    
+    
+
+   
     
     
     
