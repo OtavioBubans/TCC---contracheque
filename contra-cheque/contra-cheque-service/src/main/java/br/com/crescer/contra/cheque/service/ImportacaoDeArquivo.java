@@ -8,12 +8,13 @@ package br.com.crescer.contra.cheque.service;
 import br.com.crescer.contra.cheque.service.exceptions.RegraDeNegocioException;
 import java.util.Date;
 import java.util.List;
+import java.util.stream.Stream;
 
 /**
  *
  * @author mateus.teixeira
  */
-interface ImportacaoDeArquivo<T> {
+interface ImportacaoDeArquivo {
 
-    List<T> importarArquivo(String s, Date d) throws RegraDeNegocioException;
+    Stream<String> importarArquivo(String Caminho);
 }

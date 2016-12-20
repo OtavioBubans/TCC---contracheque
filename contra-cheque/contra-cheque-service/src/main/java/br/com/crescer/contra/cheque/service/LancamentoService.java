@@ -5,6 +5,7 @@ import br.com.crescer.contra.cheque.service.exceptions.RegraDeNegocioException;
 import br.com.crescer.contra.cheque.service.repository.LancamentoRepository;
 import java.util.Date;
 import java.util.List;
+import java.util.stream.Stream;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,18 +16,20 @@ import org.springframework.stereotype.Service;
 @Service
 public class LancamentoService {
 
-    private static final Integer CARACTERES_POR_LINHA = 263;
-
     @Autowired
     LancamentoRepository lancamentoRepository;
     @Autowired
-    ImportacaoDeArquivo importacaoDeArquivo = new ImportacaoDeArquivoService();
+    ImportacaoDeArquivoService importacaoDeArquivoService;
 
-    public List<Lancamento> importarArquivo(String caminhoArquivo, Date dataLancamento) throws RegraDeNegocioException {
-        return importacaoDeArquivo.importarArquivo(caminhoArquivo, dataLancamento);
-    }    
+    public void importarArquivo(String caminhoArquivo, Date dataLancamento) throws RegraDeNegocioException {
+        Stream<String> arquivoAtual = importacaoDeArquivoService.lerArquivo(caminhoArquivo);
+        List<Lancamento> lancamentos = importacaoDeArquivoService.importarArquivo(arquivoAtual, dataLancamento);
+        List<Lancamento> lancamentosAntigos = lancamentoRepository.findByData(dataLancamento);
 
-    public void save(Iterable<Lancamento> lancamentos) {
+        if (!lancamentosAntigos.isEmpty()) {
+            lancamentoRepository.delete(lancamentosAntigos);
+        }
+
         lancamentoRepository.save(lancamentos);
     }
 

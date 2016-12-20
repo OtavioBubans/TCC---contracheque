@@ -33,7 +33,7 @@ public class CCWebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(final HttpSecurity httpSecurity) throws Exception {
         httpSecurity.authorizeRequests()
-                .antMatchers("/login/autenticar", "/js/*").permitAll().anyRequest().authenticated()
+                .antMatchers("/admin","/login/autenticar", "/js/*").permitAll().anyRequest().authenticated()
                 .anyRequest()
                 .authenticated()
                 .and()
