@@ -7,11 +7,13 @@ package br.com.crescer.contra.cheque.web;
 
 import br.com.crescer.contra.cheque.entity.Acesso;
 import br.com.crescer.contra.cheque.entity.Colaborador;
+import br.com.crescer.contra.cheque.entity.Email;
 import br.com.crescer.contra.cheque.entity.Log;
 import br.com.crescer.contra.cheque.service.UsuarioService;
 import br.com.crescer.contra.cheque.entity.Usuario;
 import br.com.crescer.contra.cheque.entity.enumeration.TipoOperacaoLog;
 import br.com.crescer.contra.cheque.service.AcessoService;
+import br.com.crescer.contra.cheque.service.EmailService;
 import br.com.crescer.contra.cheque.service.LogService;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
@@ -21,6 +23,8 @@ import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ConfigurableApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -91,12 +95,12 @@ public class HomeController {
         Long registros = logService.findByIdColaboradorAndTipoOperacao(colaboradorLogado, TipoOperacaoLog.ACESSO);
         Long registrosPorIp = logService.findByIdColaboradorAndTipoOperacaoAndIp(colaboradorLogado, TipoOperacaoLog.ACESSO, ipLogado);
         if (registros >= 10 && (ipLogado.equals("unknown") || registrosPorIp == 1)) {
-            adicionarInvalidez();
+            adicionarInvalidez(ipLogado);
         }
-        verificarAcessoSuspeito(colaboradorLogado);
+        verificarAcessoSuspeito(colaboradorLogado, ipLogado);
     }
 
-    private void verificarAcessoSuspeito(Colaborador colaboradorLogado) {
+    private void verificarAcessoSuspeito(Colaborador colaboradorLogado, String ipLogado) {
         List<Acesso> acessos = colaboradorLogado.getAcessos();
         Integer totalAcessos = 0;
         for (Acesso acesso : acessos) {
@@ -106,20 +110,23 @@ public class HomeController {
             for (Acesso acesso : acessos) {
                 int percentualAcesso = acesso.getQtdAcessos() / totalAcessos;
                 if (percentualAcesso < 0.15) {
-                    adicionarInvalidez();
+                    adicionarInvalidez(ipLogado);
                 }
             };
         }
 
     }
 
-    private void adicionarInvalidez() {
+    private void adicionarInvalidez(String ip) {
         Usuario usuarioLogado = usuarioLogado();
         int loginsSuspeitos = usuarioLogado.getLoginsSuspeitos();
         usuarioLogado.setLoginsSuspeitos(loginsSuspeitos + 1);
         usuarioService.save(usuarioLogado);
         if (loginsSuspeitos == 1) {
-            //méotodo de enviar e-mail
+            ConfigurableApplicationContext contexto = new ClassPathXmlApplicationContext("email-bean.xml");
+            EmailService envioEmail = (EmailService) contexto.getBean("enviarEmail");
+            Email novoEmail = new Email(usuarioLogado.getEmail(), ip, usuarioLogado().getColaborador().getNome());
+            envioEmail.enviarEmail(novoEmail);
         }
     }
 

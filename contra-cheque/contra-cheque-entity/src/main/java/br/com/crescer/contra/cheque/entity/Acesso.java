@@ -57,6 +57,17 @@ public class Acesso implements Serializable {
     @ManyToOne(optional = false)
     private Colaborador idColaborador;
 
+    public Acesso() {
+    }
+
+    public Acesso(Long idAcesso, String diaSemana, Integer hora, Integer qtdAcessos, Colaborador idColaborador) {
+        this.idAcesso = idAcesso;
+        this.diaSemana = diaSemana;
+        this.hora = hora;
+        this.qtdAcessos = qtdAcessos;
+        this.idColaborador = idColaborador;
+    }
+
     public Long getIdAcesso() {
         return idAcesso;
     }
@@ -96,4 +107,27 @@ public class Acesso implements Serializable {
     public void setIdColaborador(Colaborador idColaborador) {
         this.idColaborador = idColaborador;
     }
+
+    public boolean equals(Acesso acesso) {
+        if (this == acesso) {
+            return true;
+        }
+        if (acesso == null) {
+            return false;
+        }
+        if (!this.diaSemana.equals(acesso.diaSemana)) {
+            return false;
+        }
+        if (!this.idAcesso.equals(acesso.idAcesso)) {
+            return false;
+        }
+        if (!this.hora.equals(acesso.hora)) {
+            return false;
+        }
+        if (!this.qtdAcessos.equals(acesso.qtdAcessos)) {
+            return false;
+        }
+        return this.idColaborador.equals(acesso.idColaborador);
+    }
+    
 }

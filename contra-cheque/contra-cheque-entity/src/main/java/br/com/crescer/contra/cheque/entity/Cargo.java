@@ -40,6 +40,14 @@ public class Cargo implements Serializable {
     @Column(name = "NOME")
     private String nome;
 
+    public Cargo() {
+    }
+
+    public Cargo(Long idCargo, String nome) {
+        this.idCargo = idCargo;
+        this.nome = nome;
+    }
+    
     public Long getIdCargo() {
         return idCargo;
     }
@@ -55,8 +63,18 @@ public class Cargo implements Serializable {
     public void setNome(String nome) {
         this.nome = nome;
     }
-    
-    
-    
+
+    public boolean equals(Cargo cargo) {
+        if (this == cargo) {
+            return true;
+        }
+        if (cargo == null) {
+            return false;
+        }
+        if (!this.nome.equals(cargo.nome)) {
+            return false;
+        }
+        return this.idCargo.equals(cargo.idCargo);
+    }
     
 }

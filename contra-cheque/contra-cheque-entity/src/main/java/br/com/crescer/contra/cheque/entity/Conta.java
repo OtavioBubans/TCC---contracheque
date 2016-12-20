@@ -52,6 +52,16 @@ public class Conta implements Serializable {
     @OneToOne(optional = false)
     private Colaborador colaborador;
 
+    public Conta() {
+    }
+
+    public Conta(Long idConta, String codigo, Agencia idAgencia, Colaborador colaborador) {
+        this.idConta = idConta;
+        this.codigo = codigo;
+        this.idAgencia = idAgencia;
+        this.colaborador = colaborador;
+    }
+
     public Long getIdConta() {
         return idConta;
     }
@@ -82,5 +92,24 @@ public class Conta implements Serializable {
 
     public void setColaborador(Colaborador colaborador) {
         this.colaborador = colaborador;
+    }
+
+    public boolean equals(Conta conta) {
+        if (this == conta) {
+            return true;
+        }
+        if (conta == null) {
+            return false;
+        }
+        if (!this.codigo.equals(conta.codigo)) {
+            return false;
+        }
+        if (!this.idConta.equals(conta.idConta)) {
+            return false;
+        }
+        if (!this.idAgencia.equals(conta.idAgencia)) {
+            return false;
+        }
+        return this.colaborador.equals(conta.colaborador);
     }
 }

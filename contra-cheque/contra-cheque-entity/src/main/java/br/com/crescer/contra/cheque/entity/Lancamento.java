@@ -76,6 +76,21 @@ public class Lancamento implements Serializable {
     @ManyToOne(optional = false)
     private Colaborador idColaborador;
 
+    public Lancamento() {
+    }
+
+    public Lancamento(Long idLancamento, String descricao, Date data, Character tipo, String codConta, Double base, Double valorParam, Double total, Colaborador idColaborador) {
+        this.idLancamento = idLancamento;
+        this.descricao = descricao;
+        this.data = data;
+        this.tipo = tipo;
+        this.codConta = codConta;
+        this.base = base;
+        this.valorParam = valorParam;
+        this.total = total;
+        this.idColaborador = idColaborador;
+    }
+
     public Long getIdLancamento() {
         return idLancamento;
     }
@@ -146,5 +161,39 @@ public class Lancamento implements Serializable {
 
     public void setIdColaborador(Colaborador idColaborador) {
         this.idColaborador = idColaborador;
+    }
+    
+    public boolean equals(Lancamento lancamento) {
+        if (this == lancamento) {
+            return true;
+        }
+        if (lancamento == null) {
+            return false;
+        }
+        if (!this.descricao.equals(lancamento.descricao)) {
+            return false;
+        }
+        if (!this.codConta.equals(lancamento.codConta)) {
+            return false;
+        }
+        if (!this.idLancamento.equals(lancamento.idLancamento)) {
+            return false;
+        }
+        if (this.data.compareTo(lancamento.data) == 1) {
+            return false;
+        }
+        if (!this.tipo.equals(lancamento.tipo)) {
+            return false;
+        }
+        if (Double.compare(this.base, lancamento.base) == 1) {
+            return false;
+        }
+        if (Double.compare(this.valorParam, lancamento.valorParam) == 1) {
+            return false;
+        }
+        if (Double.compare(this.total, lancamento.total) == 1) {
+            return false;
+        }
+        return this.idColaborador == lancamento.idColaborador;
     }
 }

@@ -66,6 +66,18 @@ public class Log implements Serializable {
     @ManyToOne(optional = false)
     private Colaborador idColaborador;
 
+    public Log() {
+    }
+
+    public Log(Long idLog, String ip, Date dataHora, TipoOperacaoLog tipoOperacao, Date dataConsultaCc, Colaborador idColaborador) {
+        this.idLog = idLog;
+        this.ip = ip;
+        this.dataHora = dataHora;
+        this.tipoOperacao = tipoOperacao;
+        this.dataConsultaCc = dataConsultaCc;
+        this.idColaborador = idColaborador;
+    }
+
     public Long getIdLog() {
         return idLog;
     }
@@ -112,5 +124,30 @@ public class Log implements Serializable {
 
     public void setIdColaborador(Colaborador idColaborador) {
         this.idColaborador = idColaborador;
+    }
+
+    public boolean equals(Log log) {
+        if (this == log) {
+            return true;
+        }
+        if (log == null) {
+            return false;
+        }
+        if (!this.ip.equals(log.ip)) {
+            return false;
+        }
+        if (!this.idLog.equals(log.idLog)) {
+            return false;
+        }
+        if (this.dataHora.compareTo(log.dataHora) == 1) {
+            return false;
+        }
+        if (!this.tipoOperacao.equals(log.tipoOperacao)) {
+            return false;
+        }
+        if (!this.dataConsultaCc.equals(log.dataConsultaCc)) {
+            return false;
+        }
+        return this.idColaborador.equals(log.idColaborador);
     }
 }
