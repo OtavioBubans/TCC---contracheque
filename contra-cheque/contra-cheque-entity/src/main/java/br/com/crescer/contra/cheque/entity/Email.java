@@ -16,16 +16,16 @@ public class Email {
     private String texto;
     private final String assunto;
     private String destinatario;
-    private final String emailEnviador;
+    private final String remetente;
     
 
     public Email( String destinatario, String ip, String usuario) {
         this.assunto = "EMAIL SEGUNÇA CONTRACHEQUE";
         this.destinatario = destinatario;
-        this.emailEnviador = "otaviobubans@hotmail.com"; // email do admin;
+        this.remetente = "otaviobubans@hotmail.com"; // email do admin;
         this.texto = "Houve uma incorfomidade suspeita no acesso do contracheque. /n"
                     + "Informações do IP: "+ip +"/n"
-                    + "Usuário: "+usuario;
+                    + "Colaborador: "+usuario;
          
     }
     
@@ -50,7 +50,7 @@ public class Email {
     }
 
     public String getEmailAdmin() {
-        return emailEnviador;
+        return  remetente;
     }
 
     
