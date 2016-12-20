@@ -5,9 +5,9 @@
  */
 package br.com.crescer.contra.cheque.service;
 
-import br.com.crescer.contra.cheque.service.repository.CentroDeCustoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import br.com.crescer.contra.cheque.service.repository.CentroCustoRepository;
 
 /**
  *
@@ -15,10 +15,10 @@ import org.springframework.stereotype.Service;
  */
 
 @Service
-public class CentroDeCustoService {
+public class CentroCustoService {
     
     @Autowired
-    CentroDeCustoRepository centroDeCustoRepository; 
+    CentroCustoRepository centroDeCustoRepository; 
     
     
 }
