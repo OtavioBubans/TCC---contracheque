@@ -8,7 +8,6 @@
     <modules>
         <module>contra-cheque-entity</module>
         <module>contra-cheque-service</module>
-        <module>contra-cheque-infrastructure</module>
         <module>contra-cheque-security</module>
         <module>contra-cheque-web</module>
     </modules>
