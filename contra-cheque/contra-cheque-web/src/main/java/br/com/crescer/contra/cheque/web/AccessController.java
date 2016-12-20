@@ -16,6 +16,7 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.http.HttpSession;
+import org.apache.tomcat.util.codec.binary.Base64;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -48,29 +49,17 @@ public class AccessController {
         model.addAttribute("autenticacaoExtra", true);
         return "login";
     }
-    
+
     @ResponseBody
     @RequestMapping(value = "/login/autenticar", method = POST)
     boolean autenticarExtra(Model model, @RequestBody String conteudoInputs) {
-        String[] inputs = conteudoInputs.split("&");
+        byte[] valorDecodificado = Base64.decodeBase64(conteudoInputs);
+        String conteudo = new String(valorDecodificado);
+        String[] inputs = conteudo.split("&");
         Usuario usuario = usuarioService.findByEmail(inputs[0].replace("username=", "").replace("%40", "@"));
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-        sdf.setLenient(false);
-        Date dataInserida = new Date();
-        try {
-            dataInserida = sdf.parse(inputs[2].replace("data=", ""));
-        } catch (ParseException ex) {
-            Logger.getLogger(AccessController.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        Calendar c = new GregorianCalendar();
-        c.setTime(dataInserida);
-        Calendar c1 = new GregorianCalendar();
-        c1.setTime(usuario.getColaborador().getNascimento());
         boolean senhaIgual = usuario.getSenha().equals(inputs[1].replace("password=", ""));
-        boolean dataNascimentoIgual = c.get(Calendar.DAY_OF_MONTH) == c1.get(Calendar.DAY_OF_MONTH)
-                                   && c.get(Calendar.MONTH) == c1.get(Calendar.MONTH)
-                                   && c.get(Calendar.YEAR) == c1.get(Calendar.YEAR);
-        if (senhaIgual && dataNascimentoIgual) {
+        boolean nascimentoIgual = compararNascimento(inputs[2].replace("data=", ""), usuario.getColaborador().getNascimento());
+        if (senhaIgual && nascimentoIgual) {
             usuario.setLoginsSuspeitos(0);
             usuarioService.save(usuario);
             return true;
@@ -82,5 +71,21 @@ public class AccessController {
     String logout(HttpSession httpSession) {
         httpSession.invalidate();
         return "redirect:login";
+    }
+
+    private boolean compararNascimento(String stringDataInserida, Date nascimento) {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        sdf.setLenient(false);
+        Date dataInserida = new Date();
+        try {
+            dataInserida = sdf.parse(stringDataInserida);
+        } catch (ParseException ex) {
+            Logger.getLogger(AccessController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        int teste = dataInserida.compareTo(nascimento);
+        if (teste == 1) {
+            return false;
+        }
+        return true;
     }
 }
