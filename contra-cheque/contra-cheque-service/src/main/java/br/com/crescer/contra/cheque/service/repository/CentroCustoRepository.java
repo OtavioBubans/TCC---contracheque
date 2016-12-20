@@ -12,6 +12,6 @@ import org.springframework.data.repository.CrudRepository;
  *
  * @author otavio.bubans
  */
-public interface CentroDeCustoRepository extends CrudRepository<CentroCusto,Long> {
+public interface CentroCustoRepository extends CrudRepository<CentroCusto,Long> {
     
 }

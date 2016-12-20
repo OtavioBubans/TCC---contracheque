@@ -10,6 +10,7 @@
         <module>contra-cheque-service</module>
         <module>contra-cheque-security</module>
         <module>contra-cheque-web</module>
+        <module>contra-cheque-test</module>
     </modules>
     <dependencyManagement>
         <dependencies>
