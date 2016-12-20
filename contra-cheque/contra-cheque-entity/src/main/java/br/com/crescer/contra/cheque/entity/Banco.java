@@ -48,6 +48,14 @@ public class Banco implements Serializable {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idBanco")
     private List<Agencia> agencias;
 
+    public Banco() {
+    }
+
+    public Banco(Long idBanco, String nome) {
+        this.idBanco = idBanco;
+        this.nome = nome;
+    }
+
     public Long getIdBanco() {
         return idBanco;
     }
@@ -72,4 +80,18 @@ public class Banco implements Serializable {
     public void setAgencias(List<Agencia> agencias) {
         this.agencias = agencias;
     }
+
+    public boolean equals(Banco banco) {
+        if (this == banco) {
+            return true;
+        }
+        if (banco == null) {
+            return false;
+        }
+        if (!this.nome.equals(banco.nome)) {
+            return false;
+        }
+        return this.idBanco.equals(banco.idBanco);
+    }
+    
 }

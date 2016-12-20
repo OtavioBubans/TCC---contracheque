@@ -14,8 +14,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import static javax.persistence.GenerationType.SEQUENCE;
 import javax.persistence.Id;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
@@ -50,6 +48,14 @@ public class CentroCusto implements Serializable {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idCentroCusto")
     private List<Colaborador> colaboradores;
 
+    public CentroCusto() {
+    }
+
+    public CentroCusto(Long idCentroCusto, String nome) {
+        this.idCentroCusto = idCentroCusto;
+        this.nome = nome;
+    }
+    
     public Long getIdCentroCusto() {
         return idCentroCusto;
     }
@@ -74,4 +80,18 @@ public class CentroCusto implements Serializable {
     public void setColaboradores(List<Colaborador> colaboradores) {
         this.colaboradores = colaboradores;
     }
+
+    public boolean equals(CentroCusto centroCusto) {
+        if (this == centroCusto) {
+            return true;
+        }
+        if (centroCusto == null) {
+            return false;
+        }
+        if (!this.nome.equals(centroCusto.nome)) {
+            return false;
+        }
+        return this.idCentroCusto.equals(centroCusto.idCentroCusto);
+    }
+    
 }

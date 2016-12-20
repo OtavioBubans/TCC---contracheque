@@ -6,7 +6,6 @@
 package br.com.crescer.contra.cheque.entity;
 
 import java.io.Serializable;
-import java.util.Collection;
 import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
@@ -17,8 +16,6 @@ import static javax.persistence.GenerationType.SEQUENCE;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
@@ -57,6 +54,15 @@ public class Agencia implements Serializable {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idAgencia")
     private List<Conta> contas;
 
+    public Agencia() {
+    }
+
+    public Agencia(Long idAgencia, String codigo, Banco idBanco) {
+        this.idAgencia = idAgencia;
+        this.codigo = codigo;
+        this.idBanco = idBanco;
+    }
+
     public Long getIdAgencia() {
         return idAgencia;
     }
@@ -89,4 +95,21 @@ public class Agencia implements Serializable {
     public void setContas(List<Conta> contas) {
         this.contas = contas;
     }
+
+    public boolean equals(Agencia agencia) {
+        if (this == agencia) {
+            return true;
+        }
+        if (agencia == null) {
+            return false;
+        }
+        if (!this.codigo.equals(agencia.codigo)) {
+            return false;
+        }
+        if (!this.idAgencia.equals(agencia.idAgencia)) {
+            return false;
+        }
+        return this.idBanco.equals(agencia.idBanco);
+    }
+    
 }

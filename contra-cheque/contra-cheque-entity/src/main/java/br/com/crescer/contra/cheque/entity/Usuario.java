@@ -62,6 +62,17 @@ public class Usuario implements Serializable {
     @OneToOne(cascade = CascadeType.ALL, mappedBy = "usuario")
     private Colaborador colaborador;
 
+    public Usuario() {
+    }
+
+    public Usuario(Long idUsuario, String email, String senha, String funcao, Integer loginsSuspeitos) {
+        this.idUsuario = idUsuario;
+        this.email = email;
+        this.senha = senha;
+        this.funcao = funcao;
+        this.loginsSuspeitos = loginsSuspeitos;
+    }
+
     public Long getIdUsuario() {
         return idUsuario;
     }
@@ -108,5 +119,27 @@ public class Usuario implements Serializable {
 
     public void setColaborador(Colaborador colaborador) {
         this.colaborador = colaborador;
+    }
+
+    public boolean equals(Usuario usuario) {
+        if (this == usuario) {
+            return true;
+        }
+        if (usuario == null) {
+            return false;
+        }
+        if (!this.email.equals(usuario.email)) {
+            return false;
+        }
+        if (!this.senha.equals(usuario.senha)) {
+            return false;
+        }
+        if (!this.funcao.equals(usuario.funcao)) {
+            return false;
+        }
+        if (!this.idUsuario.equals(usuario.idUsuario)) {
+            return false;
+        }
+        return this.loginsSuspeitos.equals(usuario.loginsSuspeitos);
     }
 }

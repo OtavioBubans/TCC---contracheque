@@ -7,9 +7,6 @@ package br.com.crescer.contra.cheque.service.repository;
 
 import br.com.crescer.contra.cheque.entity.Acesso;
 import br.com.crescer.contra.cheque.entity.Colaborador;
-import java.util.List;
-import org.jboss.logging.Param;
-import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 
 /**

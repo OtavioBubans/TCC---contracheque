@@ -35,59 +35,73 @@ import javax.xml.bind.annotation.XmlTransient;
 public class Colaborador implements Serializable {
 
     private static final long serialVersionUID = 1L;
-    
+
     @Id
     @Basic(optional = false)
     @NotNull
     @Column(name = "ID_COLABORADOR")
     private Long idColaborador;
-    
+
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 50)
     @Column(name = "NOME")
     private String nome;
-    
+
     @Basic(optional = false)
     @NotNull
     @Column(name = "TIPO_SALARIO")
     private Character tipoSalario;
-    
+
     @Basic(optional = false)
     @NotNull
     @Column(name = "NASCIMENTO")
     @Temporal(TemporalType.TIMESTAMP)
     private Date nascimento;
-    
+
     @Basic(optional = false)
     @NotNull
     @Column(name = "ADMISSAO")
     @Temporal(TemporalType.TIMESTAMP)
     private Date admissao;
-       
+
     @JoinColumn(name = "ID_CARGO", referencedColumnName = "ID_CARGO")
-    @ManyToOne(optional=false)
+    @ManyToOne(optional = false)
     private Cargo cargo;
-    
+
     @JoinColumn(name = "ID_CENTRO_CUSTO", referencedColumnName = "ID_CENTRO_CUSTO")
     @ManyToOne(optional = false)
     private CentroCusto idCentroCusto;
-    
+
     @JoinColumn(name = "ID_COLABORADOR", referencedColumnName = "ID_USUARIO", insertable = false, updatable = false)
     @OneToOne(optional = false)
     private Usuario usuario;
-    
+
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idColaborador")
     private List<Acesso> acessos;
-    
+
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idColaborador")
     private List<Lancamento> lancamentos;
-    
+
     @OneToOne(cascade = CascadeType.ALL, mappedBy = "colaborador")
     private Conta conta;
-    
+
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idColaborador")
     private List<Log> logs;
+
+    public Colaborador() {
+    }
+
+    public Colaborador(Long idColaborador, String nome, Character tipoSalario, Date nascimento, Date admissao, Cargo cargo, CentroCusto idCentroCusto, Usuario usuario) {
+        this.idColaborador = idColaborador;
+        this.nome = nome;
+        this.tipoSalario = tipoSalario;
+        this.nascimento = nascimento;
+        this.admissao = admissao;
+        this.cargo = cargo;
+        this.idCentroCusto = idCentroCusto;
+        this.usuario = usuario;
+    }
 
     public Long getIdColaborador() {
         return idColaborador;
@@ -132,8 +146,6 @@ public class Colaborador implements Serializable {
     public void setCargo(Cargo cargo) {
         this.cargo = cargo;
     }
-    
-    
 
     public void setAdminssao(Date admissao) {
         this.admissao = admissao;
@@ -188,5 +200,36 @@ public class Colaborador implements Serializable {
 
     public void setLogs(List<Log> logs) {
         this.logs = logs;
+    }
+
+    public boolean equals(Colaborador colaborador) {
+        if (this == colaborador) {
+            return true;
+        }
+        if (colaborador == null) {
+            return false;
+        }
+        if (!this.nome.equals(colaborador.nome)) {
+            return false;
+        }
+        if (!this.idColaborador.equals(colaborador.idColaborador)) {
+            return false;
+        }
+        if (!this.tipoSalario.equals(colaborador.tipoSalario)) {
+            return false;
+        }
+        if (this.nascimento.compareTo(colaborador.nascimento) == 1) {
+            return false;
+        }
+        if (this.admissao.compareTo(colaborador.admissao) == 1) {
+            return false;
+        }
+        if (!this.cargo.equals(colaborador.cargo)) {
+            return false;
+        }
+        if (this.idCentroCusto != colaborador.idCentroCusto) {
+            return false;
+        }
+        return this.usuario.equals(colaborador.usuario);
     }
 }
