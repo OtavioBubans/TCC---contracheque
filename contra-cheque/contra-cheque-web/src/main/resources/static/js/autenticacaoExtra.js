@@ -11,7 +11,7 @@ $(autenticacaoExtra.renderizarBindsEventos = function () {
 
 autenticacaoExtra.verificarDataNascimento = function () {
     let conteudoForm = $('#form-autenticacao').serialize();
-    $.post('/login/autenticar', conteudoForm)
+    $.post('/login/autenticar', window.btoa(conteudoForm))
             .then(function (resposta) {
                 if (resposta) {
                     let campos = conteudoForm.replace(conteudoForm.substring(conteudoForm.indexOf('&data='), conteudoForm.length), '').split('&');
