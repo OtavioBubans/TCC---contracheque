@@ -13,28 +13,31 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
  *
  * @author Otávio
  */
+import java.util.Properties;
+import javax.mail.Address;
+import javax.mail.Message;
+import javax.mail.MessagingException;
+import javax.mail.PasswordAuthentication;
+import javax.mail.Session;
+import javax.mail.Transport;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
+
+
+/**
+ *
+ * @author otavio.bubans
+ */
 public class EmailTest {
- 
-	@SuppressWarnings("resource")
-	public static void main(String args[]) {
- 
-		// Spring Bean file you specified in /src/main/resources folder
-		String crunchifyConfFile = "email-bean.xml";
-		ConfigurableApplicationContext context = new ClassPathXmlApplicationContext(crunchifyConfFile);
- 
-		// @Service("crunchifyEmail") <-- same annotation you specified in CrunchifyEmailAPI.java
-		EmailService email = (EmailService) context.getBean("enviarEmail");
-		String toAddr = "otavio.bubans@cwi.com.br";
-		//String fromAddr = "otaviobubans@gmail.com";
- 
-		// email subject
-		String subject = "Teste Email";
- 
-		// email body
-		String body = "Conteudo Teste do email";
-                
-                Email novoemail = new Email(toAddr,"123.1667.123","otavio");
-                
-		email.enviarEmail(novoemail);
-	}
+    public static void main(String[] args) {
+        
+        
+        EmailService emailService =new EmailService();
+        
+        Email email = new Email("otaviobubans@hotmail.com","123.4567","4324234");
+        emailService.enviarEmail(email);
+        
+         
+            
+    }
 }

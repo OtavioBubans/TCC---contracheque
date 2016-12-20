@@ -46,6 +46,10 @@ public class HomeController {
 
     @Autowired
     AcessoService acessoService;
+    
+    @Autowired
+    EmailService emailService;
+    
 
     @Secured({"ROLE_USER"})
     @RequestMapping("/home")
@@ -53,6 +57,14 @@ public class HomeController {
         registrarAcesso();
         return "home";
     }
+    
+//      Teste para enviar email    
+//    @RequestMapping("/email")
+//    String envioEmail(){
+//        Email email= new Email("otaviobubans@hotmail.com","12345","1233");
+//        emailService.enviarEmail(email);
+//        return("home");
+//    }
 
     private void registrarAcesso() {
         Colaborador colaboradorLogado = usuarioLogado().getColaborador();
@@ -123,10 +135,9 @@ public class HomeController {
         usuarioLogado.setLoginsSuspeitos(loginsSuspeitos + 1);
         usuarioService.save(usuarioLogado);
         if (loginsSuspeitos == 1) {
-            ConfigurableApplicationContext contexto = new ClassPathXmlApplicationContext("email-bean.xml");
-            EmailService envioEmail = (EmailService) contexto.getBean("enviarEmail");
+            
             Email novoEmail = new Email(usuarioLogado.getEmail(), ip, usuarioLogado().getColaborador().getNome());
-            envioEmail.enviarEmail(novoEmail);
+            emailService.enviarEmail(novoEmail);
         }
     }
 
