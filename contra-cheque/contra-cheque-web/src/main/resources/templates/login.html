@@ -15,51 +15,61 @@ and open the template in the editor.
             </div>
         </nav>
     </header>
-    <body class="grey darken-3">
+    <body class="grey lighten-4">
         <div class="container">
             
             <div class="row"> 
-                <div class="col s7 m6 offset-m3">
-                    <h3 class="center-align" style="color:white;">Contracheque online CWI</h3>
-                </div>
-            
+               
             </div>
 
             <div class="row">
-                <div class="col s18 m6 offset-m3">
-                    
+
+                <div class=" grid col s12 m8 offset-m2">
+    
+                      <img src="logo-sem.png" width="450px" alt="CWI"/>
+                    <br/>
+                    <br/>
                     <div class="white">
                         <div class="z-depth-5">
-                        <div class="container">
+                        <div class="container" style="padding:10px;">
 
                             <div class="center-align">
                                
-                                <h3 class="center-align">Login</h3>
+                               
                                 <form id="form-autenticacao" th:action="${formAction}" method="POST" class="form-horizontal">
-                                    <div class="form-group">
-                                        <label class="col-lg-1 control-label">Usuário</label>
-                                        <div class="col-lg-4">
-                                            <input class="form-control" type="email" name="username"/> 
+                                   <div class="row">
+                                       <div class="col s6">
+                                      
+                                            <div class="form-group">
+                                                <label class="col-lg-1 control-label" style="font-size:13pt;">Usuário</label>
+                                                <div class="col-lg-4">
+                                                    <input class="form-control" type="email" name="username"/> 
+                                                </div>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="col-lg-1 control-label">Senha</label>
-                                        <div class="col-lg-4">
-                                            <input class="form-control" type="password" name="password"/> 
+                                        <div class="col s6">
+                                        <div class="form-group">
+                                            <label class="col-lg-1 control-label" style="font-size:13pt;" >Senha</label>
+                                            <div class="col-lg-4">
+                                                <input class="form-control" type="password" name="password"/> 
+                                            </div>
+                                        </div> 
                                         </div>
-                                    </div>      
-                                    <div class="alert alert-danger" th:if="${autenticacaoExtra}">
+
+                                    </div>  
+
+                                   <div class="alert alert-danger" th:if="${autenticacaoExtra}">
                                         <label class="col-lg-1 control-label">Data de nascimento</label>
                                         <div class="col-lg-4">
                                             <input class="form-control" type="date" name="data"/> 
                                         </div>
                                     </div>
                                     <div class="form-group" th:if="${!autenticacaoExtra}">
-                                            <input class="btn btn-primary" type="submit" value="Sign In"/>
+                                            <input class="btn orange accent-3" type="submit" value="Entrar"/>
                                     </div>
 
-                                    <div class="form-group" th:if="${autenticacaoExtra}">
-                                            <input id="btn-validar-nascimento" class="btn btn-primary" type="button" value="Entra"/>
+                                   <div class="form-group" th:if="${autenticacaoExtra}">
+                                            <input id="btn-validar-nascimento" class="btn orange accent-3" type="button" value="Entra"/>
                                     </div>
                                 </form>
 
@@ -68,15 +78,14 @@ and open the template in the editor.
                         </div>    
                     </div>       
                 </div>
+                
             </div>    
         </div>
         
-       <footer class="page-footer grey center lighten-3 ">
-             <h5>Software - Projeto Crescer 2016-2</h5>
-     
-       </footer>
+      
        
         <div th:replace="fragments :: footer">
         </div>
     </body>
 </html>
+
