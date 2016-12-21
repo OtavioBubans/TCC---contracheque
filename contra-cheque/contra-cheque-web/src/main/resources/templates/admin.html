@@ -28,6 +28,24 @@ and open the template in the editor.
                 <div class="col-lg-4">
                     <input class="form-control" type="file" name="file"/>
                 </div>
+                <div class="col s3 m3 offset-m2">
+                    <select class="browser-default" name="ano">
+                        <option value="" th:disabled="disabled" th:selected="selected">Escolha o ano</option>
+                        <option value="1">2016</option>
+                        <option value="2">2015</option>
+                    </select>
+                </div>
+
+                <div class="col s3 m3 offset-m0">
+                    <select class="browser-default" name="mes">
+                        <option value="" th:disabled="disabled" th:selected="selected">Escolha mês</option>
+                        <option value="1">01</option>
+                        <option value="2">02</option>
+                        <option value="3">03</option>
+                        <option value="4">04</option>
+                        <option value="5">05</option>
+                    </select>
+                </div>
                 <div class="form-group">
                     <input class="waves-effect waves-light btn" type="submit" value="Importar Arquivo"/>
                 </div>

@@ -1,6 +1,5 @@
 package br.com.crescer.contra.cheque.web;
 
-import br.com.crescer.contra.cheque.entity.Lancamento;
 import br.com.crescer.contra.cheque.service.LancamentoService;
 import br.com.crescer.contra.cheque.service.exceptions.RegraDeNegocioException;
 import java.io.BufferedOutputStream;
@@ -10,11 +9,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import java.util.stream.Stream;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
@@ -43,8 +38,10 @@ public class AdminController {
     }
 
     @RequestMapping(value = "/admin", method = RequestMethod.POST)
-    String admin(@RequestParam("file") MultipartFile file, RedirectAttributes redirectAttributes) {
-
+    String admin(@RequestParam("file") MultipartFile file, Long ano, Long mes, RedirectAttributes redirectAttributes) {
+        Date date = new Date();
+        
+        
         String nomeArquivo = file.getOriginalFilename();
         String diretorio = environment.getProperty("upload.arquivo");
         Path path = Paths.get(diretorio, nomeArquivo);
