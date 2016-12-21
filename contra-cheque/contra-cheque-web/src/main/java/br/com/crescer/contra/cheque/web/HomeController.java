@@ -22,9 +22,8 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
+import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.ConfigurableApplicationContext;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -46,10 +45,12 @@ public class HomeController {
 
     @Autowired
     AcessoService acessoService;
-    
+
     @Autowired
     EmailService emailService;
     
+    @Autowired
+    HttpServletRequest request;
 
     @Secured({"ROLE_USER"})
     @RequestMapping("/home")
@@ -57,7 +58,7 @@ public class HomeController {
         registrarAcesso();
         return "home";
     }
-    
+
 //      Teste para enviar email    
 //    @RequestMapping("/email")
 //    String envioEmail(){
@@ -65,7 +66,6 @@ public class HomeController {
 //        emailService.enviarEmail(email);
 //        return("home");
 //    }
-
     private void registrarAcesso() {
         Colaborador colaboradorLogado = usuarioLogado().getColaborador();
         Calendar c = new GregorianCalendar();
@@ -86,6 +86,7 @@ public class HomeController {
         }
         acessoService.save(acessoAtual);
         registrarOperacao(colaboradorLogado, TipoOperacaoLog.ACESSO, null);
+        verificarIpSuspeito(colaboradorLogado);
     }
 
     private void registrarOperacao(Colaborador colaboradorLogado, TipoOperacaoLog tipoOperacao, Date dataConsultada) {
@@ -100,10 +101,10 @@ public class HomeController {
             log.setDataConsultaCc(null);
         }
         logService.save(log);
-        verificarIpSuspeito(colaboradorLogado, ipLogado);
     }
 
-    private void verificarIpSuspeito(Colaborador colaboradorLogado, String ipLogado) {
+    private void verificarIpSuspeito(Colaborador colaboradorLogado) {
+        String ipLogado = pegarIpLogado();
         Long registros = logService.findByIdColaboradorAndTipoOperacao(colaboradorLogado, TipoOperacaoLog.ACESSO);
         Long registrosPorIp = logService.findByIdColaboradorAndTipoOperacaoAndIp(colaboradorLogado, TipoOperacaoLog.ACESSO, ipLogado);
         if (registros >= 10 && (ipLogado.equals("unknown") || registrosPorIp == 1)) {
@@ -135,7 +136,7 @@ public class HomeController {
         usuarioLogado.setLoginsSuspeitos(loginsSuspeitos + 1);
         usuarioService.save(usuarioLogado);
         if (loginsSuspeitos == 1) {
-            
+
             Email novoEmail = new Email(usuarioLogado.getEmail(), ip, usuarioLogado().getColaborador().getNome());
             emailService.enviarEmail(novoEmail);
         }
@@ -148,10 +149,15 @@ public class HomeController {
     }
 
     private String pegarIpLogado() {
-        try {
+        /*try {
             return InetAddress.getLocalHost().getHostAddress();
         } catch (UnknownHostException ex) {
             return "unknown";
+        }*/
+        String ipAddress = request.getHeader("X-FORWARDED-FOR");
+        if (ipAddress == null) {
+            ipAddress = request.getRemoteAddr();
         }
+        return ipAddress;
     }
 }
