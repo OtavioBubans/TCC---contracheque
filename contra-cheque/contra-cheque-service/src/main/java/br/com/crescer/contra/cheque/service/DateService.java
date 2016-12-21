@@ -4,20 +4,20 @@ import br.com.crescer.contra.cheque.service.exceptions.RegraDeNegocioException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 import org.springframework.stereotype.Service;
-
 /**
  *
  * @author mateus.teixeira
  */
 @Service
-public class ServicoDeDatas {
+public class DateService {
 
     public Date DataSelecionada(String mes, Long ano) throws RegraDeNegocioException {
         Date dataAtual = new Date();
-        int mesCadastrado = verificaMes(mes);
+        Long mesCadastrado = verificaMes(mes);
         SimpleDateFormat formatoData = new SimpleDateFormat("dd/MM/yyyy");
 
         try {
@@ -33,22 +33,7 @@ public class ServicoDeDatas {
     }
 
     public List<String> popularMeses() {
-        List<String> meses = new ArrayList<>();
-
-        meses.add("Janeiro");
-        meses.add("Fevereiro");
-        meses.add("Março");
-        meses.add("Abril");
-        meses.add("Maio");
-        meses.add("Junho");
-        meses.add("Julho");
-        meses.add("Agosto");
-        meses.add("Setembro");
-        meses.add("Outubro");
-        meses.add("Novembro");
-        meses.add("Dezembro");
-
-        return meses;
+        return Arrays.asList("Janeiro","Fevereiro","Março","Abril","Maio","Junho","Julho","Agosto","Setembro","Outubro","Novembro","Dezembro");
     }
 
     public List<Long> popularAnos(Long ano, Long quantidadeDeAnos) {
@@ -62,47 +47,47 @@ public class ServicoDeDatas {
     }
 
     public List<Long> popularAnosAdmin() {
-        return popularAnos(2000l, 20l);
+        return popularAnos(2010l, 7l);
     }
 
-    private int verificaMes(String mes) {
-        int mesCadastrado = 0;
+    private Long verificaMes(String mes) {
+        Long mesCadastrado = null;
         switch (mes) {
             case "Janeiro":
-                mesCadastrado = 1;
+                mesCadastrado = 1l;
                 break;
             case "Fevereiro":
-                mesCadastrado = 2;
+                mesCadastrado = 2l;
                 break;
             case "Março":
-                mesCadastrado = 3;
+                mesCadastrado = 3l;
                 break;
             case "Abril":
-                mesCadastrado = 4;
+                mesCadastrado = 4l;
                 break;
             case "Maio":
-                mesCadastrado = 5;
+                mesCadastrado = 5l;
                 break;
             case "Junho":
-                mesCadastrado = 6;
+                mesCadastrado = 6l;
                 break;
             case "Julho":
-                mesCadastrado = 7;
+                mesCadastrado = 7l;
                 break;
             case "Agosto":
-                mesCadastrado = 8;
+                mesCadastrado = 8l;
                 break;
             case "Setembro":
-                mesCadastrado = 9;
+                mesCadastrado = 9l;
                 break;
             case "Outubro":
-                mesCadastrado = 10;
+                mesCadastrado = 10l;
                 break;
             case "Novembro":
-                mesCadastrado = 11;
+                mesCadastrado = 11l;
                 break;
             case "Dezembro":
-                mesCadastrado = 12;
+                mesCadastrado = 12l;
                 break;
         }
         return mesCadastrado;
