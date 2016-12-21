@@ -45,15 +45,15 @@ public class LancamentoRepositoryTest {
     @Before
     public void setBefore() {
         Usuario usuario = new Usuario(1l, "teste@teste.com", "senha", "admin", 0);
-        Cargo cargo = new Cargo("Contador");
-        CentroCusto centroCusto = new CentroCusto("Administracao");
-        this.data = new Date();
-        Colaborador colaborador = new Colaborador("Teste", 'm', data, data, cargo, centroCusto, usuario);
-        this.lancamento = new Lancamento("total FGTS", data, 'd', "659", 2.5, 2.5, 2.5, colaborador);
         entityManager.persist(usuario);
+        Cargo cargo = new Cargo("Contador");
         entityManager.persist(cargo);
+        CentroCusto centroCusto = new CentroCusto("Administracao");
         entityManager.persist(centroCusto);
+        this.data = new Date();
+        Colaborador colaborador = new Colaborador(1l, "Teste", 'm', data, data, cargo, centroCusto, usuario);
         entityManager.persist(colaborador);
+        this.lancamento = new Lancamento("total FGTS", data, 'd', "659", 2.5, 2.5, 2.5, colaborador);
         entityManager.persist(this.lancamento);
     }
     
@@ -66,7 +66,7 @@ public class LancamentoRepositoryTest {
     
     @Test
     public void testFindByDataComDataNaoRegistrada(){
-        final List<Lancamento> lancamento = lancamentoRepository.findByData(data);
-        assertTrue(lancamento == null);
+        final List<Lancamento> lancamento = lancamentoRepository.findByData(new Date(1322018752992l));
+        assertEquals(0, lancamento.size());
     }
 }

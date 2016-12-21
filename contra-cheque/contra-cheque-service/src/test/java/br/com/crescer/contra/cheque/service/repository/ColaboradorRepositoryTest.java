@@ -43,7 +43,7 @@ public class ColaboradorRepositoryTest {
         Usuario usuario = new Usuario(1l, "teste@teste.com", "senha", "admin", 0);
         Cargo cargo = new Cargo("Contador");
         CentroCusto centroCusto = new CentroCusto("Administracao");
-        this.colaborador = new Colaborador("Teste", 'm', new Date(), new Date(), cargo, centroCusto, usuario);
+        this.colaborador = new Colaborador(1l, "Teste", 'm', new Date(), new Date(), cargo, centroCusto, usuario);
         entityManager.persist(usuario);
         entityManager.persist(cargo);
         entityManager.persist(centroCusto);

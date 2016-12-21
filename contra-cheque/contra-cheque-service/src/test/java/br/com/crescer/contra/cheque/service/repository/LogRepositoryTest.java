@@ -46,19 +46,20 @@ public class LogRepositoryTest {
     public void setBefore() {
         Usuario usuario = new Usuario(1l, "teste@teste.com", "senha", "admin", 0);
         Usuario usuarioSemRegistros = new Usuario(2l, "teste@testando.com", "senha", "admin", 0);
+        entityManager.persist(usuario);
+        entityManager.persist(usuarioSemRegistros);
         Cargo cargo = new Cargo("Contador");
+        entityManager.persist(cargo);
         CentroCusto centroCusto = new CentroCusto("Administracao");
+        entityManager.persist(centroCusto);
         this.data = new Date();
-        this.colaborador = new Colaborador("Teste", 'm', data, data, cargo, centroCusto, usuario);
-        this.colaboradorSemRegistros = new Colaborador("Teste", 'm', data, data, cargo, centroCusto, usuarioSemRegistros);
+        this.colaborador = new Colaborador(1l, "Teste", 'm', data, data, cargo, centroCusto, usuario);
+        this.colaboradorSemRegistros = new Colaborador(2l, "Teste", 'm', data, data, cargo, centroCusto, usuarioSemRegistros);
+        entityManager.persist(this.colaborador);
+        entityManager.persist(this.colaboradorSemRegistros);
         Log log1 = new Log("19.19.19.19", data, TipoOperacaoLog.IMPORTACAO, null, colaborador);
         Log log2 = new Log("19.19.19.19", data, TipoOperacaoLog.ACESSO, null, colaborador);
         Log log3 = new Log("19.19.19.19", data, TipoOperacaoLog.CONSULTA_CC, data, colaborador);
-        entityManager.persist(usuario);
-        entityManager.persist(cargo);
-        entityManager.persist(centroCusto);
-        entityManager.persist(this.colaborador);
-        entityManager.persist(this.colaboradorSemRegistros);
         entityManager.persist(log1);
         entityManager.persist(log2);
         entityManager.persist(log3);

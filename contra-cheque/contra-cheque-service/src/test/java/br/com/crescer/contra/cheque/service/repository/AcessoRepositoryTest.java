@@ -48,7 +48,7 @@ public class AcessoRepositoryTest {
         entityManager.persist(cargo);
         CentroCusto centroCusto = new CentroCusto("Administracao");
         entityManager.persist(centroCusto);
-        this.colaborador = new Colaborador("Teste", 'm', new Date(), new Date(), cargo, centroCusto, usuario);
+        this.colaborador = new Colaborador(1l, "Teste", 'm', new Date(), new Date(), cargo, centroCusto, usuario);
         entityManager.persist(this.colaborador);
         this.acesso = new Acesso("segunda-feira", 11, 1, colaborador);
         entityManager.persist(this.acesso);

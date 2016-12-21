@@ -73,7 +73,7 @@ public class Colaborador implements Serializable {
     @ManyToOne(optional = false)
     private CentroCusto idCentroCusto;
 
-    @JoinColumn(name = "ID_COLABORADOR", referencedColumnName = "ID_USUARIO", insertable = false, updatable = false)
+    @JoinColumn(name = "ID_COLABORADOR", referencedColumnName = "ID_USUARIO")
     @OneToOne(optional = false)
     private Usuario usuario;
 
