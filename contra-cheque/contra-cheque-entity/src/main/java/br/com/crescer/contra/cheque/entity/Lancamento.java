@@ -79,8 +79,7 @@ public class Lancamento implements Serializable {
     public Lancamento() {
     }
 
-    public Lancamento(Long idLancamento, String descricao, Date data, Character tipo, String codConta, Double base, Double valorParam, Double total, Colaborador idColaborador) {
-        this.idLancamento = idLancamento;
+    public Lancamento(String descricao, Date data, Character tipo, String codConta, Double base, Double valorParam, Double total, Colaborador idColaborador) {
         this.descricao = descricao;
         this.data = data;
         this.tipo = tipo;

@@ -5,15 +5,13 @@
  */
 package br.com.crescer.contra.cheque.service.repository;
 
+import br.com.crescer.contra.cheque.TestRun;
 import br.com.crescer.contra.cheque.entity.Cargo;
 import br.com.crescer.contra.cheque.entity.CentroCusto;
 import br.com.crescer.contra.cheque.entity.Colaborador;
-import br.com.crescer.contra.cheque.entity.Lancamento;
 import br.com.crescer.contra.cheque.entity.Log;
 import br.com.crescer.contra.cheque.entity.Usuario;
 import br.com.crescer.contra.cheque.entity.enumeration.TipoOperacaoLog;
-import br.com.crescer.contra.cheque.service.repository.LogRepository;
-import br.com.crescer.contra.cheque.TestRun;
 import java.util.Date;
 import javax.persistence.EntityManager;
 import static org.junit.Assert.assertEquals;
@@ -47,14 +45,15 @@ public class LogRepositoryTest {
     @Before
     public void setBefore() {
         Usuario usuario = new Usuario(1l, "teste@teste.com", "senha", "admin", 0);
-        Cargo cargo = new Cargo(1l, "Contador");
-        CentroCusto centroCusto = new CentroCusto(1l, "Administracao");
+        Usuario usuarioSemRegistros = new Usuario(2l, "teste@testando.com", "senha", "admin", 0);
+        Cargo cargo = new Cargo("Contador");
+        CentroCusto centroCusto = new CentroCusto("Administracao");
         this.data = new Date();
-        this.colaborador = new Colaborador(1l, "Teste", 'm', data, data, cargo, centroCusto, usuario);
-        this.colaboradorSemRegistros = new Colaborador(2l, "Teste", 'm', data, data, cargo, centroCusto, usuario);
-        Log log1 = new Log(1l, "19.19.19.19", data, TipoOperacaoLog.IMPORTACAO, null, colaborador);
-        Log log2 = new Log(2l, "19.19.19.19", data, TipoOperacaoLog.ACESSO, null, colaborador);
-        Log log3 = new Log(3l, "19.19.19.19", data, TipoOperacaoLog.CONSULTA_CC, data, colaborador);
+        this.colaborador = new Colaborador("Teste", 'm', data, data, cargo, centroCusto, usuario);
+        this.colaboradorSemRegistros = new Colaborador("Teste", 'm', data, data, cargo, centroCusto, usuarioSemRegistros);
+        Log log1 = new Log("19.19.19.19", data, TipoOperacaoLog.IMPORTACAO, null, colaborador);
+        Log log2 = new Log("19.19.19.19", data, TipoOperacaoLog.ACESSO, null, colaborador);
+        Log log3 = new Log("19.19.19.19", data, TipoOperacaoLog.CONSULTA_CC, data, colaborador);
         entityManager.persist(usuario);
         entityManager.persist(cargo);
         entityManager.persist(centroCusto);

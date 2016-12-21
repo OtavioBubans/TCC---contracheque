@@ -5,9 +5,8 @@
  */
 package br.com.crescer.contra.cheque.service.repository;
 
-import br.com.crescer.contra.cheque.entity.Usuario;
-import br.com.crescer.contra.cheque.service.repository.UsuarioRepository;
 import br.com.crescer.contra.cheque.TestRun;
+import br.com.crescer.contra.cheque.entity.Usuario;
 import javax.persistence.EntityManager;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;

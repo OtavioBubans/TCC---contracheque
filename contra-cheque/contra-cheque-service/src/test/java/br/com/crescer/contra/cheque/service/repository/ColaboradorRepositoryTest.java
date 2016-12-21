@@ -5,22 +5,21 @@
  */
 package br.com.crescer.contra.cheque.service.repository;
 
+import br.com.crescer.contra.cheque.TestRun;
 import br.com.crescer.contra.cheque.entity.Cargo;
 import br.com.crescer.contra.cheque.entity.CentroCusto;
 import br.com.crescer.contra.cheque.entity.Colaborador;
 import br.com.crescer.contra.cheque.entity.Usuario;
-import static org.junit.Assert.assertTrue;
-import br.com.crescer.contra.cheque.service.repository.ColaboradorRepository;
-import br.com.crescer.contra.cheque.TestRun;
 import java.util.Date;
 import javax.persistence.EntityManager;
-import org.springframework.transaction.annotation.Transactional;
+import static org.junit.Assert.assertTrue;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  *
@@ -42,9 +41,9 @@ public class ColaboradorRepositoryTest {
     @Before
     public void setBefore() {
         Usuario usuario = new Usuario(1l, "teste@teste.com", "senha", "admin", 0);
-        Cargo cargo = new Cargo(1l, "Contador");
-        CentroCusto centroCusto = new CentroCusto(1l, "Administracao");
-        this.colaborador = new Colaborador(1l, "Teste", 'm', new Date(), new Date(), cargo, centroCusto, usuario);
+        Cargo cargo = new Cargo("Contador");
+        CentroCusto centroCusto = new CentroCusto("Administracao");
+        this.colaborador = new Colaborador("Teste", 'm', new Date(), new Date(), cargo, centroCusto, usuario);
         entityManager.persist(usuario);
         entityManager.persist(cargo);
         entityManager.persist(centroCusto);
