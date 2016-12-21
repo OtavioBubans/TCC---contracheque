@@ -21,8 +21,7 @@ public class LancamentoService {
     @Autowired
     ImportacaoDeArquivoService importacaoDeArquivoService;
 
-    public void importarArquivo(String caminhoArquivo, Date dataLancamento) throws RegraDeNegocioException {
-        Stream<String> arquivoAtual = importacaoDeArquivoService.lerArquivo(caminhoArquivo);
+    public void importarArquivo(Stream<String> arquivoAtual, Date dataLancamento) throws RegraDeNegocioException {
         List<Lancamento> lancamentos = importacaoDeArquivoService.importarArquivo(arquivoAtual, dataLancamento);
         List<Lancamento> lancamentosAntigos = lancamentoRepository.findByData(dataLancamento);
 
