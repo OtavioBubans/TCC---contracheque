@@ -3,28 +3,26 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package br.com.cwi.crescer.contra.cheque.test.repository;
+package br.com.crescer.contra.cheque.service.repository;
 
+import br.com.crescer.contra.cheque.entity.Acesso;
 import br.com.crescer.contra.cheque.entity.Cargo;
 import br.com.crescer.contra.cheque.entity.CentroCusto;
 import br.com.crescer.contra.cheque.entity.Colaborador;
-import br.com.crescer.contra.cheque.entity.Lancamento;
 import br.com.crescer.contra.cheque.entity.Usuario;
-import br.com.crescer.contra.cheque.service.repository.LancamentoRepository;
-import br.com.cwi.crescer.contra.cheque.test.TestRun;
+import br.com.crescer.contra.cheque.service.repository.AcessoRepository;
+import br.com.crescer.contra.cheque.TestRun;
 import java.util.Date;
-import java.util.List;
 import javax.persistence.EntityManager;
-import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
+import org.springframework.transaction.annotation.Transactional;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.springframework.transaction.annotation.Transactional;
-
+ 
 /**
  *
  * @author matha
@@ -32,42 +30,40 @@ import org.springframework.transaction.annotation.Transactional;
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringApplicationConfiguration(TestRun.class)
 @Transactional
-public class LancamentoRepositoryTest {
+public class AcessoRepositoryTest {
 
     @Autowired
     private EntityManager entityManager;
 
     @Autowired
-    private LancamentoRepository lancamentoRepository;
-    
-    private Lancamento lancamento;
-    private Date data;
+    private AcessoRepository acessoRepository;
 
+    private Colaborador colaborador;
+    private Acesso acesso;
+    
     @Before
     public void setBefore() {
         Usuario usuario = new Usuario(1l, "teste@teste.com", "senha", "admin", 0);
         Cargo cargo = new Cargo(1l, "Contador");
         CentroCusto centroCusto = new CentroCusto(1l, "Administracao");
-        this.data = new Date();
-        Colaborador colaborador = new Colaborador(1l, "Teste", 'm', data, data, cargo, centroCusto, usuario);
-        this.lancamento = new Lancamento(1l, "total FGTS", data, 'd', "659", 2.5, 2.5, 2.5, colaborador);
+        this.colaborador = new Colaborador(1l, "Teste", 'm', new Date(), new Date(), cargo, centroCusto, usuario);
+        this.acesso = new Acesso(1l, "segunda-feira", 11, 1, colaborador);
         entityManager.persist(usuario);
         entityManager.persist(cargo);
         entityManager.persist(centroCusto);
-        entityManager.persist(colaborador);
-        entityManager.persist(this.lancamento);
+        entityManager.persist(this.colaborador);
+        entityManager.persist(this.acesso);
     }
     
     @Test
-    public void testFindByDataCadastrado(){
-        final List<Lancamento> lancamentos = lancamentoRepository.findByData(data);
-        assertEquals(1, lancamentos.size());
-        assertTrue(lancamentos.get(0).equals(this.lancamento));
+    public void testFindByIdColaboradorAndDiaSemanaAndHoraComRegistro() {
+        final Acesso acesso = acessoRepository.findByIdColaboradorAndDiaSemanaAndHora(colaborador, "segunda-feira", 11);
+        assertTrue(acesso.equals(this.acesso));
     }
     
     @Test
-    public void testFindByDataComDataNaoRegistrada(){
-        final List<Lancamento> lancamento = lancamentoRepository.findByData(data);
-        assertTrue(lancamento == null);
+    public void testFindByIdColaboradorAndDiaSemanaAndHoraSemRegistro() {
+        final Acesso acesso = acessoRepository.findByIdColaboradorAndDiaSemanaAndHora(colaborador, "terca-feira", 11);
+        assertTrue(acesso == null);
     }
 }

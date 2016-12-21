@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package br.com.cwi.crescer.contra.cheque.test.repository;
+package br.com.crescer.contra.cheque.service.repository;
 
 import br.com.crescer.contra.cheque.entity.Cargo;
 import br.com.crescer.contra.cheque.entity.CentroCusto;
@@ -11,7 +11,7 @@ import br.com.crescer.contra.cheque.entity.Colaborador;
 import br.com.crescer.contra.cheque.entity.Usuario;
 import static org.junit.Assert.assertTrue;
 import br.com.crescer.contra.cheque.service.repository.ColaboradorRepository;
-import br.com.cwi.crescer.contra.cheque.test.TestRun;
+import br.com.crescer.contra.cheque.TestRun;
 import java.util.Date;
 import javax.persistence.EntityManager;
 import org.springframework.transaction.annotation.Transactional;
