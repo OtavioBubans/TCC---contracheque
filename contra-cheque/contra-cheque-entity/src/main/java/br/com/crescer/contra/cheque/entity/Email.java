@@ -22,7 +22,7 @@ public class Email {
     public Email( String destinatario, String ip, String usuario) {
         this.assunto = "EMAIL SEGUNÇA CONTRACHEQUE";
         this.destinatario = destinatario;
-        this.remetente = "otaviobubans@gmail.com"; // email do admin;
+        this.remetente = "contracheque.cwi@gmail.com"; // email do admin;
         this.texto = "Houve uma incorfomidade suspeita no acesso do contracheque.   "
                     + "     Informações do IP: "+ip
                     + "     Colaborador: "+usuario;

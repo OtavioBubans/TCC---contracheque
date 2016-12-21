@@ -21,21 +21,29 @@ and open the template in the editor.
         </nav>
         
         <div class="container">
+            <div class="row">
+                <div class="col s12 m9 offset-m1">
 
-            <div class="topo">
-                <div id="topo-esquerda">
-                    <img src="../static/js/logo-cwi.jpg" alt="Logo" width="355px" height="90px"/>
+            
+                <div class="topo">
+                    <div id="topo-esquerda">
+                        <img src="../static/js/logo-cwi.jpg" alt="Logo" width="355px" height="90px"/>
+                    </div>
+
+                    <div id="topo-direita">
+                        <div><h5>Recibo de Pagamento de Salário</h5></div>
+    <!--                    <div>CRÉDITO EM CONTA:<label>04/07/14</label></div>-->
+                    </div>
+
                 </div>
 
-                <div id="topo-direita">
-                     <div><h5>Recibo de Pagamento de Salário</h5></div>
-                    <div>CRÉDITO EM CONTA: <label>04/07/14</label></div>
                 </div>
-
             </div>
         </div>
 
         <div class="container">
+             <div class="row">
+                <div class="col s12 m9 offset-m1">
 
             <div id="contra">
                 <div class="table" id="um">
@@ -84,157 +92,30 @@ and open the template in the editor.
                  <div id="titulo"><b>Conta Pagamento</b></div>
                </div>
 
-
+                   
            <div id="borda-fora">
-               <div class="">
+               <div class="" th:each="">
 
-               <div class="floa-left" id="um">
-                   <div id="titulo"><b>301</b></div>
-               </div>
+                        <div class="floa-left" id="um">
+                            <div id="titulo"><b>301</b></div>
+                        </div>
 
-               <div class="floa-left"  id="dois">
-                 <div id="titulo"><b>SALARIO MENSALISTA</b></div>
-               </div>
+                        <div class="floa-left"  id="dois">
+                          <div id="titulo"><b>SALARIO MENSALISTA</b></div>
+                        </div>
 
-               <div class="floa-left"  id="tres">
-                 <div id="titulo"><b>125,00</b></div>
+                        <div class="floa-left"  id="tres">
+                          <div id="titulo"><b>125,00</b></div>
 
-               </div>
+                        </div>
 
-               <div class="floa-left"  id="quatro">
-                 <div id="titulo"><b>850,00</b></div>
-               </div>
+                        <div class="floa-left"  id="quatro">
+                          <div id="titulo"><b>850,00</b></div>
+                        </div>
 
-               <div class="floa-left"  id="cinco">
-                 <div id="titulo"><b>-----</b></div>
-               </div>
-
-               </div>
-
-               <div class="">
-
-               <div class="floa-left" id="um">
-                   <div id="titulo"><b>301</b></div>
-               </div>
-
-               <div class="floa-left"  id="dois">
-                 <div id="titulo"><b>SALARIO MENSALISTA</b></div>
-               </div>
-
-               <div class="floa-left"  id="tres">
-                 <div id="titulo"><b>125,00</b></div>
-
-               </div>
-
-               <div class="floa-left"  id="quatro">
-                 <div id="titulo"><b>850,00</b></div>
-               </div>
-
-               <div class="floa-left"  id="cinco">
-                 <div id="titulo"><b>-----</b></div>
-               </div>
-
-               </div>
-
-
-               <div class="">
-
-               <div class="floa-left" id="um">
-                   <div id="titulo"><b>301</b></div>
-               </div>
-
-               <div class="floa-left"  id="dois">
-                 <div id="titulo"><b>SALARIO MENSALISTA</b></div>
-               </div>
-
-               <div class="floa-left"  id="tres">
-                 <div id="titulo"><b>125,00</b></div>
-
-               </div>
-
-               <div class="floa-left"  id="quatro">
-                 <div id="titulo"><b>850,00</b></div>
-               </div>
-
-               <div class="floa-left"  id="cinco">
-                 <div id="titulo"><b>-----</b></div>
-               </div>
-
-               </div>
-
-
-               <div class="">
-
-               <div class="floa-left" id="um">
-                   <div id="titulo"><b>301</b></div>
-               </div>
-
-               <div class="floa-left"  id="dois">
-                 <div id="titulo"><b>SALARIO MENSALISTA</b></div>
-               </div>
-
-               <div class="floa-left"  id="tres">
-                 <div id="titulo"><b>125,00</b></div>
-
-               </div>
-
-               <div class="floa-left"  id="quatro">
-                 <div id="titulo"><b>850,00</b></div>
-               </div>
-
-               <div class="floa-left"  id="cinco">
-                 <div id="titulo"><b>-----</b></div>
-               </div>
-
-               </div>
-
-               <div class="">
-
-               <div class="floa-left" id="um">
-                   <div id="titulo"><b>301</b></div>
-               </div>
-
-               <div class="floa-left"  id="dois">
-                 <div id="titulo"><b>SALARIO MENSALISTA</b></div>
-               </div>
-
-               <div class="floa-left"  id="tres">
-                 <div id="titulo"><b>125,00</b></div>
-
-               </div>
-
-               <div class="floa-left"  id="quatro">
-                 <div id="titulo"><b>850,00</b></div>
-               </div>
-
-               <div class="floa-left"  id="cinco">
-                 <div id="titulo"><b>-----</b></div>
-               </div>
-
-               </div>
-
-               <div class="">
-
-               <div class="floa-left" id="um">
-                   <div id="titulo"><b>301</b></div>
-               </div>
-
-               <div class="floa-left"  id="dois">
-                 <div id="titulo"><b>SALARIO MENSALISTA</b></div>
-               </div>
-
-               <div class="floa-left"  id="tres">
-                 <div id="titulo"><b>125,00</b></div>
-
-               </div>
-
-               <div class="floa-left"  id="quatro">
-                 <div id="titulo"><b>850,00</b></div>
-               </div>
-
-               <div class="floa-left"  id="cinco">
-                 <div id="titulo"><b>-----</b></div>
-               </div>
+                        <div class="floa-left"  id="cinco">
+                          <div id="titulo"><b>-----</b></div>
+                        </div>
 
                </div>
 
@@ -282,6 +163,8 @@ and open the template in the editor.
                </div>
 
          </div>
+        </div>
+     </div>
 </div>
         
         

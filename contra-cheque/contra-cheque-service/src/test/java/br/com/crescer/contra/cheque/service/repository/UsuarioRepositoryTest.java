@@ -3,11 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package br.com.cwi.crescer.contra.cheque.test.repository;
+package br.com.crescer.contra.cheque.service.repository;
 
+import br.com.crescer.contra.cheque.TestRun;
 import br.com.crescer.contra.cheque.entity.Usuario;
-import br.com.crescer.contra.cheque.service.repository.UsuarioRepository;
-import br.com.cwi.crescer.contra.cheque.test.TestRun;
 import javax.persistence.EntityManager;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;

@@ -44,7 +44,7 @@ public class EmailService {
                         new javax.mail.Authenticator() {
                              protected PasswordAuthentication getPasswordAuthentication() 
                              {
-                                   return new PasswordAuthentication("otaviobubans@gmail.com", "Machado21");
+                                   return new PasswordAuthentication("contracheque.cwi@gmail.com", "crescer16");
                              }
                         });
             /** Ativa Debug para sessão */

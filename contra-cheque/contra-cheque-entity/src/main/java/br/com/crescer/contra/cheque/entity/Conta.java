@@ -55,8 +55,7 @@ public class Conta implements Serializable {
     public Conta() {
     }
 
-    public Conta(Long idConta, String codigo, Agencia idAgencia, Colaborador colaborador) {
-        this.idConta = idConta;
+    public Conta(String codigo, Agencia idAgencia, Colaborador colaborador) {
         this.codigo = codigo;
         this.idAgencia = idAgencia;
         this.colaborador = colaborador;

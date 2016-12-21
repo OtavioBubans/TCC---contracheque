@@ -51,8 +51,7 @@ public class Banco implements Serializable {
     public Banco() {
     }
 
-    public Banco(Long idBanco, String nome) {
-        this.idBanco = idBanco;
+    public Banco(String nome) {
         this.nome = nome;
     }
 

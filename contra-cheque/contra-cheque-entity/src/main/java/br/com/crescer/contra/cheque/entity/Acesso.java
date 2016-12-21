@@ -60,8 +60,7 @@ public class Acesso implements Serializable {
     public Acesso() {
     }
 
-    public Acesso(Long idAcesso, String diaSemana, Integer hora, Integer qtdAcessos, Colaborador idColaborador) {
-        this.idAcesso = idAcesso;
+    public Acesso(String diaSemana, Integer hora, Integer qtdAcessos, Colaborador idColaborador) {
         this.diaSemana = diaSemana;
         this.hora = hora;
         this.qtdAcessos = qtdAcessos;

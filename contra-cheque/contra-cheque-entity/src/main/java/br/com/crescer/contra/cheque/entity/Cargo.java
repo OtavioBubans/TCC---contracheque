@@ -43,8 +43,7 @@ public class Cargo implements Serializable {
     public Cargo() {
     }
 
-    public Cargo(Long idCargo, String nome) {
-        this.idCargo = idCargo;
+    public Cargo(String nome) {
         this.nome = nome;
     }
     
