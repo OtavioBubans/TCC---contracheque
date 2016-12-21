@@ -5,12 +5,10 @@
  */
 package br.com.cwi.crescer.contra.cheque.test.service;
 
-import br.com.cwi.crescer.contra.cheque.test.repository.*;
-
 /**
  *
  * @author matha
  */
-public class BancoServiceTest {
+public class LancamentoServiceTest {
     
 }

@@ -5,16 +5,6 @@
  */
 package br.com.cwi.crescer.contra.cheque.test;
 
-import br.com.crescer.contra.cheque.entity.Acesso;
-import br.com.crescer.contra.cheque.entity.Agencia;
-import br.com.crescer.contra.cheque.entity.Banco;
-import br.com.crescer.contra.cheque.entity.Cargo;
-import br.com.crescer.contra.cheque.entity.CentroCusto;
-import br.com.crescer.contra.cheque.entity.Colaborador;
-import br.com.crescer.contra.cheque.entity.Conta;
-import br.com.crescer.contra.cheque.entity.Lancamento;
-import br.com.crescer.contra.cheque.entity.Usuario;
-import java.util.Date;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
