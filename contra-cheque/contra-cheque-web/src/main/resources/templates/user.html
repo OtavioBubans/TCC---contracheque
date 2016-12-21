@@ -4,48 +4,56 @@ To change this license header, choose License Headers in Project Properties.
 To change this template file, choose Tools | Templates
 and open the template in the editor.
 -->
-<html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
     <head th:replace="fragments :: head('User')">
     </head>
+   
+
+    
     <body class="grey lighten-3">
         
-        <nav class="grey darken-1">
+        <nav class="grey darken-2">
             <div class="nav-wrapper">
-            <a href="#" class="brand-logo">Contracheque</a>
-            <ul id="nav-mobile" class="right hide-on-med-and-down">
-                <li><a href="home">Home</a></li>
-                <li><a href="">ContraCheques</a></li>
-                <li><a href="logout">Sair</a></li>
-              </ul>
+                <a href="#!" class="brand-logo"><img src="logo-ho-sem.png" alt="logo-cwi" width="250px"></a>
+                <ul class="right hide-on-med-and-down">
+                    <li><i class="material-icons left">supervisor_account</i>Mateus Bueno dos Passos Teixeira</li>
+                    <li><a class="waves-effect waves-light btn orange accent-3 lighten-4 white-text ">Home</a></li>
+                    <li><a class="waves-effect waves-light btn orange accent-3 lighten-4 white-text ">Contracheque</a></li>
+                    <li><a class="waves-effect waves-light btn orange accent-3 lighten-4 white-text ">Logout</a></li>
+                </ul>
             </div>
         </nav>
         
+        <br/>
+        <br/>
+        <br/>
+    
         <div class="container">
             <div class="row">
-                <div class="col s12 m9 offset-m1">
+                <div class="col s5 offset-m1">
 
-            
-                <div class="topo">
                     <div id="topo-esquerda">
                         <img src="../static/js/logo-cwi.jpg" alt="Logo" width="355px" height="90px"/>
                     </div>
-
+                </div>
+                <div class="col s5 ">
                     <div id="topo-direita">
                         <div><h5>Recibo de Pagamento de Salário</h5></div>
     <!--                    <div>CRÉDITO EM CONTA:<label>04/07/14</label></div>-->
                     </div>
-
                 </div>
+
+                
 
                 </div>
             </div>
-        </div>
+    
 
-        <div class="container">
+        <div class="container ">
              <div class="row">
                 <div class="col s12 m9 offset-m1">
 
-            <div id="contra">
+            <div id="contra" class="white">
                 <div class="table" id="um">
                     <div id="titulo">Código</div>
                     <div>65588</div>
@@ -166,9 +174,6 @@ and open the template in the editor.
         </div>
      </div>
 </div>
-        
-        
-        
-        
+
     </body>
 </html>

@@ -6,18 +6,22 @@ and open the template in the editor.
 -->
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
     <head th:replace="fragments :: head('Painel Administrativo')">
+         
     </head>
     <body>
-        <nav class="grey darken-1">
+        
+         <nav class="grey darken-2">
             <div class="nav-wrapper">
-                <a href="#" class="brand-logo">Contracheque</a>
-                <ul id="nav-mobile" class="right hide-on-med-and-down">
-                    <li><a href="home">Home</a></li>
-                    <li><a href="admin">Importar Arquivo</a></li>
-                    <li><a href="logout">Sair</a></li>
+                <a href="#!" class="brand-logo"><img src="logo-ho-sem.png" alt="logo-cwi" width="250px"/></a>
+                <ul class="right hide-on-med-and-down">
+                    <li><i class="material-icons left">supervisor_account</i>Mateus Bueno dos Passos Teixeira</li>
+                    <li><a class="waves-effect waves-light btn orange accent-3 lighten-4 white-text ">Relatório</a></li>
+                    <li><a class="waves-effect waves-light btn orange accent-3 lighten-4 white-text ">Importar</a></li>
+                    <li><a class="waves-effect waves-light btn orange accent-3 lighten-4 white-text ">Logout</a></li>
                 </ul>
             </div>
         </nav>
+
         <div class="container">
             <h1>Carregar Arquivo</h1>
             <div th:if="${msg}">
@@ -47,7 +51,7 @@ and open the template in the editor.
                     </select>
                 </div>
                 <div class="form-group">
-                    <input class="waves-effect waves-light btn" type="submit" value="Importar Arquivo"/>
+                    <input class="waves-effect waves-light btn orange accent-3" type="submit" value="Importar Arquivo"/>
                 </div>
             </form>
         </div>

@@ -13,14 +13,10 @@ body{
     font-size: 10pt;
 }
 
-.topo{
-    width: 750;
-    height: 100px;
-}
+
 #topo-esquerda, #topo-direita{
-    width: 365px;
-    float: left;
-      padding:5px;
+   
+    padding:5px;
 }
 
 
