@@ -48,7 +48,7 @@ public class HomeController {
 
     @Autowired
     EmailService emailService;
-    
+
     @Autowired
     HttpServletRequest request;
 
@@ -149,15 +149,16 @@ public class HomeController {
     }
 
     private String pegarIpLogado() {
-        /*try {
-            return InetAddress.getLocalHost().getHostAddress();
-        } catch (UnknownHostException ex) {
-            return "unknown";
-        }*/
-        String ipAddress = request.getHeader("X-FORWARDED-FOR");
-        if (ipAddress == null) {
-            ipAddress = request.getRemoteAddr();
+        String ip = request.getHeader("x-forwarded-for");
+        if (ip == null) {
+            ip = request.getHeader("X_FORWARDED_FOR");
+            if (ip == null) {
+                ip = request.getRemoteAddr();
+            }
         }
-        return ipAddress;
+        if(ip.equals("0:0:0:0:0:0:0:1")){
+            ip = "127.0.0.1";
+        }
+        return ip;
     }
 }
