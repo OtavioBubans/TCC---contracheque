@@ -49,6 +49,7 @@ public class Lancamento implements Serializable {
     @Basic(optional = false)
     @NotNull
     @Column(name = "DATA")
+   
     @Temporal(TemporalType.DATE)
     private Date data;
 
