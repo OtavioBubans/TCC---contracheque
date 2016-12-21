@@ -51,8 +51,7 @@ public class CentroCusto implements Serializable {
     public CentroCusto() {
     }
 
-    public CentroCusto(Long idCentroCusto, String nome) {
-        this.idCentroCusto = idCentroCusto;
+    public CentroCusto(String nome) {
         this.nome = nome;
     }
     

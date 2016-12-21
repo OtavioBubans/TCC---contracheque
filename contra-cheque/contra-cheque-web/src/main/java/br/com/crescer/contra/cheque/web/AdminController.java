@@ -1,6 +1,7 @@
 package br.com.crescer.contra.cheque.web;
 
 import br.com.crescer.contra.cheque.service.LancamentoService;
+import br.com.crescer.contra.cheque.service.ServicoDeDatas;
 import br.com.crescer.contra.cheque.service.exceptions.RegraDeNegocioException;
 import java.io.BufferedOutputStream;
 import java.io.File;
@@ -10,10 +11,13 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import java.util.stream.Stream;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -30,27 +34,29 @@ public class AdminController {
     @Autowired
     LancamentoService lancamentoService;
     @Autowired
-    private Environment environment;
+    Environment environment;
+    @Autowired
+    ServicoDeDatas servicoDeDatas;
 
     @RequestMapping("/admin")
-    String admin() {
+    String admin(Model model) {
+        model.addAttribute("anos", servicoDeDatas.popularAnosAdmin());
+        model.addAttribute("meses", servicoDeDatas.popularMeses());
         return "admin";
     }
 
     @RequestMapping(value = "/admin", method = RequestMethod.POST)
-    String admin(@RequestParam("file") MultipartFile file, Long ano, Long mes, RedirectAttributes redirectAttributes) {
-        Date date = new Date();
-        
-        
+    String admin(@RequestParam("file") MultipartFile file, String mes, Long ano, RedirectAttributes redirectAttributes) {
         String nomeArquivo = file.getOriginalFilename();
         String diretorio = environment.getProperty("upload.arquivo");
         Path path = Paths.get(diretorio, nomeArquivo);
         Stream<String> arquivoImportado = null;
+        Date dataDeImportacao = new Date();
 
         if (file.isEmpty() || file.getSize() == 0) {
             return "redirect:admin";
         }
-        if(!nomeArquivo.contains(".txt")){
+        if (!nomeArquivo.contains(".txt")) {
             redirectAttributes.addFlashAttribute("msg", "Errouuuuu");
             return "redirect:admin";
         }
@@ -62,7 +68,8 @@ public class AdminController {
         }
 
         try {
-            lancamentoService.importarArquivo(arquivoImportado, new Date());
+            dataDeImportacao = servicoDeDatas.DataSelecionada(mes, ano);
+            lancamentoService.importarArquivo(arquivoImportado, dataDeImportacao);
         } catch (RegraDeNegocioException ex) {
             redirectAttributes.addFlashAttribute("msg", ex.getMessage());
             return "redirect:admin";

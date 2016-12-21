@@ -57,8 +57,7 @@ public class Agencia implements Serializable {
     public Agencia() {
     }
 
-    public Agencia(Long idAgencia, String codigo, Banco idBanco) {
-        this.idAgencia = idAgencia;
+    public Agencia(String codigo, Banco idBanco) {
         this.codigo = codigo;
         this.idBanco = idBanco;
     }

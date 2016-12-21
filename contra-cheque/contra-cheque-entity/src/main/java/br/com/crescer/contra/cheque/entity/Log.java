@@ -69,8 +69,7 @@ public class Log implements Serializable {
     public Log() {
     }
 
-    public Log(Long idLog, String ip, Date dataHora, TipoOperacaoLog tipoOperacao, Date dataConsultaCc, Colaborador idColaborador) {
-        this.idLog = idLog;
+    public Log(String ip, Date dataHora, TipoOperacaoLog tipoOperacao, Date dataConsultaCc, Colaborador idColaborador) {
         this.ip = ip;
         this.dataHora = dataHora;
         this.tipoOperacao = tipoOperacao;
