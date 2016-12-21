@@ -52,7 +52,7 @@ public class EmailService {
             try {
 
                   Message message = new MimeMessage(session);
-                  message.setFrom(new InternetAddress("otaviobubans@gmail.com")); //Remetente
+                  message.setFrom(new InternetAddress(email.getDestinatario())); //Remetente
 
                   Address[] toUser = InternetAddress //Destinatário(s)
                              .parse(email.getDestinatario());  
