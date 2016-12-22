@@ -35,7 +35,6 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -78,34 +77,35 @@ public class HomeController {
     String home(Model model) {
         registrarAcesso();
         String role = usuarioLogado().getFuncao();
+        model.addAttribute("anos", dateService.popularAnosAdmin());
+        model.addAttribute("meses", dateService.popularMeses());
         if (role.equals("admin")) {
-            model.addAttribute("anos", dateService.popularAnosAdmin());
-            model.addAttribute("meses", dateService.popularMeses());
             return "admin";
         } else {
             return "home";
         }
     }
+    
+    
+    @RequestMapping(value = "/relatorio")
+    String relatorio(Model model){
+        model.addAttribute("anos", dateService.popularAnosAdmin());
+        model.addAttribute("meses", dateService.popularMeses());
+        
+        return "relatorio";
+    }
 
     @Secured({"ROLE_ADMIN"})
-    @RequestMapping(value = "/relatorio")
+    @RequestMapping(value = "/relatorio", method = RequestMethod.POST)
     String relatorio(Model model, String mes, Long ano, RedirectAttributes redirectAttributes) throws RegraDeNegocioException {
         Date data = new Date();
-        GregorianCalendar dataCal = new GregorianCalendar();
-        dataCal.setTime(data);
-        int mesAtual = dataCal.get(Calendar.MONTH);
-        Long anoAtual = Long.valueOf(dataCal.get(Calendar.YEAR));
-        List<String> meses = dateService.popularMeses();
-        if (mes == null) {
-            mes = meses.get(mesAtual-1);
-        }
-        if (ano == null){
-            ano = anoAtual;
-        }
+        
+        data = dateService.DataSelecionada(mes, ano);
+     
         int totalBeneficios = 0;
         int totalDescontos = 0;
-        List<Lancamento> proventos = lancamentoService.pesquisarPorMesETipo(dateService.DataSelecionada(mes, ano), 'P');
-        List<Lancamento> descontos = lancamentoService.pesquisarPorMesETipo(dateService.DataSelecionada(mes, ano), 'D');
+        List<Lancamento> proventos = lancamentoService.pesquisarPorMesETipo(data, 'P');
+        List<Lancamento> descontos = lancamentoService.pesquisarPorMesETipo(data, 'D');
         for (Lancamento desconto : descontos) {
             totalDescontos += desconto.getTotal();
         }
@@ -128,7 +128,7 @@ public class HomeController {
         if (listaDescontos == null && listaProventos == null) {
             return "redirect: home";
         }
-        model.addAttribute("usuario", usuarioLogado().getColaborador());    
+        model.addAttribute("usuario", usuarioLogado().getColaborador());
         model.addAttribute("descontos", listaDescontos);
         model.addAttribute("proventos", listaProventos);
         model.addAttribute("totalLiquido", lancamentoService.pesquisarPorUsuarioMesECodigo(colaborador, dataPesquisada, "913"));

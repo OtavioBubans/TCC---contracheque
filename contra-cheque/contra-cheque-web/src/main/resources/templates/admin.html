@@ -9,15 +9,14 @@ and open the template in the editor.
          
     </head>
     <body>
-        
          <nav class="grey darken-2">
             <div class="nav-wrapper">
-                <a href="#!" class="brand-logo"><img src="logo-ho-sem.png" alt="logo-cwi" width="250px"/></a>
+                <a href="#!" class="brand-logo"><img src="http://i.imgur.com/JcEXxle.jpg" alt="logo-cwi" width="250px"/></a>
                 <ul class="right hide-on-med-and-down">
                     <li><i class="material-icons left">supervisor_account</i>Mateus Bueno dos Passos Teixeira</li>
                     <li><a class="waves-effect waves-light btn orange accent-3 lighten-4 white-text ">Relatório</a></li>
                     <li><a class="waves-effect waves-light btn orange accent-3 lighten-4 white-text ">Importar</a></li>
-                    <li><a class="waves-effect waves-light btn orange accent-3 lighten-4 white-text ">Logout</a></li>
+                    <li><a th:href="@{/logout}" class="waves-effect waves-light btn orange accent-3 lighten-4 white-text ">Logout</a></li>
                 </ul>
             </div>
         </nav>

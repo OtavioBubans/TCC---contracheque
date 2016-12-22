@@ -10,10 +10,10 @@ and open the template in the editor.
     <body class="grey lighten-3">   
         <nav class="grey darken-2">
             <div class="nav-wrapper">
-                <a href="#!" class="brand-logo"><img src="logo-ho-sem.png" alt="logo-cwi" width="250px"/></a>
+                <a href="#!" class="brand-logo"><img src="http://i.imgur.com/JcEXxle.jpg" alt="logo-cwi" width="250px"/></a>
                 <ul class="right hide-on-med-and-down">
                     <li><i class="material-icons left">supervisor_account</i>Mateus Bueno dos Passos Teixeira</li>
-                    <li><a class="waves-effect waves-light btn orange accent-3 lighten-4 white-text ">Logout</a></li>
+                    <li><a th:href="@{/logout}" class="waves-effect waves-light btn orange accent-3 lighten-4 white-text ">Logout</a></li>
                 </ul>
             </div>
         </nav>
@@ -21,30 +21,16 @@ and open the template in the editor.
             <h4 class="centered">Relatório Administrativo</h4>
         </div>
         <div class="row">
-            <form th:action="@{/home}" method="POST">
+            <form th:action="@{/relatorio}" method="POST">
             <div class="col s3 m3 offset-m2">
-                <select class="browser-default " name="ano">
-                    <option value="none" disabled="disabled" selected="selected">Escolha o ano</option>
-                    <option value="1">2016</option>
-                    <option value="2">2015</option>
-                </select>
+                    <select name="mes" class="browser-default">
+                        <option th:each="mes : ${meses}" th:text="${mes}" th:value="${mes}"></option>
+                    </select>           
             </div>
             <div class="col s3 m3 offset-m0">
-                <select class="browser-default" name="mes">
-                    <option value="none" disabled="disabled" selected="selected">Escolha mês</option>
-                    <option value="">01</option>
-                    <option value="">02</option>
-                    <option value="">03</option>
-                    <option value="">04</option>
-                    <option value="">05</option>
-                    <option value="">06</option>
-                    <option value="">07</option>
-                    <option value="">08</option>
-                    <option value="">09</option>
-                    <option value="">10</option>
-                    <option value="">11</option>
-                    <option value="">12</option>
-                </select>
+                <select name="ano" class="browser-default">
+                        <option th:each="ano : ${anos}" th:text="${ano}" th:value="${ano}"></option>
+                    </select>
             </div>
                 <input type="submit" class="waves-effect waves-light btn-large orange accent-3" value="Buscar"/>
             </form>
