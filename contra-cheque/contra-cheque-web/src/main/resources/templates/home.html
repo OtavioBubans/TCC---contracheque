@@ -11,7 +11,7 @@ and open the template in the editor.
         
     <nav class="grey darken-4">
         <div class="nav-wrapper">
-            <a href="#!" class="brand-logo"><img src="logo3.png" alt="logo-cwi" width="250px" height="60px"></a>
+            <a href="#!" class="brand-logo"><img src="logo3.png" alt="logo-cwi" width="250px" height="60px"/></a>
             <ul class="right hide-on-med-and-down">
                 <li><a><i class="material-icons left">Administrador</i>Mateus Bueno dos Passos Teixeira</a></li>
                 <li><a th:href="@{/logout}" class="waves-effect waves-light btn grey lighten-4 black-text">Logout</a></li>
@@ -50,13 +50,16 @@ and open the template in the editor.
       </div>
       <br/>
       <br/>
-      
+        
+      <form th:action="@{/home}" method="POST">
+          <input type="submit" class="waves-effect waves-light btn-large orange accent-3" value="Buscar"/>
+      </form>
     
         <div class="row">
        
           <div class="col s3 m3 offset-m2">
             <select class="browser-default">
-              <option value="" disabled selected>Escolha o ano</option>
+              <option value="" >Escolha o ano</option>
               <option value="1">2016</option>
               <option value="2">2015</option>
             </select>
@@ -64,7 +67,7 @@ and open the template in the editor.
 
           <div class="col s3 m3 offset-m0">
             <select class="browser-default">
-              <option value="" disabled selected>Escolha mês</option>
+              <option value="" >Escolha mês</option>
               <option value="">01</option>
               <option value="">02</option>
               <option value="">03</option>

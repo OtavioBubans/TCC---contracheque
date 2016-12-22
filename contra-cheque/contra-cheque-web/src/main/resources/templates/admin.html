@@ -1,53 +1,58 @@
 <!DOCTYPE html>
-<!--
-To change this license header, choose License Headers in Project Properties.
-To change this template file, choose Tools | Templates
-and open the template in the editor.
--->
+
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
     <head th:replace="fragments :: head('Painel Administrativo')">
-         
-    </head>
-    <body>
-         <nav class="grey darken-2">
-            <div class="nav-wrapper">
-                <a href="#!" class="brand-logo"><img src="http://i.imgur.com/JcEXxle.jpg" alt="logo-cwi" width="250px"/></a>
-                <ul class="right hide-on-med-and-down">
-                    <li><i class="material-icons left">supervisor_account</i>Mateus Bueno dos Passos Teixeira</li>
-                    <li><a class="waves-effect waves-light btn orange accent-3 lighten-4 white-text ">Relatório</a></li>
-                    <li><a class="waves-effect waves-light btn orange accent-3 lighten-4 white-text ">Importar</a></li>
-                    <li><a th:href="@{/logout}" class="waves-effect waves-light btn orange accent-3 lighten-4 white-text ">Logout</a></li>
-                </ul>
-            </div>
-        </nav>
 
-        <div class="container">
-            <h1>Carregar Arquivo</h1>
-            <div th:if="${msg}">
-                <div th:text="${msg}"></div>
+    </head>
+    <body class="grey lighten-4">
+        <div th:replace="fragments :: menu"></div>
+        <div th:replace="fragments :: menu-admin"></div>
+        <div class="row">
+            <div class="col s8 offset-s2">
+                <br/>
+                <br/>
+                <br/>
+                <h4>Importação de Contracheque</h4>
+                <div th:if="${msg}">
+                    <div th:text="${msg}"></div>
+                </div>
+                <form th:action="@{/admin}" method="POST" class="form-horizontal" enctype="multipart/form-data">
+                    <label>Selecione o arquivo a ser importado</label>
+                    <div class="file-field input-field">
+                        <div class="btn orange accent-3">
+                            <span>Arquivo</span>
+                            <input type="file" name="file"/>
+                        </div>
+                        <div class="file-path-wrapper">
+                            <input class="file-path validate" type="text"/>
+                        </div>
+                    </div>
+
+
+                    <div class="input-field col s12 m6">
+                        <select name="mes">
+                            <option th:each="mes : ${meses}" th:text="${mes}" th:value="${mes}"></option>
+                        </select>
+                        <label>Selecione o mês de importação</label>
+                    </div>
+                    <div class="input-field col s12 m6">
+
+                        <select name="ano">
+                            <option th:each="ano : ${anos}" th:text="${ano}" th:value="${ano}"></option>
+                        </select>
+                        <label>Selecione o ano de importação</label>
+                    </div>
+
+                    <div class="form-group">
+                        <input class="waves-effect waves-light btn orange accent-3" type="submit" value="Importar Arquivo"/>
+                    </div>
+                </form>
             </div>
-            <form th:action="@{/admin}" method="POST" class="form-horizontal" enctype="multipart/form-data">
-                <label class="col-lg-1 control-label">Arquivo</label>
-                <div class="col-lg-4">
-                    <input class="form-control" type="file" name="file"/>
-                </div>
-           
-                <label class="col-lg-1 control-label">Anos</label>
-                <div>
-                    <select name="mes" class="browser-default">
-                        <option th:each="mes : ${meses}" th:text="${mes}" th:value="${mes}"></option>
-                    </select>
-                </div>
-                <div>
-                    <select name="ano" class="browser-default">
-                        <option th:each="ano : ${anos}" th:text="${ano}" th:value="${ano}"></option>
-                    </select>
-                </div>
-                
-                <div class="form-group">
-                    <input class="waves-effect waves-light btn orange accent-3" type="submit" value="Importar Arquivo"/>
-                </div>
-            </form>
         </div>
+        <div class="parallax-container">
+            <div class="parallax grey lighten-4"></div>
+        </div>
+        <footer th:replace="fragments :: footer">
+        </footer>
     </body>
 </html>

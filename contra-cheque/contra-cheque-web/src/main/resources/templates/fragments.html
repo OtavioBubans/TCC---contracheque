@@ -5,13 +5,47 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.8/css/materialize.min.css" />
-       <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
+        <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
+        <link rel="icon" type="image/x-icon" href="https://www.cwi.com.br/favicon.ico"/>
         <title th:text="${title}"></title>
+        <style>
+            .parallax-container {
+                height: 100px;
+            }
+        </style>
     </head>
-    <body>      
-        <div th:fragment="footer">
-            <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
-            <script th:src="@{/js/autenticacaoExtra.js}"></script>
+    <body>  
+
+        <div th:fragment="menu">
+            <nav class="black">
+                <div class="nav-wrapper">
+                    <a href="#" class="brand-logo"><img src="http://image.prntscr.com/image/645461a936a34cf2b1910e824a1f4662.png" alt="logo-cwi" width="250px"/></a>
+                    <ul class="right hide-on-med-and-down">
+                        <li><i class="material-icons left">supervisor_account</i><span sec:authentication="name"></span></li>
+                        <li><a th:href="@{/logout}" class="waves-effect waves-light btn orange accent-3 lighten-4 white-text ">Sair</a></li>
+                    </ul>
+                </div>
+            </nav>
         </div>
+        <div th:fragment="menu-admin">
+            <nav class="orange accent-3 left">
+                <div class="nav-wrapper">
+                    <ul class="left hide-on-med-and-down">
+                        <li><a th:href="@{/logout}" class="waves-effect waves-light lighten-4 white-text ">Importar Arquivo</a></li>
+                        <li><a th:href="@{/logout}" class="waves-effect waves-light lighten-4 white-text ">Relatório Administrativo</a></li>
+                    </ul>
+                </div>
+            </nav>
+        </div>
+
+        <footer th:fragment="footer" class="page-footer black">
+            <div class="footer-copyright center">
+                CWI Software - Projeto Crescer 2016-2
+            </div>
+            <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.8/js/materialize.min.js"></script>
+            <script th:src="@{/js/autenticacaoExtra.js}"></script>
+            <script th:src="@{/js/materialize-utils.js}"></script>
+        </footer>
     </body>
 </html>
