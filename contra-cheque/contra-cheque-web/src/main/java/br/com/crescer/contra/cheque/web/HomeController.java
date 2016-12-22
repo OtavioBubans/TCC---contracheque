@@ -1,22 +1,18 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package br.com.crescer.contra.cheque.web;
 
 import br.com.crescer.contra.cheque.entity.Acesso;
 import br.com.crescer.contra.cheque.entity.Colaborador;
 import br.com.crescer.contra.cheque.entity.Email;
+import br.com.crescer.contra.cheque.entity.Lancamento;
 import br.com.crescer.contra.cheque.entity.Log;
 import br.com.crescer.contra.cheque.service.UsuarioService;
 import br.com.crescer.contra.cheque.entity.Usuario;
 import br.com.crescer.contra.cheque.entity.enumeration.TipoOperacaoLog;
 import br.com.crescer.contra.cheque.service.AcessoService;
+import br.com.crescer.contra.cheque.service.DateService;
 import br.com.crescer.contra.cheque.service.EmailService;
 import br.com.crescer.contra.cheque.service.LancamentoService;
 import br.com.crescer.contra.cheque.service.LogService;
-import br.com.crescer.contra.cheque.service.ServicoDeDatas;
 import br.com.crescer.contra.cheque.service.exceptions.RegraDeNegocioException;
 import java.io.BufferedOutputStream;
 import java.io.File;
@@ -66,15 +62,15 @@ public class HomeController {
 
     @Autowired
     HttpServletRequest request;
-    
+
     @Autowired
     LancamentoService lancamentoService;
-    
+
     @Autowired
     Environment environment;
-    
+
     @Autowired
-    ServicoDeDatas servicoDeDatas;
+    DateService dateService;
 
     @Secured({"ROLE_USER"})
     @RequestMapping("/home")
@@ -82,11 +78,33 @@ public class HomeController {
         registrarAcesso();
         return "home";
     }
-    
+
+    @Secured({"ROLE_USER"})
+    @RequestMapping(value = "/home", method = RequestMethod.POST)
+    String home(Model model, String mes, Long ano, RedirectAttributes redirectAttributes) throws RegraDeNegocioException {
+        Date dataPesquisada = dateService.DataSelecionada(mes, ano);
+        Long idUsuarioLogado = usuarioLogado().getIdUsuario();
+        List<Lancamento> listaDescontos = lancamentoService.pesquisarPorUsuarioMesETipo(idUsuarioLogado, dataPesquisada, 'D');
+        List<Lancamento> listaProventos = lancamentoService.pesquisarPorUsuarioMesETipo(idUsuarioLogado, dataPesquisada, 'P');
+
+        if (listaDescontos == null && listaProventos == null) {
+            return "redirect: home";
+        }
+
+        model.addAttribute("descontos", listaDescontos);
+        model.addAttribute("proventos", listaProventos);
+        model.addAttribute("totalLiquido", lancamentoService.pesquisarPorUsuarioMesECodigo(idUsuarioLogado, dataPesquisada, "913"));
+        model.addAttribute("totalProventos", lancamentoService.pesquisarPorUsuarioMesECodigo(idUsuarioLogado, dataPesquisada, "913"));
+        model.addAttribute("totalLiquido", lancamentoService.pesquisarPorUsuarioMesECodigo(idUsuarioLogado, dataPesquisada, "913"));
+        model.addAttribute("totalLiquido", lancamentoService.pesquisarPorUsuarioMesECodigo(idUsuarioLogado, dataPesquisada, "913"));
+        
+        return "home";
+    }
+
     @RequestMapping("/admin")
     String admin(Model model) {
-        model.addAttribute("anos", servicoDeDatas.popularAnosAdmin());
-        model.addAttribute("meses", servicoDeDatas.popularMeses());
+        model.addAttribute("anos", dateService.popularAnosAdmin());
+        model.addAttribute("meses", dateService.popularMeses());
         return "admin";
     }
 
@@ -99,21 +117,27 @@ public class HomeController {
         Date dataDeImportacao = new Date();
 
         if (file.isEmpty() || file.getSize() == 0) {
+            redirectAttributes.addFlashAttribute("msg", "O arquivo importado está vazio");
             return "redirect:admin";
         }
         if (!nomeArquivo.contains(".txt")) {
-            redirectAttributes.addFlashAttribute("msg", "Errouuuuu");
+            redirectAttributes.addFlashAttribute("msg", "O arquivo não está no formato .txt");
             return "redirect:admin";
         }
         try (BufferedOutputStream buffer = new BufferedOutputStream(new FileOutputStream(new File(path.toString())))) {
             buffer.write(file.getBytes());
             arquivoImportado = Files.lines(path);
         } catch (IOException e) {
+            redirectAttributes.addFlashAttribute("msg", "Ocorreu um erro na leitura ou na importação do arquivo, tente novamente");
             return "redirect:admin";
         }
 
         try {
-            dataDeImportacao = servicoDeDatas.DataSelecionada(mes, ano);
+            dataDeImportacao = dateService.DataSelecionada(mes, ano);
+            if (dataDeImportacao.equals(new Date())) {
+                redirectAttributes.addFlashAttribute("msg", "Ocorreu um erro na data informada, tente novamente");
+                return "redirect:admin";
+            }
             lancamentoService.importarArquivo(arquivoImportado, dataDeImportacao);
         } catch (RegraDeNegocioException ex) {
             redirectAttributes.addFlashAttribute("msg", ex.getMessage());
