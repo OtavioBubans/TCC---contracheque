@@ -97,7 +97,7 @@ public class HomeController {
         if (listaDescontos == null && listaProventos == null) {
             return "redirect: home";
         }
-
+        model.addAttribute("usuario", usuarioLogado().getColaborador());    
         model.addAttribute("descontos", listaDescontos);
         model.addAttribute("proventos", listaProventos);
         model.addAttribute("totalLiquido", lancamentoService.pesquisarPorUsuarioMesECodigo(idUsuarioLogado, dataPesquisada, "913"));
