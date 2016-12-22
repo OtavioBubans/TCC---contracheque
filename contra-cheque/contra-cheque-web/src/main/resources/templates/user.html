@@ -61,17 +61,17 @@ and open the template in the editor.
 
                <div class="table" id="dois">
                  <div id="titulo">Nome Funcionário</div>
-                   <div>Maria Helena da Silva</div>
+                   <div th:text="${usuario.nome}"></div>
                </div>
 
                <div class="table" id="tres">
                  <div id="titulo">Centro de Custo</div>
-                   <div>ADMINISTRAÇÃO CWI</div>
+                   <div th:text="${usuario.centroCusto.nome}"></div>
                </div>
 
                <div class="table" id="quatro">
                  <div id="titulo">Data Admissão</div>
-                   <div>15/06/2015</div>
+                   <div th:text="${usuario.dataAdmissao}"></div>
                </div>
                <div class="table" id="cinco">
                  <div id="titulo">Conta Pagamento</div>
@@ -102,10 +102,10 @@ and open the template in the editor.
 
                    
            <div id="borda-fora">
-               <div class="" th:each="">
+               <div class="" th:each="provento : ${proventos}">
 
                         <div class="floa-left" id="um">
-                            <div id="titulo"><b>301</b></div>
+                            <div id="titulo"><b th:text="${provento.codConta}"></b></div>
                         </div>
 
                         <div class="floa-left"  id="dois">
