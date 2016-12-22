@@ -134,7 +134,7 @@ public class HomeController {
             redirectAttributes.addFlashAttribute("msg", "Não foram encontrados registros nessa consulta");
             return "redirect: home";
         }
-        model.addAttribute("usuario", usuarioLogado().getColaborador());
+        model.addAttribute("colaborador", usuarioLogado().getColaborador());
         model.addAttribute("descontos", listaDescontos);
         model.addAttribute("proventos", listaProventos);
         model.addAttribute("totalLiquido", lancamentoService.pesquisarPorUsuarioMesECodigo(colaborador, dataPesquisada, "913"));

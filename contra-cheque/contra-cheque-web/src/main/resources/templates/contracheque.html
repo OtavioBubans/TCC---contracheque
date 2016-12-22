@@ -2,56 +2,146 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
     <head th:replace="fragments :: head('Contracheque')"></head>
-        <body>
-            <br/>
-            <br/>
+    <body>
+        <br/>
+        <br/>
 
-            <div class="container">
+        <div class="container">
 
-                <div class="row">
-                    <div class="col s5 offset-m1">
+            <div class="row">
+                <div class="col s5 offset-m1">
 
-                        <div id="topo-esquerda">
-                            <img src="http://image.prntscr.com/image/645461a936a34cf2b1910e824a1f4662.png" alt="Logo" width="355px" height="90px"/>
-                        </div>
+                    <div id="topo-esquerda">
+                        <img src="http://image.prntscr.com/image/645461a936a34cf2b1910e824a1f4662.png" alt="Logo" width="355px" height="90px"/>
                     </div>
+                </div>
 
-                    <div class="col s5 ">
-                        <div id="topo-direita">
-                            <div><h5>Recibo de Pagamento de Salário</h5></div>
-                        </div>
+                <div class="col s5 ">
+                    <div id="topo-direita">
+                        <div><h5>Recibo de Pagamento de Salário</h5></div>
                     </div>
                 </div>
             </div>
+        </div>
 
 
-            <div class="container ">
+        <div class="container ">
 
-                <div class="row">
-                    <div class="col s12 m9 offset-m1">
+            <div class="row">
+                <div class="col s12 m9 offset-m1">
 
-                        <div id="contra" class="white">
+                    <div id="contra" class="white">
 
-                            <div class="table" id="um">
-                                <div id="titulo">Código</div>
-                                <div th:text="${usuario.idColaborador}"></div>
+                        <div class="table" id="um">
+                            <div id="titulo">Código</div>
+                            <div th:text="${colaborador.idColaborador}"></div>
+                        </div>
+
+                        <div class="table" id="dois">
+                            <div id="titulo">Nome Funcionário</div>
+                            <div th:text="${colaborador.nome}"></div>
+                        </div>
+
+                        <div class="table" id="tres">
+                            <div id="titulo">Centro de Custo</div>
+                            <div th:text="${colaborador.idCentroCusto.nome}"></div>
+                        </div>
+
+                        <div class="table" id="quatro">
+                            <div id="titulo">Data Admissão</div>
+                            <div th:text="${colaborador.admissao}"></div>
+                        </div>
+
+                        <div class="table" id="cinco">
+                            <div id="titulo">Conta Pagamento</div>
+                            <label th:text=""> :</label> 
+                            <label th:text=""> AG:</label>
+                            <label th:text=""> CC: </label>
+                        </div>
+
+
+                        <div class="table-sem-borda" id="um">
+                            <div id="titulo"><b>Código</b></div>
+                        </div>
+
+                        <div class="table-sem-borda" id="dois">
+                            <div id="titulo"><b>Descrição</b></div>
+                        </div>
+
+                        <div class="table-sem-borda" id="tres">
+                            <div id="titulo"><b>Referência</b></div>
+                        </div>
+
+                        <div class="table-sem-borda" id="quatro">
+                            <div id="titulo"><b>Proventos</b></div>
+                        </div>
+
+                        <div class="table-sem-borda" id="cinco">
+                            <div id="titulo"><b>Desconto</b></div>
+                        </div>
+
+                        <div id="borda-fora">
+
+                            <div class="" th:each="provento : ${proventos}">
+                                <div class="floa-left" id="um">
+                                    <div id="titulo"><b th:text="${provento.codConta}"></b></div>
+                                </div>
+
+                                <div class="floa-left"  id="dois">
+                                    <div id="titulo" th:tex:="${provento.descricao}"><b>SALARIO MENSALISTA</b></div>
+                                </div>
+
+                                <div class="floa-left"  id="tres">
+                                    <div id="titulo" th:text="${provento.valorParam}"><b>125,00</b></div>
+                                </div>
+
+                                <div class="floa-left"  id="quatro">
+                                    <div id="titulo" th:text="${provento.total}"><b>850,00</b></div>
+                                </div>
+
+                                <div class="floa-left"  id="cinco">
+                                    <div id="titulo" ><b>-----</b></div>
+                                </div>
+
                             </div>
 
-                            <div class="table" id="dois">
-                                <div id="titulo">Nome Funcionário</div>
-                                <div th:text="${usuario.nome}"></div>
+                            <div class="" th:each="desconto : ${descontos}">
+                                <div class="floa-left" id="um">
+                                    <div id="titulo"><b th:text="${desconto.codConta}"></b></div>
+                                </div>
+
+                                <div class="floa-left"  id="dois">
+                                    <div id="titulo" th:tex:="${desconto.descricao}"><b>SALARIO MENSALISTA</b></div>
+                                </div>
+
+                                <div class="floa-left"  id="tres">
+                                    <div id="titulo" th:text="${desconto.valorParam}"><b>125,00</b></div>
+                                </div>
+
+                                <div class="floa-left"  id="quatro">
+                                    <div id="titulo" ><b>-----</b></div>
+                                </div>
+
+                                <div class="floa-left"  id="cinco">
+                                    <div id="titulo" th:text="${desconto.total}"><b>850,00</b></div>
+                                </div>
+
                             </div>
 
-                            <div class="table" id="tres">
-                                <div id="titulo">Centro de Custo</div>
-                                <div th:text="${usuario.idCentroCusto.nome}"></div>
-                            </div>
+                        </div>   
 
-                        </div>       
-                    </div>    
-                </div>
+
+
+
+                    </div>       
+                </div>    
             </div>
-            <footer th:replace="fragments :: footer">
-            </footer>
-        </body>
+        </div>
+
+
+
+
+        <footer th:replace="fragments :: footer">
+        </footer>
+    </body>
 </html>
