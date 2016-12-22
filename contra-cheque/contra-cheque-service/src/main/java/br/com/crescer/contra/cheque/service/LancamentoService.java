@@ -30,12 +30,16 @@ public class LancamentoService {
         }
         lancamentoRepository.save(lancamentos);
     }
-    
+     
     public List<Lancamento> pesquisarPorUsuarioMesECodigo(Long id, Date dataMes, String codigo){
-        return lancamentoRepository.findByIdColaboradorAndDataAndCodigo(id, dataMes, codigo);
+        return lancamentoRepository.findByIdColaboradorAndDataAndCodConta(id, dataMes, codigo);
     }
     
     public List<Lancamento> pesquisarPorUsuarioMesETipo(Long id, Date dataMes, Character tipo){
         return lancamentoRepository.findByIdColaboradorAndDataAndTipo(id, dataMes, tipo);
+    }
+    
+    public Long quantidadeLancamentosNoMes(Date data){
+        return lancamentoRepository.countByData(data);
     }
 }
