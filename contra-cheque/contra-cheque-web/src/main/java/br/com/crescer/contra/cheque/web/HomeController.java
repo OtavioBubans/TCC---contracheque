@@ -86,7 +86,7 @@ public class HomeController {
         }
     }
     
-    
+    @Secured({"ROLE_ADMIN"})
     @RequestMapping(value = "/relatorio")
     String relatorio(Model model){
         model.addAttribute("anos", dateService.popularAnosAdmin());
