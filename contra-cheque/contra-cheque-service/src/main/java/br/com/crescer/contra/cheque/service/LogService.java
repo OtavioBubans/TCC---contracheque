@@ -11,7 +11,6 @@ import br.com.crescer.contra.cheque.entity.enumeration.TipoOperacaoLog;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import br.com.crescer.contra.cheque.service.repository.LogRepository;
-import java.util.List;
 
 /**
  *

@@ -28,7 +28,6 @@ public class LancamentoService {
         if (!lancamentosAntigos.isEmpty()) {
             lancamentoRepository.delete(lancamentosAntigos);
         }
-
         lancamentoRepository.save(lancamentos);
     }
 
