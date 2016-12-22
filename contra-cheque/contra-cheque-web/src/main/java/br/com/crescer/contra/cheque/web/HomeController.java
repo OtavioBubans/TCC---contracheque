@@ -148,7 +148,7 @@ public class HomeController {
         model.addAttribute("salarioBase", lancamentoService.pesquisarPorUsuarioMesECodigo(colaborador, dataPesquisada, "900"));
         model.addAttribute("inss", lancamentoService.pesquisarPorUsuarioMesECodigo(colaborador, dataPesquisada, "901"));
         model.addAttribute("fgts", lancamentoService.pesquisarPorUsuarioMesECodigo(colaborador, dataPesquisada, "902"));
-        
+
         return "contracheque";
     }
 
@@ -262,10 +262,11 @@ public class HomeController {
         Usuario usuarioLogado = usuarioLogado();
         int loginsSuspeitos = usuarioLogado.getLoginsSuspeitos();
         usuarioLogado.setLoginsSuspeitos(loginsSuspeitos + 1);
-        usuarioService.save(usuarioLogado);
         if (loginsSuspeitos == 1) {
             Email novoEmail = new Email(usuarioLogado.getEmail(), ip, usuarioLogado().getColaborador().getNome());
             emailService.enviarEmail(novoEmail);
+        } else {
+            usuarioService.save(usuarioLogado);
         }
     }
 
