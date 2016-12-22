@@ -8,11 +8,10 @@ and open the template in the editor.
     <head th:replace="fragments :: head('User')">
     </head>
    
-
-    
     <body class="grey lighten-3">
         
         <nav class="grey darken-2">
+            
             <div class="nav-wrapper">
                 <a href="#!" class="brand-logo"><img src="http://i.imgur.com/JcEXxle.jpg" alt="logo-cwi" width="250px"></a>
                 <ul class="right hide-on-med-and-down">
@@ -22,6 +21,7 @@ and open the template in the editor.
                     <li><a class="waves-effect waves-light btn orange accent-3 lighten-4 white-text ">Logout</a></li>
                 </ul>
             </div>
+            
         </nav>
         
         <br/>
@@ -29,6 +29,7 @@ and open the template in the editor.
         <br/>
     
         <div class="container">
+            
             <div class="row">
                 <div class="col s5 offset-m1">
 
@@ -36,144 +37,146 @@ and open the template in the editor.
                         <img src="../static/js/logo-cwi.jpg" alt="Logo" width="355px" height="90px"/>
                     </div>
                 </div>
+                
                 <div class="col s5 ">
                     <div id="topo-direita">
                         <div><h5>Recibo de Pagamento de Salário</h5></div>
     <!--                    <div>CRÉDITO EM CONTA:<label>04/07/14</label></div>-->
                     </div>
                 </div>
-
-                
-
-                </div>
             </div>
+            
+        </div>
     
 
         <div class="container ">
-             <div class="row">
+            
+            <div class="row">
                 <div class="col s12 m9 offset-m1">
 
-            <div id="contra" class="white">
-                <div class="table" id="um">
-                    <div id="titulo">Código</div>
-                    <div>65588</div>
-                </div>
+                    <div id="contra" class="white">
+                        
+                        <div class="table" id="um">
+                            <div id="titulo">Código</div>
+                            <div th:text="${usuario.id}"></div>
+                        </div>
 
-               <div class="table" id="dois">
-                 <div id="titulo">Nome Funcionário</div>
-                   <div th:text="${usuario.nome}"></div>
-               </div>
+                        <div class="table" id="dois">
+                            <div id="titulo">Nome Funcionário</div>
+                            <div th:text="${usuario.nome}"></div>
+                        </div>
 
-               <div class="table" id="tres">
-                 <div id="titulo">Centro de Custo</div>
-                   <div th:text="${usuario.centroCusto.nome}"></div>
-               </div>
+                        <div class="table" id="tres">
+                            <div id="titulo">Centro de Custo</div>
+                            <div th:text="${usuario.centroCusto.nome}"></div>
+                        </div>
 
-               <div class="table" id="quatro">
-                 <div id="titulo">Data Admissão</div>
-                   <div th:text="${usuario.dataAdmissao}"></div>
-               </div>
-               <div class="table" id="cinco">
-                 <div id="titulo">Conta Pagamento</div>
-                   <div>BANCO DO BRASIL AG:1234-5 CC: 65432-1</div>
-               </div>
+                        <div class="table" id="quatro">
+                            <div id="titulo">Data Admissão</div>
+                            <div th:text="${usuario.dataAdmissao}"></div>
+                        </div>
+                        
+                        <div class="table" id="cinco">
+                            <div id="titulo">Conta Pagamento</div>
+                            <label th:text="{$usuario.lancamento.idConta.idAgencia.idBanco.nome}"> :</label> BANCO DO BRASIL AG:1234-5 CC: 65432-1
+                            <label th:text="{$usuario.lancamento.idConta.idAgencia.codigo}"> AG:</label>
+                            <label th:text="{$usuario.lancamento.idConta.codigo}"> CC: </label>
+                        </div>
 
 
-               <div class="table-sem-borda" id="um">
-                   <div id="titulo"><b>Código</b></div>
-               </div>
+                        <div class="table-sem-borda" id="um">
+                            <div id="titulo"><b>Código</b></div>
+                        </div>
 
-               <div class="table-sem-borda" id="dois">
-                 <div id="titulo"><b>Funcionário</b></div>
-               </div>
+                        <div class="table-sem-borda" id="dois">
+                            <div id="titulo"><b>Descrição</b></div>
+                        </div>
 
-               <div class="table-sem-borda" id="tres">
-                 <div id="titulo"><b>Centro de Custo</b></div>
+                        <div class="table-sem-borda" id="tres">
+                            <div id="titulo"><b>Referência</b></div>
+                        </div>
 
-               </div>
+                        <div class="table-sem-borda" id="quatro">
+                            <div id="titulo"><b>Proventos</b></div>
+                        </div>
 
-               <div class="table-sem-borda" id="quatro">
-                 <div id="titulo"><b>Data Admissão</b></div>
-               </div>
-
-               <div class="table-sem-borda" id="cinco">
-                 <div id="titulo"><b>Conta Pagamento</b></div>
-               </div>
+                        <div class="table-sem-borda" id="cinco">
+                            <div id="titulo"><b>Desconto</b></div>
+                        </div>
 
                    
-           <div id="borda-fora">
-               <div class="" th:each="provento : ${proventos}">
+                        <div id="borda-fora">
+                            
+                            <div class="" th:each="provento : ${proventos}">
+                                <div class="floa-left" id="um">
+                                    <div id="titulo"><b th:text="${provento.codConta}"></b></div>
+                                </div>
 
-                        <div class="floa-left" id="um">
-                            <div id="titulo"><b th:text="${provento.codConta}"></b></div>
+                                <div class="floa-left"  id="dois">
+                                    <div id="titulo" th:tex:="${provento.descricao}"><b>SALARIO MENSALISTA</b></div>
+                                </div>
+
+                                <div class="floa-left"  id="tres">
+                                    <div id="titulo" th:text="${provento.referencia}"><b>125,00</b></div>
+                                </div>
+
+                                <div class="floa-left"  id="quatro">
+                                    <div id="titulo" th:text="${provento.provento}"><b>850,00</b></div>
+                                </div>
+
+                                <div class="floa-left"  id="cinco">
+                                    <div id="titulo" th:text="{provento.desconto}"><b>-----</b></div>
+                                </div>
+
+                            </div>
+
                         </div>
 
-                        <div class="floa-left"  id="dois">
-                          <div id="titulo"><b>SALARIO MENSALISTA</b></div>
+                        <div class="table" id="seis">
+                            <div id="titulo">Total de Proventos</div>
+                            <div class="total" th:text="{totalProvento"><h6>932,25</h6></div>
                         </div>
 
-                        <div class="floa-left"  id="tres">
-                          <div id="titulo"><b>125,00</b></div>
-
+                        <div class="table" id="sete">
+                            <div id="titulo">Total de Descontos</div>
+                            <div class="total" th:text="{descontos}"><h6>498,69</h6></div>
                         </div>
 
-                        <div class="floa-left"  id="quatro">
-                          <div id="titulo"><b>850,00</b></div>
+                        <div class="table" id="oito">
+                            <div id="titulo">Valor Líquido</div>
+                            <div class="total" th:text="{totalLiquido}"><h6>433,58</h6></div>
                         </div>
 
-                        <div class="floa-left"  id="cinco">
-                          <div id="titulo"><b>-----</b></div>
+                        <div class="table" id="nove">
+                            <div id="titulo">Salário Base</div>
+                            <div class="total"><h6>850,00</h6></div>
                         </div>
 
-               </div>
+                        <div class="table" id="dez">
+                            <div id="titulo">Salário contrib INSS</div>
+                            <div class="total"><h6>932,27</h6></div>
+                        </div>
 
-           </div>
+                        <div class="table" id="onze">
+                            <div id="titulo">Base FGTS</div>
+                            <div class="total"><h6>932,27</h6></div>
+                        </div>
 
-           <div class="table" id="seis">
-                   <div id="titulo">Total de Proventos</div>
-                   <div class="total"><h6>932,25</h6></div>
-               </div>
+                        <div class="table" id="doze">
+                            <div id="titulo">Valor FGTS</div>
+                            <div class="total"><h6>74,58</h6></div>
+                        </div>
 
-               <div class="table" id="sete">
-                 <div id="titulo">Total de Descontos</div>
-                   <div class="total"><h6>498,69</h6></div>
-               </div>
+                        <div class="table" id="treze">
+                            <div id="titulo">Cálculo base IRRF</div>
+                            <div class="total"><h6>677,98</h6></div>
+                        </div>
 
-               <div class="table" id="oito">
-                 <div id="titulo">Valor Líquido</div>
-                   <div class="total"><h6>433,58</h6></div>
-               </div>
-
-
-               <div class="table" id="nove">
-                   <div id="titulo">Salário Base</div>
-                   <div class="total"><h6>850,00</h6></div>
-               </div>
-
-               <div class="table" id="dez">
-                 <div id="titulo">Salário contrib INSS</div>
-                   <div class="total"><h6>932,27</h6></div>
-               </div>
-
-               <div class="table" id="onze">
-                 <div id="titulo">Base FGTS</div>
-                   <div class="total"><h6>932,27</h6></div>
-               </div>
-
-               <div class="table" id="doze">
-                 <div id="titulo">Valor FGTS</div>
-                   <div class="total"><h6>74,58</h6></div>
-               </div>
-
-               <div class="table" id="treze">
-                 <div id="titulo">Cálculo base IRRF</div>
-                   <div class="total"><h6>677,98</h6></div>
-               </div>
-
-         </div>
+                    </div>
+                </div>
+            </div>
         </div>
-     </div>
-</div>
 
     </body>
+    
 </html>

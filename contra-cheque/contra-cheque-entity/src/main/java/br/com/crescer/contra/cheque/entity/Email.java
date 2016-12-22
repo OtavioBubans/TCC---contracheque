@@ -1,11 +1,5 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-package br.com.crescer.contra.cheque.entity;
 
-import java.util.Date;
+package br.com.crescer.contra.cheque.entity;
 
 /**
  *
@@ -20,7 +14,7 @@ public class Email {
     
 
     public Email( String destinatario, String ip, String usuario) {
-        this.assunto = "EMAIL SEGUNÇA CONTRACHEQUE";
+        this.assunto = "EMAIL SEGURANÇA CONTRACHEQUE";
         this.destinatario = destinatario;
         this.remetente = "contracheque.cwi@gmail.com"; // email do admin;
         this.texto = "Houve uma incorfomidade suspeita no acesso do contracheque.   "
@@ -52,14 +46,5 @@ public class Email {
     public String getEmailAdmin() {
         return  remetente;
     }
-
-    
-    
-
-   
-    
-    
-    
-    
-    
+ 
 }
