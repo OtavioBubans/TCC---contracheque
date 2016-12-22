@@ -143,7 +143,7 @@ public class HomeController {
             redirectAttributes.addFlashAttribute("msg", ex.getMessage());
             return "redirect:admin";
         }
-
+        registrarOperacao(usuarioLogado().getColaborador(), TipoOperacaoLog.IMPORTACAO, null);
         redirectAttributes.addFlashAttribute("msg", "Arquivo importado com sucesso");
         return "admin";
     }
