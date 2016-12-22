@@ -1,5 +1,6 @@
 package br.com.crescer.contra.cheque.service;
 
+import br.com.crescer.contra.cheque.entity.Colaborador;
 import br.com.crescer.contra.cheque.entity.Lancamento;
 import br.com.crescer.contra.cheque.service.exceptions.RegraDeNegocioException;
 import br.com.crescer.contra.cheque.service.repository.LancamentoRepository;
@@ -31,12 +32,16 @@ public class LancamentoService {
         lancamentoRepository.save(lancamentos);
     }
      
-    public List<Lancamento> pesquisarPorUsuarioMesECodigo(Long id, Date dataMes, String codigo){
-        return lancamentoRepository.findByIdColaboradorAndDataAndCodConta(id, dataMes, codigo);
+    public List<Lancamento> pesquisarPorUsuarioMesECodigo(Colaborador colaborador, Date dataMes, String codigo){
+        return lancamentoRepository.findByIdColaboradorAndDataAndCodConta(colaborador, dataMes, codigo);
     }
     
-    public List<Lancamento> pesquisarPorUsuarioMesETipo(Long id, Date dataMes, Character tipo){
-        return lancamentoRepository.findByIdColaboradorAndDataAndTipo(id, dataMes, tipo);
+    public List<Lancamento> pesquisarPorUsuarioMesETipo(Colaborador colaborador, Date dataMes, Character tipo){
+        return lancamentoRepository.findByIdColaboradorAndDataAndTipo(colaborador, dataMes, tipo);
+    }
+    
+    public List<Lancamento> pesquisarPorMesETipo(Date dataMes, Character tipo){
+        return lancamentoRepository.findByAndDataAndTipo(dataMes, tipo);
     }
     
     public Long quantidadeLancamentosNoMes(Date data){

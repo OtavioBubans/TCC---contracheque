@@ -35,6 +35,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -86,13 +87,43 @@ public class HomeController {
         }
     }
 
+    @Secured({"ROLE_ADMIN"})
+    @RequestMapping(value = "/relatorio")
+    String relatorio(Model model, String mes, Long ano, RedirectAttributes redirectAttributes) throws RegraDeNegocioException {
+        Date data = new Date();
+        GregorianCalendar dataCal = new GregorianCalendar();
+        dataCal.setTime(data);
+        int mesAtual = dataCal.get(Calendar.MONTH);
+        Long anoAtual = Long.valueOf(dataCal.get(Calendar.YEAR));
+        List<String> meses = dateService.popularMeses();
+        if (mes == null) {
+            mes = meses.get(mesAtual-1);
+        }
+        if (ano == null){
+            ano = anoAtual;
+        }
+        int totalBeneficios = 0;
+        int totalDescontos = 0;
+        List<Lancamento> proventos = lancamentoService.pesquisarPorMesETipo(dateService.DataSelecionada(mes, ano), 'P');
+        List<Lancamento> descontos = lancamentoService.pesquisarPorMesETipo(dateService.DataSelecionada(mes, ano), 'D');
+        for (Lancamento desconto : descontos) {
+            totalDescontos += desconto.getTotal();
+        }
+        for (Lancamento provento : proventos) {
+            totalBeneficios += provento.getTotal();
+        }
+        model.addAttribute("totalBeneficios", totalBeneficios);
+        model.addAttribute("totalDescontos", totalDescontos);
+        return "relatorio";
+    }
+
     @Secured({"ROLE_USER"})
     @RequestMapping(value = "/home", method = RequestMethod.POST)
     String home(Model model, String mes, Long ano, RedirectAttributes redirectAttributes) throws RegraDeNegocioException {
         Date dataPesquisada = dateService.DataSelecionada(mes, ano);
-        Long idUsuarioLogado = usuarioLogado().getIdUsuario();
-        List<Lancamento> listaDescontos = lancamentoService.pesquisarPorUsuarioMesETipo(idUsuarioLogado, dataPesquisada, 'D');
-        List<Lancamento> listaProventos = lancamentoService.pesquisarPorUsuarioMesETipo(idUsuarioLogado, dataPesquisada, 'P');
+        Colaborador colaborador = usuarioLogado().getColaborador();
+        List<Lancamento> listaDescontos = lancamentoService.pesquisarPorUsuarioMesETipo(colaborador, dataPesquisada, 'D');
+        List<Lancamento> listaProventos = lancamentoService.pesquisarPorUsuarioMesETipo(colaborador, dataPesquisada, 'P');
 
         if (listaDescontos == null && listaProventos == null) {
             return "redirect: home";
@@ -100,14 +131,15 @@ public class HomeController {
 
         model.addAttribute("descontos", listaDescontos);
         model.addAttribute("proventos", listaProventos);
-        model.addAttribute("totalLiquido", lancamentoService.pesquisarPorUsuarioMesECodigo(idUsuarioLogado, dataPesquisada, "913"));
-        model.addAttribute("totalProventos", lancamentoService.pesquisarPorUsuarioMesECodigo(idUsuarioLogado, dataPesquisada, "913"));
-        model.addAttribute("totalLiquido", lancamentoService.pesquisarPorUsuarioMesECodigo(idUsuarioLogado, dataPesquisada, "913"));
-        model.addAttribute("totalLiquido", lancamentoService.pesquisarPorUsuarioMesECodigo(idUsuarioLogado, dataPesquisada, "913"));
+        model.addAttribute("totalLiquido", lancamentoService.pesquisarPorUsuarioMesECodigo(colaborador, dataPesquisada, "913"));
+        model.addAttribute("totalProventos", lancamentoService.pesquisarPorUsuarioMesECodigo(colaborador, dataPesquisada, "913"));
+        model.addAttribute("totalLiquido", lancamentoService.pesquisarPorUsuarioMesECodigo(colaborador, dataPesquisada, "913"));
+        model.addAttribute("totalLiquido", lancamentoService.pesquisarPorUsuarioMesECodigo(colaborador, dataPesquisada, "913"));
 
         return "home";
     }
 
+    @Secured({"ROLE_ADMIN"})
     @RequestMapping(value = "/admin", method = RequestMethod.POST)
     String admin(@RequestParam("file") MultipartFile file, String mes, Long ano, RedirectAttributes redirectAttributes) {
         String nomeArquivo = file.getOriginalFilename();
@@ -118,30 +150,30 @@ public class HomeController {
 
         if (file.isEmpty() || file.getSize() == 0) {
             redirectAttributes.addFlashAttribute("msg", "O arquivo importado está vazio");
-            return "redirect:admin";
+            return "redirect:home";
         }
         if (!nomeArquivo.contains(".txt")) {
             redirectAttributes.addFlashAttribute("msg", "O arquivo não está no formato .txt");
-            return "redirect:admin";
+            return "redirect:home";
         }
         try (BufferedOutputStream buffer = new BufferedOutputStream(new FileOutputStream(new File(path.toString())))) {
             buffer.write(file.getBytes());
             arquivoImportado = Files.lines(path);
         } catch (IOException e) {
             redirectAttributes.addFlashAttribute("msg", "Ocorreu um erro na leitura ou na importação do arquivo, tente novamente");
-            return "redirect:admin";
+            return "redirect:home";
         }
 
         try {
             dataDeImportacao = dateService.DataSelecionada(mes, ano);
             if (dataDeImportacao.equals(new Date())) {
                 redirectAttributes.addFlashAttribute("msg", "Ocorreu um erro na data informada, tente novamente");
-                return "redirect:admin";
+                return "redirect:home";
             }
             lancamentoService.importarArquivo(arquivoImportado, dataDeImportacao);
         } catch (RegraDeNegocioException ex) {
             redirectAttributes.addFlashAttribute("msg", ex.getMessage());
-            return "redirect:admin";
+            return "redirect:home";
         }
         registrarOperacao(usuarioLogado().getColaborador(), TipoOperacaoLog.IMPORTACAO, null);
         redirectAttributes.addFlashAttribute("msg", "Arquivo importado com sucesso");
