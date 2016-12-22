@@ -7,7 +7,6 @@
         <br/>
 
         <div class="container">
-
             <div class="row">
                 <div class="col s5 offset-m1">
 
@@ -21,7 +20,7 @@
                         <div><h5>Recibo de Pagamento de Salário</h5></div>
                     </div>
                 </div>
-            </div>
+            </div>       
         </div>
 
 
@@ -34,29 +33,29 @@
 
                         <div class="table" id="um">
                             <div id="titulo">Código</div>
-                            <div th:text="${colaborador.idColaborador}"></div>
+                            <div th:text="${usuario.idColaborador}"></div>
                         </div>
 
                         <div class="table" id="dois">
                             <div id="titulo">Nome Funcionário</div>
-                            <div th:text="${colaborador.nome}"></div>
+                            <div th:text="${usuario.nome}"></div>
                         </div>
 
                         <div class="table" id="tres">
                             <div id="titulo">Centro de Custo</div>
-                            <div th:text="${colaborador.idCentroCusto.nome}"></div>
+                            <div th:text="${usuario.idCentroCusto.nome}"></div>
                         </div>
 
                         <div class="table" id="quatro">
                             <div id="titulo">Data Admissão</div>
-                            <div th:text="${colaborador.admissao}"></div>
+                            <!--                            <div th:text=""></div>-->
                         </div>
 
                         <div class="table" id="cinco">
                             <div id="titulo">Conta Pagamento</div>
-                            <label th:text=""> :</label> 
-                            <label th:text=""> AG:</label>
-                            <label th:text=""> CC: </label>
+                            <!--                            <label th:text=""></label> 
+                                                        <label th:text=""></label>
+                                                        <label th:text=""></label>-->
                         </div>
 
 
@@ -80,9 +79,10 @@
                             <div id="titulo"><b>Desconto</b></div>
                         </div>
 
+
                         <div id="borda-fora">
 
-                            <div class="" th:each="provento : ${proventos}">
+                            <div th:each="provento : ${proventos}">
                                 <div class="floa-left" id="um">
                                     <div id="titulo"><b th:text="${provento.codConta}"></b></div>
                                 </div>
@@ -99,49 +99,56 @@
                                     <div id="titulo" th:text="${provento.total}"><b>850,00</b></div>
                                 </div>
 
-                                <div class="floa-left"  id="cinco">
-                                    <div id="titulo" ><b>-----</b></div>
-                                </div>
-
+                                
                             </div>
 
-                            <div class="" th:each="desconto : ${descontos}">
-                                <div class="floa-left" id="um">
-                                    <div id="titulo"><b th:text="${desconto.codConta}"></b></div>
-                                </div>
+                        </div>
 
-                                <div class="floa-left"  id="dois">
-                                    <div id="titulo" th:tex:="${desconto.descricao}"><b>SALARIO MENSALISTA</b></div>
-                                </div>
+                        <!--                        <div class="table" id="seis">
+                                                    <div id="titulo">Total de Proventos</div>
+                                                    <div class="total" th:text="{totalProvento}"><h6>932,25</h6></div>
+                                                </div>
+                        
+                                                <div class="table" id="sete">
+                                                    <div id="titulo">Total de Descontos</div>
+                                                    <div class="total" th:text="{descontos}"><h6>498,69</h6></div>
+                                                </div>
+                        
+                                                <div class="table" id="oito">
+                                                    <div id="titulo">Valor Líquido</div>
+                                                    <div class="total" th:text="{totalLiquido}"><h6>433,58</h6></div>
+                                                </div>
+                        
+                                                <div class="table" id="nove">
+                                                    <div id="titulo">Salário Base</div>
+                                                    <div class="total"><h6>850,00</h6></div>
+                                                </div>
+                        
+                                                <div class="table" id="dez">
+                                                    <div id="titulo">Salário contrib INSS</div>
+                                                    <div class="total"><h6>932,27</h6></div>
+                                                </div>
+                        
+                                                <div class="table" id="onze">
+                                                    <div id="titulo">Base FGTS</div>
+                                                    <div class="total"><h6>932,27</h6></div>
+                                                </div>
+                        
+                                                <div class="table" id="doze">
+                                                    <div id="titulo">Valor FGTS</div>
+                                                    <div class="total"><h6>74,58</h6></div>
+                                                </div>
+                        
+                                                <div class="table" id="treze">
+                                                    <div id="titulo">Cálculo base IRRF</div>
+                                                    <div class="total"><h6>677,98</h6></div>
+                                                </div>-->
 
-                                <div class="floa-left"  id="tres">
-                                    <div id="titulo" th:text="${desconto.valorParam}"><b>125,00</b></div>
-                                </div>
-
-                                <div class="floa-left"  id="quatro">
-                                    <div id="titulo" ><b>-----</b></div>
-                                </div>
-
-                                <div class="floa-left"  id="cinco">
-                                    <div id="titulo" th:text="${desconto.total}"><b>850,00</b></div>
-                                </div>
-
-                            </div>
-
-                        </div>   
-
-
-
-
-                    </div>       
-                </div>    
+                    </div>
+                </div>
             </div>
         </div>
 
 
-
-
-        <footer th:replace="fragments :: footer">
-        </footer>
     </body>
 </html>

@@ -21,6 +21,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
@@ -85,30 +86,30 @@ public class HomeController {
             return "home";
         }
     }
-    
+
     @Secured({"ROLE_USER"})
     @RequestMapping(value = "/")
-    String index(){
+    String index() {
         return "apresentacao";
     }
-    
+
     @Secured({"ROLE_ADMIN"})
     @RequestMapping(value = "/relatorio")
-    String relatorio(Model model){
+    String relatorio(Model model) {
         model.addAttribute("anos", dateService.popularAnosAdmin());
         model.addAttribute("meses", dateService.popularMeses());
         return "relatorio";
     }
-    
+
     @Secured({"ROLE_ADMIN"})
     @RequestMapping(value = "/relatorio", method = RequestMethod.POST)
     String relatorio(Model model, String mes, Long ano, RedirectAttributes redirectAttributes) throws RegraDeNegocioException {
         Date data = new Date();
-        
+
         data = dateService.DataSelecionada(mes, ano);
-     
-        int totalBeneficios = 0;
-        int totalDescontos = 0;
+
+        double totalBeneficios = 0.0;
+        double totalDescontos = 0.0;
         List<Lancamento> proventos = lancamentoService.pesquisarPorMesETipo(data, 'P');
         List<Lancamento> descontos = lancamentoService.pesquisarPorMesETipo(data, 'D');
         for (Lancamento desconto : descontos) {
@@ -117,9 +118,11 @@ public class HomeController {
         for (Lancamento provento : proventos) {
             totalBeneficios += provento.getTotal();
         }
-        model.addAttribute("totalBeneficios", totalBeneficios);
-        model.addAttribute("totalDescontos", totalDescontos);
-        return "redirect:relatorio";
+        model.addAttribute("anos", dateService.popularAnosAdmin());
+        model.addAttribute("meses", dateService.popularMeses());
+        model.addAttribute("totalBeneficios", String.format("R$ %1$,.2f", totalBeneficios));
+        model.addAttribute("totalDescontos", String.format("R$ %1$,.2f", totalDescontos));
+        return "relatorio";
     }
 
     @Secured({"ROLE_USER"})
@@ -129,19 +132,21 @@ public class HomeController {
         Colaborador colaborador = usuarioLogado().getColaborador();
         List<Lancamento> listaDescontos = lancamentoService.pesquisarPorUsuarioMesETipo(colaborador, dataPesquisada, 'D');
         List<Lancamento> listaProventos = lancamentoService.pesquisarPorUsuarioMesETipo(colaborador, dataPesquisada, 'P');
-
+        SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
         if (listaDescontos.isEmpty() && listaProventos.isEmpty()) {
             redirectAttributes.addFlashAttribute("msg", "Não foram encontrados registros nessa consulta");
             return "redirect: home";
         }
-        model.addAttribute("colaborador", usuarioLogado().getColaborador());
+        model.addAttribute("usuario", usuarioLogado().getColaborador());
+        model.addAttribute("admissao", formato.format(usuarioLogado().getColaborador().getAdminssao()));
         model.addAttribute("descontos", listaDescontos);
         model.addAttribute("proventos", listaProventos);
         model.addAttribute("totalLiquido", lancamentoService.pesquisarPorUsuarioMesECodigo(colaborador, dataPesquisada, "913"));
-        model.addAttribute("totalProventos", lancamentoService.pesquisarPorUsuarioMesECodigo(colaborador, dataPesquisada, "913"));
-        model.addAttribute("totalLiquido", lancamentoService.pesquisarPorUsuarioMesECodigo(colaborador, dataPesquisada, "913"));
-        model.addAttribute("totalLiquido", lancamentoService.pesquisarPorUsuarioMesECodigo(colaborador, dataPesquisada, "913"));
-
+        model.addAttribute("irrf", lancamentoService.pesquisarPorUsuarioMesECodigo(colaborador, dataPesquisada, "711"));
+        model.addAttribute("salarioBase", lancamentoService.pesquisarPorUsuarioMesECodigo(colaborador, dataPesquisada, "900"));
+        model.addAttribute("inss", lancamentoService.pesquisarPorUsuarioMesECodigo(colaborador, dataPesquisada, "901"));
+        model.addAttribute("fgts", lancamentoService.pesquisarPorUsuarioMesECodigo(colaborador, dataPesquisada, "902"));
+        
         return "contracheque";
     }
 
@@ -182,8 +187,9 @@ public class HomeController {
             return "redirect:home";
         }
         registrarOperacao(usuarioLogado().getColaborador(), TipoOperacaoLog.IMPORTACAO, null);
-        redirectAttributes.addFlashAttribute("msg", "Arquivo importado com sucesso");
-        return "admin";
+        redirectAttributes.addFlashAttribute("success", "Arquivo importado com sucesso");
+
+        return "redirect:admin";
     }
 
     private void registrarAcesso() {
