@@ -34,7 +34,7 @@ public class EmailTest {
         
         EmailService emailService =new EmailService();
         
-        Email email = new Email("otavio.bubans@cwi.com.br","123.4567","4324234");
+        Email email = new Email("otaviobubans@hotmail.com","123.4567","4324234");
         emailService.enviarEmail(email);
         
          

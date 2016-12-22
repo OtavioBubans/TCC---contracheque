@@ -51,7 +51,7 @@ public class EmailService {
                              .parse(email.getDestinatario());  
                   message.setRecipients(Message.RecipientType.TO, toUser);
                   message.setSubject(email.getAssunto());
-                  message.setText(email.getTexto());
+                  message.setContent(email.getTexto(), "text/html; charset=utf-8");
                 
                   Transport.send(message);
              } catch (MessagingException e) {

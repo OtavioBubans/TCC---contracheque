@@ -12,7 +12,7 @@
                 <div class="col s5 offset-m1">
 
                     <div id="topo-esquerda">
-                        <img src="http://image.prntscr.com/image/645461a936a34cf2b1910e824a1f4662.png" alt="Logo" width="355px" height="90px"/>
+                        <img src="http://image.prntscr.com/image/645461a936a34cf2b1910e824a1f4662.png" alt="Logo" width="300px"/>
                     </div>
                 </div>
 
@@ -119,39 +119,39 @@
                                 </div>
 
                                 <div class="floa-left"  id="cinco">
-                                    <div id="titulo"><b th:text="${desconto.total}">*</b></div>
+                                    <div id="titulo"><b th:text="${#numbers.formatDecimal(desconto.total,2,2,'COMMA')}">*</b></div>
                                 </div>
                             </div>
                         </div>
 
                         <div class="table" id="seis">
                             <div id="titulo">Total de Proventos</div>
-                            <div class="total" th:text="${totalProventos[0].total}"><h6>932,25</h6></div>
+                            <div class="total" th:text="${#numbers.formatDecimal(totalProventos[0].total,3,2,'COMMA')}"><h6>932,25</h6></div>
                         </div>
 
                         <div class="table" id="sete">
                             <div id="titulo">Total de Descontos</div>
-                            <div class="total" th:text="${totalDescontos[0].total}"><h6>498,69</h6></div>
+                            <div class="total" th:text="${#numbers.formatDecimal(totalDescontos[0].total,3,2,'COMMA')}"><h6>498,69</h6></div>
                         </div>
 
                         <div class="table" id="oito">
                             <div id="titulo">Valor Líquido</div>
-                            <div class="total" th:text="${totalLiquido[0].total}"><h6>433,58</h6></div>
+                            <div class="total" th:text="${#numbers.formatDecimal(totalLiquido[0].total,3,2,'COMMA')}"><h6>433,58</h6></div>
                         </div>
 
                         <div class="table" id="nove">
                             <div id="titulo">Salário Base</div>
-                            <div class="total"><h6 th:text="${salarioBase[0].total}">850,00</h6></div>
+                            <div class="total"><h6 th:text="${#numbers.formatDecimal(salarioBase[0].total,3,2,'COMMA')}">850,00</h6></div>
                         </div>
 
                         <div class="table" id="dez">
                             <div id="titulo">Salário contrib INSS</div>
-                            <div class="total"><h6 th:text="${totalProventos[0].total}"></h6></div>
+                            <div class="total"><h6 th:text="${#numbers.formatDecimal(totalProventos[0].total,3,2,'COMMA')}"></h6></div>
                         </div>
 
                         <div class="table" id="onze">
                             <div id="titulo">Base FGTS</div>
-                            <div class="total"><h6 th:text="${totalProventos[0].total}"></h6></div>
+                            <div class="total"><h6 th:text="${#numbers.formatDecimal(totalProventos[0].total,3,2,'COMMA')}"></h6></div>
                         </div>
 
                         <div class="table" id="doze">

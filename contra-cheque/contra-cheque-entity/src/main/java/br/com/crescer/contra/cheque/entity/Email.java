@@ -38,7 +38,6 @@ public class Email {
                             "        <p><b>IP do maquina de acesso: </b> <label> " + ip +  " </label></p>\n" +
                             "        <br/> \n" +
                             "\n" +
-                            "        <p>Entre em contato com o usuário para fazer a verificação de acesso incomum!</p>\n" +
                             "        <div style=\"width:250px;text-align:center;margin:0px auto;\">\n" +
                             "        <img src=\"http://i.imgur.com/92ei8XC.png\" width=\"250px\" alt=\"CWI\"/><h3> wwww.cwi.com.br</h3>\n" +
                             "        </div>          \n" +
