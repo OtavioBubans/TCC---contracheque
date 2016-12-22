@@ -10,11 +10,12 @@
         <div class="row">
             <div class="col s8 offset-s2">
                 <br/>
-                <br/>
-                <br/>
                 <h4>Importação de Contracheque</h4>
                 <div th:if="${msg}">
-                    <div th:text="${msg}"></div>
+                   <div class="card-panel red darken-4 lighten-2"><span class="white-text" th:text="${msg}"></span></div>
+                </div>
+                <div th:if="${success}">
+                    <div class="card-panel teal lighten-2"><span class="white-text" th:text="${success}"></span></div>
                 </div>
                 <form th:action="@{/admin}" method="POST" class="form-horizontal" enctype="multipart/form-data">
                     <label>Selecione o arquivo a ser importado</label>
