@@ -3,6 +3,7 @@ package br.com.crescer.contra.cheque.web;
 import br.com.crescer.contra.cheque.entity.Acesso;
 import br.com.crescer.contra.cheque.entity.Colaborador;
 import br.com.crescer.contra.cheque.entity.Email;
+import br.com.crescer.contra.cheque.entity.Lancamento;
 import br.com.crescer.contra.cheque.entity.Log;
 import br.com.crescer.contra.cheque.service.UsuarioService;
 import br.com.crescer.contra.cheque.entity.Usuario;
@@ -75,6 +76,28 @@ public class HomeController {
     @RequestMapping("/home")
     String home() {
         registrarAcesso();
+        return "home";
+    }
+
+    @Secured({"ROLE_USER"})
+    @RequestMapping(value = "/home", method = RequestMethod.POST)
+    String home(Model model, String mes, Long ano, RedirectAttributes redirectAttributes) throws RegraDeNegocioException {
+        Date dataPesquisada = dateService.DataSelecionada(mes, ano);
+        Long idUsuarioLogado = usuarioLogado().getIdUsuario();
+        List<Lancamento> listaDescontos = lancamentoService.pesquisarPorUsuarioMesETipo(idUsuarioLogado, dataPesquisada, 'D');
+        List<Lancamento> listaProventos = lancamentoService.pesquisarPorUsuarioMesETipo(idUsuarioLogado, dataPesquisada, 'P');
+
+        if (listaDescontos == null && listaProventos == null) {
+            return "redirect: home";
+        }
+
+        model.addAttribute("descontos", listaDescontos);
+        model.addAttribute("proventos", listaProventos);
+        model.addAttribute("totalLiquido", lancamentoService.pesquisarPorUsuarioMesECodigo(idUsuarioLogado, dataPesquisada, "913"));
+        model.addAttribute("totalProventos", lancamentoService.pesquisarPorUsuarioMesECodigo(idUsuarioLogado, dataPesquisada, "913"));
+        model.addAttribute("totalLiquido", lancamentoService.pesquisarPorUsuarioMesECodigo(idUsuarioLogado, dataPesquisada, "913"));
+        model.addAttribute("totalLiquido", lancamentoService.pesquisarPorUsuarioMesECodigo(idUsuarioLogado, dataPesquisada, "913"));
+        
         return "home";
     }
 

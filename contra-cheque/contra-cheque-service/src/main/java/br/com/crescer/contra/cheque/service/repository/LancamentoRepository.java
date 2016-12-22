@@ -16,4 +16,6 @@ import org.springframework.data.repository.CrudRepository;
  */
 public interface LancamentoRepository extends CrudRepository<Lancamento,Long> {
     List<Lancamento> findByData(Date data);
+    List<Lancamento> findByIdColaboradorAndDataAndTipo(Long idColaborador, Date data, Character tipo);
+    List<Lancamento> findByIdColaboradorAndDataAndCodigo(Long idColaborador, Date data, String codConta);
 }
