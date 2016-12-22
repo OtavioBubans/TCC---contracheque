@@ -56,7 +56,7 @@ and open the template in the editor.
             <div id="contra" class="white">
                 <div class="table" id="um">
                     <div id="titulo">Código</div>
-                    <div>65588</div>
+                    <div th:text="${usuario.id}"></div>
                 </div>
 
                <div class="table" id="dois">
@@ -75,7 +75,9 @@ and open the template in the editor.
                </div>
                <div class="table" id="cinco">
                  <div id="titulo">Conta Pagamento</div>
-                   <div>BANCO DO BRASIL AG:1234-5 CC: 65432-1</div>
+                 <label th:text="{$usuario.lancamento.idConta.idAgencia.idBanco.nome}"> :</label> BANCO DO BRASIL AG:1234-5 CC: 65432-1
+                 <label th:text="{$usuario.lancamento.idConta.idAgencia.codigo}"> AG:</label>
+                 <label th:text="{$usuario.lancamento.idConta.codigo}"> CC: </label>
                </div>
 
 
@@ -124,7 +126,7 @@ and open the template in the editor.
                         <div class="floa-left"  id="cinco">
                           <div id="titulo" th:text="{provento.desconto}"><b>-----</b></div>
                         </div>
-
+                   
                </div>
 
            </div>
