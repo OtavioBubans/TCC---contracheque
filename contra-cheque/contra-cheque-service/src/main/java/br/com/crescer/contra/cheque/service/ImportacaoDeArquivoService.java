@@ -100,12 +100,12 @@ public class ImportacaoDeArquivoService {
             if (!colaborador.getNome().equals(nomeColaborador)) {
                 throw adicionarMensagemParaOUsuario(String.format("Colaborador de ID %d com nome diferente ao cadastrado no sistema. Linha %d", idColaboradorAtual, contador));
             }
-            if (!colaborador.getIdCentroCusto().getNome().equals(centroCusto)) {
-                throw adicionarMensagemParaOUsuario(String.format("Colaborador de ID %d com Centro Custo diferente ao cadastrado no sistema. Linha %d", idColaboradorAtual, contador));
-            }
-            if (colaborador.getConta() == null || !colaborador.getConta().getCodigo().equals(contaColaborador)) {
-                throw adicionarMensagemParaOUsuario(String.format("Colaborador de ID %d com Conta do Banco diferente ao cadastrado no sistema. Linha %d", idColaboradorAtual, contador));
-            }
+//            if (!colaborador.getIdCentroCusto().getNome().equals(centroCusto)) {
+//                throw adicionarMensagemParaOUsuario(String.format("Colaborador de ID %d com Centro Custo diferente ao cadastrado no sistema. Linha %d", idColaboradorAtual, contador));
+//            }
+//            if (colaborador.getConta() == null || !colaborador.getConta().getCodigo().equals(contaColaborador)) {
+//                throw adicionarMensagemParaOUsuario(String.format("Colaborador de ID %d com Conta do Banco diferente ao cadastrado no sistema. Linha %d", idColaboradorAtual, contador));
+//            }
             boolean campoVazio = ocorrencia.isEmpty() || banco.isEmpty() || tipoSalario.isEmpty() || dataAdmissao.isEmpty();
             if (campoVazio) {
                 throw adicionarMensagemParaOUsuario(String.format("Algum dos campos está vazio, verifique o arquivo e tente novamente. Linha %d", contador));

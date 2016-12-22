@@ -15,6 +15,8 @@ import java.util.logging.Logger;
 import javax.servlet.http.HttpSession;
 import org.apache.tomcat.util.codec.binary.Base64;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -34,7 +36,10 @@ public class AccessController {
     UsuarioService usuarioService;
 
     @RequestMapping("/login")
-    String login(Model model, Usuario usuario) {
+    String login(Model model, Usuario usuario, @AuthenticationPrincipal User user) {
+       if(user != null){
+           return "redirect:home";
+       }
         model.addAttribute("formAction", "/login");
         model.addAttribute("autenticacaoExtra", false);
         return "login";

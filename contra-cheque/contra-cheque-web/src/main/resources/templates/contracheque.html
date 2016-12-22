@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+    <head th:replace="fragments :: head('Contracheque')"></head>
+        <body>
+            <br/>
+            <br/>
+
+            <div class="container">
+
+                <div class="row">
+                    <div class="col s5 offset-m1">
+
+                        <div id="topo-esquerda">
+                            <img src="http://image.prntscr.com/image/645461a936a34cf2b1910e824a1f4662.png" alt="Logo" width="355px" height="90px"/>
+                        </div>
+                    </div>
+
+                    <div class="col s5 ">
+                        <div id="topo-direita">
+                            <div><h5>Recibo de Pagamento de Salário</h5></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="container ">
+
+                <div class="row">
+                    <div class="col s12 m9 offset-m1">
+
+                        <div id="contra" class="white">
+
+                            <div class="table" id="um">
+                                <div id="titulo">Código</div>
+                                <div th:text="${usuario.idColaborador}"></div>
+                            </div>
+
+                            <div class="table" id="dois">
+                                <div id="titulo">Nome Funcionário</div>
+                                <div th:text="${usuario.nome}"></div>
+                            </div>
+
+                            <div class="table" id="tres">
+                                <div id="titulo">Centro de Custo</div>
+                                <div th:text="${usuario.idCentroCusto.nome}"></div>
+                            </div>
+
+                        </div>       
+                    </div>    
+                </div>
+            </div>
+            <footer th:replace="fragments :: footer">
+            </footer>
+        </body>
+</html>

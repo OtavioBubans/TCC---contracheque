@@ -86,15 +86,20 @@ public class HomeController {
         }
     }
     
+    @Secured({"ROLE_USER"})
+    @RequestMapping(value = "/")
+    String index(){
+        return "apresentacao";
+    }
+    
     @Secured({"ROLE_ADMIN"})
     @RequestMapping(value = "/relatorio")
     String relatorio(Model model){
         model.addAttribute("anos", dateService.popularAnosAdmin());
         model.addAttribute("meses", dateService.popularMeses());
-        
         return "relatorio";
     }
-
+    
     @Secured({"ROLE_ADMIN"})
     @RequestMapping(value = "/relatorio", method = RequestMethod.POST)
     String relatorio(Model model, String mes, Long ano, RedirectAttributes redirectAttributes) throws RegraDeNegocioException {
@@ -114,7 +119,7 @@ public class HomeController {
         }
         model.addAttribute("totalBeneficios", totalBeneficios);
         model.addAttribute("totalDescontos", totalDescontos);
-        return "relatorio";
+        return "redirect:relatorio";
     }
 
     @Secured({"ROLE_USER"})
@@ -125,7 +130,8 @@ public class HomeController {
         List<Lancamento> listaDescontos = lancamentoService.pesquisarPorUsuarioMesETipo(colaborador, dataPesquisada, 'D');
         List<Lancamento> listaProventos = lancamentoService.pesquisarPorUsuarioMesETipo(colaborador, dataPesquisada, 'P');
 
-        if (listaDescontos == null && listaProventos == null) {
+        if (listaDescontos.isEmpty() && listaProventos.isEmpty()) {
+            redirectAttributes.addFlashAttribute("msg", "Não foram encontrados registros nessa consulta");
             return "redirect: home";
         }
         model.addAttribute("usuario", usuarioLogado().getColaborador());
@@ -136,7 +142,7 @@ public class HomeController {
         model.addAttribute("totalLiquido", lancamentoService.pesquisarPorUsuarioMesECodigo(colaborador, dataPesquisada, "913"));
         model.addAttribute("totalLiquido", lancamentoService.pesquisarPorUsuarioMesECodigo(colaborador, dataPesquisada, "913"));
 
-        return "home";
+        return "contracheque";
     }
 
     @Secured({"ROLE_ADMIN"})

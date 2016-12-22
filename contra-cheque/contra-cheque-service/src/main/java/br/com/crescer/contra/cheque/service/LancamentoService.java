@@ -10,10 +10,6 @@ import java.util.stream.Stream;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-/**
- *
- * @author otavio.bubans
- */
 @Service
 public class LancamentoService {
 
