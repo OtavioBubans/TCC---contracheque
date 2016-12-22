@@ -7,90 +7,64 @@ and open the template in the editor.
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
     <head th:replace="fragments :: head('Relatório')">
     </head>
-  
-   
     <body class="grey lighten-3">   
-         
-    <nav class="grey darken-2">
-        <div class="nav-wrapper">
-            <a href="#!" class="brand-logo"><img src="logo-ho-sem.png" alt="logo-cwi" width="250px"></a>
-            <ul class="right hide-on-med-and-down">
-                <li><i class="material-icons left">supervisor_account</i>Mateus Bueno dos Passos Teixeira</li>
-                <li><a class="waves-effect waves-light btn orange accent-3 lighten-4 white-text ">Logout</a></li>
-            </ul>
+        <nav class="grey darken-2">
+            <div class="nav-wrapper">
+                <a href="#!" class="brand-logo"><img src="logo-ho-sem.png" alt="logo-cwi" width="250px"/></a>
+                <ul class="right hide-on-med-and-down">
+                    <li><i class="material-icons left">supervisor_account</i>Mateus Bueno dos Passos Teixeira</li>
+                    <li><a class="waves-effect waves-light btn orange accent-3 lighten-4 white-text ">Logout</a></li>
+                </ul>
+            </div>
+        </nav>
+        <div class="center-align">
+            <h4 class="centered">Relatório Administrativo</h4>
         </div>
-    </nav>
-
-        <br/>
-        <br/>
-       <div class="center-align">
-
-         <h4 class="centered">Relatório Administrativo</h4>
-
-       </div>
-
-       <div class="row">
-       
-          <div class="col s3 m3 offset-m2">
-            <select class="browser-default ">
-              <option  value="" disabled selected>Escolha o ano</option>
-              <option value="1">2016</option>
-              <option value="2">2015</option>
-            </select>
-          </div>
-
-          <div class="col s3 m3 offset-m0">
-            <select class="browser-default">
-              <option value="" disabled selected>Escolha mês</option>
-              <option value="">01</option>
-              <option value="">02</option>
-              <option value="">03</option>
-              <option value="">04</option>
-              <option value="">05</option>
-              <option value="">06</option>
-              <option value="">07</option>
-              <option value="">08</option>
-              <option value="">09</option>
-              <option value="">10</option>
-              <option value="">11</option>
-              <option value="">12</option>
-            </select>
-          </div>
-          <a class="waves-effect waves-light btn-large orange accent-3">Buscar</a>
-         </div>
-            
+        <div class="row">
+            <form th:action="@{/home}" method="POST">
+            <div class="col s3 m3 offset-m2">
+                <select class="browser-default " name="ano">
+                    <option value="none" disabled="disabled" selected="selected">Escolha o ano</option>
+                    <option value="1">2016</option>
+                    <option value="2">2015</option>
+                </select>
+            </div>
+            <div class="col s3 m3 offset-m0">
+                <select class="browser-default" name="mes">
+                    <option value="none" disabled="disabled" selected="selected">Escolha mês</option>
+                    <option value="">01</option>
+                    <option value="">02</option>
+                    <option value="">03</option>
+                    <option value="">04</option>
+                    <option value="">05</option>
+                    <option value="">06</option>
+                    <option value="">07</option>
+                    <option value="">08</option>
+                    <option value="">09</option>
+                    <option value="">10</option>
+                    <option value="">11</option>
+                    <option value="">12</option>
+                </select>
+            </div>
+                <input type="submit" class="waves-effect waves-light btn-large orange accent-3" value="Buscar"/>
+            </form>
+        </div>
         <div class="container white z-depth-4">
-            
-          <table class="centered">
-            <thead>
-              <tr>
-                  <th><h5>Total Descontos</h5></th>
-                  <th><h5>Total Benefícios</h5></th>
-              </tr>
-            </thead>
-
-            <tbody>
-              <tr>
-                <td>R$ 13.498,36</td>
-                <td>R$ 11.658,41</td>
-              </tr>
-            </tbody>
-         </table>
-        
-         <br/>
-         
-      </div>
-      <br/>
-      <br/>
-      
-    
-        
-         
-          
-          <br/>
-          <br/> 
-          <br/>
-          <br/>
-        
+            <table class="centered">
+                <thead>
+                    <tr>
+                        <th><h5>Total Descontos</h5></th>
+                        <th><h5>Total Benefícios</h5></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td th:text="${totalDescontos}"></td>
+                        <td th:text="${totalBeneficios}"></td>
+                    </tr>
+                </tbody>
+            </table>
+            <br/>
+        </div>
     </body>
 </html>
