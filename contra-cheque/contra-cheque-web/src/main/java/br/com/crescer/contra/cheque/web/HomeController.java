@@ -74,9 +74,16 @@ public class HomeController {
 
     @Secured({"ROLE_USER"})
     @RequestMapping("/home")
-    String home() {
+    String home(Model model) {
         registrarAcesso();
-        return "home";
+        String role = usuarioLogado().getFuncao();
+        if (role.equals("admin")) {
+            model.addAttribute("anos", dateService.popularAnosAdmin());
+            model.addAttribute("meses", dateService.popularMeses());
+            return "admin";
+        } else {
+            return "home";
+        }
     }
 
     @Secured({"ROLE_USER"})
@@ -97,15 +104,8 @@ public class HomeController {
         model.addAttribute("totalProventos", lancamentoService.pesquisarPorUsuarioMesECodigo(idUsuarioLogado, dataPesquisada, "913"));
         model.addAttribute("totalLiquido", lancamentoService.pesquisarPorUsuarioMesECodigo(idUsuarioLogado, dataPesquisada, "913"));
         model.addAttribute("totalLiquido", lancamentoService.pesquisarPorUsuarioMesECodigo(idUsuarioLogado, dataPesquisada, "913"));
-        
-        return "home";
-    }
 
-    @RequestMapping("/admin")
-    String admin(Model model) {
-        model.addAttribute("anos", dateService.popularAnosAdmin());
-        model.addAttribute("meses", dateService.popularMeses());
-        return "admin";
+        return "home";
     }
 
     @RequestMapping(value = "/admin", method = RequestMethod.POST)
