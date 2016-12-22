@@ -7,7 +7,9 @@ and open the template in the editor.
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
     <head th:replace="fragments :: head('Relatório')">
     </head>
+    
     <body class="grey lighten-3">   
+        
         <nav class="grey darken-2">
             <div class="nav-wrapper">
                 <a href="#!" class="brand-logo"><img src="http://i.imgur.com/vHK8hfX.png" alt="logo-cwi" width="250px"/></a>
@@ -17,25 +19,31 @@ and open the template in the editor.
                 </ul>
             </div>
         </nav>
+        
         <div class="center-align">
             <h4 class="centered">Relatório Administrativo</h4>
         </div>
+        
         <div class="row">
+            
             <form th:action="@{/relatorio}" method="POST">
-            <div class="col s3 m3 offset-m2">
+                <div class="col s3 m3 offset-m2">
                     <select name="mes" class="browser-default">
                         <option th:each="mes : ${meses}" th:text="${mes}" th:value="${mes}"></option>
                     </select>           
-            </div>
-            <div class="col s3 m3 offset-m0">
-                <select name="ano" class="browser-default">
+                </div>
+                <div class="col s3 m3 offset-m0">
+                    <select name="ano" class="browser-default">
                         <option th:each="ano : ${anos}" th:text="${ano}" th:value="${ano}"></option>
                     </select>
-            </div>
+                </div>
                 <input type="submit" class="waves-effect waves-light btn-large orange accent-3" value="Buscar"/>
             </form>
+            
         </div>
+        
         <div class="container white z-depth-4">
+            
             <table class="centered">
                 <thead>
                     <tr>
@@ -51,6 +59,9 @@ and open the template in the editor.
                 </tbody>
             </table>
             <br/>
+            
         </div>
+        
+        
     </body>
 </html>
