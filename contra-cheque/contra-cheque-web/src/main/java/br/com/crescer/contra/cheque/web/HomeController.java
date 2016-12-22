@@ -141,6 +141,8 @@ public class HomeController {
         model.addAttribute("admissao", formato.format(usuarioLogado().getColaborador().getAdminssao()));
         model.addAttribute("descontos", listaDescontos);
         model.addAttribute("proventos", listaProventos);
+        model.addAttribute("totalProventos", lancamentoService.pesquisarPorUsuarioMesECodigo(colaborador, dataPesquisada, "911"));
+        model.addAttribute("totalDescontos", lancamentoService.pesquisarPorUsuarioMesECodigo(colaborador, dataPesquisada, "912"));
         model.addAttribute("totalLiquido", lancamentoService.pesquisarPorUsuarioMesECodigo(colaborador, dataPesquisada, "913"));
         model.addAttribute("irrf", lancamentoService.pesquisarPorUsuarioMesECodigo(colaborador, dataPesquisada, "711"));
         model.addAttribute("salarioBase", lancamentoService.pesquisarPorUsuarioMesECodigo(colaborador, dataPesquisada, "900"));
@@ -189,7 +191,7 @@ public class HomeController {
         registrarOperacao(usuarioLogado().getColaborador(), TipoOperacaoLog.IMPORTACAO, null);
         redirectAttributes.addFlashAttribute("success", "Arquivo importado com sucesso");
 
-        return "redirect:admin";
+        return "redirect:home";
     }
 
     private void registrarAcesso() {

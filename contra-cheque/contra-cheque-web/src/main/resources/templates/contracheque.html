@@ -48,14 +48,12 @@
 
                         <div class="table" id="quatro">
                             <div id="titulo">Data Admissão</div>
-                            <!--                            <div th:text=""></div>-->
+                            <div th:text="${admissao}"></div>
                         </div>
 
                         <div class="table" id="cinco">
                             <div id="titulo">Conta Pagamento</div>
-                            <!--                            <label th:text=""></label> 
-                                                        <label th:text=""></label>
-                                                        <label th:text=""></label>-->
+                            <div>BANCO DO BRASIL AG:1919 CONTA: 3378</div>
                         </div>
 
 
@@ -88,62 +86,83 @@
                                 </div>
 
                                 <div class="floa-left"  id="dois">
-                                    <div id="titulo" th:tex:="${provento.descricao}"><b>SALARIO MENSALISTA</b></div>
+                                    <div id="titulo"><b th:text="${provento.descricao}">*</b></div>
                                 </div>
 
                                 <div class="floa-left"  id="tres">
-                                    <div id="titulo" th:text="${provento.valorParam}"><b>125,00</b></div>
+                                    <div id="titulo"><b th:text="${provento.valorParam}">*</b></div>
                                 </div>
 
                                 <div class="floa-left"  id="quatro">
-                                    <div id="titulo" th:text="${provento.total}"><b>850,00</b></div>
+                                    <div id="titulo"><b th:text="${provento.total}">*</b></div>
+                                </div>
+                                
+                                <div class="floa-left"  id="cinco">
+                                    <div id="titulo"><b>-----</b></div>
+                                </div>
+                            </div>
+                            <div th:each="desconto : ${descontos}">
+                                <div class="floa-left" id="um">
+                                    <div id="titulo"><b th:text="${desconto.codConta}"></b></div>
                                 </div>
 
-                                
-                            </div>
+                                <div class="floa-left"  id="dois">
+                                    <div id="titulo"><b th:text="${desconto.descricao}">*</b></div>
+                                </div>
 
+                                <div class="floa-left"  id="tres">
+                                    <div id="titulo"><b th:text="${desconto.valorParam}">*</b></div>
+                                </div>
+                                
+                                <div class="floa-left"  id="quatro">
+                                    <div id="titulo"><b>-----</b></div>
+                                </div>
+
+                                <div class="floa-left"  id="cinco">
+                                    <div id="titulo"><b th:text="${desconto.total}">*</b></div>
+                                </div>
+                            </div>
                         </div>
 
-                        <!--                        <div class="table" id="seis">
-                                                    <div id="titulo">Total de Proventos</div>
-                                                    <div class="total" th:text="{totalProvento}"><h6>932,25</h6></div>
-                                                </div>
-                        
-                                                <div class="table" id="sete">
-                                                    <div id="titulo">Total de Descontos</div>
-                                                    <div class="total" th:text="{descontos}"><h6>498,69</h6></div>
-                                                </div>
-                        
-                                                <div class="table" id="oito">
-                                                    <div id="titulo">Valor Líquido</div>
-                                                    <div class="total" th:text="{totalLiquido}"><h6>433,58</h6></div>
-                                                </div>
-                        
-                                                <div class="table" id="nove">
-                                                    <div id="titulo">Salário Base</div>
-                                                    <div class="total"><h6>850,00</h6></div>
-                                                </div>
-                        
-                                                <div class="table" id="dez">
-                                                    <div id="titulo">Salário contrib INSS</div>
-                                                    <div class="total"><h6>932,27</h6></div>
-                                                </div>
-                        
-                                                <div class="table" id="onze">
-                                                    <div id="titulo">Base FGTS</div>
-                                                    <div class="total"><h6>932,27</h6></div>
-                                                </div>
-                        
-                                                <div class="table" id="doze">
-                                                    <div id="titulo">Valor FGTS</div>
-                                                    <div class="total"><h6>74,58</h6></div>
-                                                </div>
-                        
-                                                <div class="table" id="treze">
-                                                    <div id="titulo">Cálculo base IRRF</div>
-                                                    <div class="total"><h6>677,98</h6></div>
-                                                </div>-->
+                        <div class="table" id="seis">
+                            <div id="titulo">Total de Proventos</div>
+                            <div class="total" th:text="${totalProventos[0].total}"><h6>932,25</h6></div>
+                        </div>
 
+                        <div class="table" id="sete">
+                            <div id="titulo">Total de Descontos</div>
+                            <div class="total" th:text="${totalDescontos[0].total}"><h6>498,69</h6></div>
+                        </div>
+
+                        <div class="table" id="oito">
+                            <div id="titulo">Valor Líquido</div>
+                            <div class="total" th:text="${totalLiquido[0].total}"><h6>433,58</h6></div>
+                        </div>
+
+                        <div class="table" id="nove">
+                            <div id="titulo">Salário Base</div>
+                            <div class="total"><h6 th:text="${salarioBase[0].total}">850,00</h6></div>
+                        </div>
+
+                        <div class="table" id="dez">
+                            <div id="titulo">Salário contrib INSS</div>
+                            <div class="total"><h6 th:text="${totalProventos[0].total}"></h6></div>
+                        </div>
+
+                        <div class="table" id="onze">
+                            <div id="titulo">Base FGTS</div>
+                            <div class="total"><h6 th:text="${totalProventos[0].total}"></h6></div>
+                        </div>
+
+                        <div class="table" id="doze">
+                            <div id="titulo">Valor FGTS</div>
+                            <div class="total"><h6 th:text="${fgts[0].total}"></h6></div>
+                        </div>
+
+                        <div class="table" id="treze">
+                            <div id="titulo">Cálculo base IRRF</div>
+                            <div class="total"><h6 th:text="${irrf[0].total}"></h6></div>
+                        </div>
                     </div>
                 </div>
             </div>
