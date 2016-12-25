@@ -39,15 +39,16 @@ public class DateService {
     public List<Long> popularAnos(Long ano, Long quantidadeDeAnos) {
         List<Long> anos = new ArrayList<>();
 
-        for (int i = 0; i < quantidadeDeAnos; i++) {
-            Long proximosAnos = ano + i;
+        while (quantidadeDeAnos != 0l) {
+            Long proximosAnos = ano + quantidadeDeAnos;
             anos.add(proximosAnos);
+            quantidadeDeAnos--;
         }
         return anos;
     }
 
     public List<Long> popularAnosAdmin() {
-        return popularAnos(2010l, 7l);
+        return popularAnos(2009l, 7l);
     }
 
     private Long verificaMes(String mes) {

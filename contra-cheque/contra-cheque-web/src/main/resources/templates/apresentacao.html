@@ -1,77 +1,70 @@
 <!DOCTYPE html>
-<!--
-To change this license header, choose License Headers in Project Properties.
-To change this template file, choose Tools | Templates
-and open the template in the editor.
--->
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
-    <head th:replace="fragments :: head('Início')">        
-    </head>
 
-    <body>
-        <style>
-            .parallax-container {
-                height: 500px;
-            }
-        </style>
-        <div id="index-banner" class="parallax-container">
-            <div class="section no-pad-bot">
-                <div class="container">
-                    <br/>
-                    <br/>
-                    <div class="header center"><img src="http://image.prntscr.com/image/3126f348163d4903aa17f94751a3e4d5.png" width="500" alt="logo-cwi"/></div>
-                    <br/>
-                    <br/>
-                    <div class="row center">
-                        <h5 class="header col s12 light">Sistema para acesso de contracheque da CWI Software</h5>
-                    </div>
-                    <div class="row center">
-                        <a th:href="@{/login}" id="download-button" class="btn-large waves-effect waves-light grey darken-4">Acesse Sua Conta</a>
-                    </div>
+<head th:replace="fragments :: head('Início')">
+</head>
 
-
-
-
+<body>
+    <style>
+        .parallax-container {
+            height: 500px;
+        }
+    </style>
+    <div id="index-banner" class="parallax-container">
+        <div class="section no-pad-bot">
+            <div class="container">
+                <br/>
+                <br/>
+                <div class="header center"><img class="responsive-img" src="http://image.prntscr.com/image/3126f348163d4903aa17f94751a3e4d5.png" width="500"
+                        alt="logo-cwi" /></div>
+                <br/>
+                <br/>
+                <div class="row center">
+                    <h5 class="header col s12 light">Sistema para acesso de contracheque da CWI Software</h5>
+                </div>
+                <div class="row center">
+                    <a th:href="@{/login}" id="download-button" class="btn-large waves-effect waves-light grey darken-4">Acesse Sua Conta</a>
                 </div>
             </div>
-            <div class="parallax grey lighten-4"></div>
         </div>
+        <div class="parallax grey lighten-4"></div>
+    </div>
 
-        <div class="container">
-            <div class="section">
-                <div class="row">
-                    <div class="col s12 m6">
-                        <div class="icon-block">
-                            <h2 class="center black-text"><i class="material-icons">thumb_up</i></h2>
-                            <h5 class="center">Facilidade de Acesso</h5>
+    <div class="container">
+        <div class="section">
+            <div class="row">
+                <div class="col s12 m6">
+                    <div class="icon-block">
+                        <h2 class="center black-text"><i class="material-icons">thumb_up</i></h2>
+                        <h5 class="center">Facilidade de Acesso</h5>
 
-                            <p class="light">O usuário após efetuar o login, apenas seleciona o mês e o ano para acessar seu contracheque.</p>
-                        </div>
-                    </div>
-
-                    <div class="col s12 m6">
-                        <div class="icon-block">
-                            <h2 class="center black-text"><i class="material-icons">verified_user</i></h2>
-                            <h5 class="center">Acesso do Administrador</h5>
-
-                            <p class="light">Acesso ao administrador possibilita o envio de dados a partir de upload de arquivo.</p>
-                        </div>
+                        <p class="light">O usuário após efetuar o login, apenas seleciona o mês e o ano para acessar seu contracheque.</p>
                     </div>
                 </div>
 
+                <div class="col s12 m6">
+                    <div class="icon-block">
+                        <h2 class="center black-text"><i class="material-icons">verified_user</i></h2>
+                        <h5 class="center">Acesso do Administrador</h5>
+
+                        <p class="light">Acesso ao administrador possibilita o envio de dados a partir de upload de arquivo.</p>
+                    </div>
+                </div>
             </div>
+
         </div>
+    </div>
 
 
-        <footer class="page-footer grey darken-4">
-            <div class="footer-copyright center">
-                CWI Software - Projeto Crescer 2016-2
-            </div>
-            <script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
+    <footer class="page-footer grey darken-4">
+        <div class="footer-copyright center">
+            CWI Software - Projeto Crescer 2016-2
+        </div>
+        <script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
             crossorigin="anonymous"></script>
-            <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.8/js/materialize.min.js"></script>
-            <script src="index.js"></script>
-        </footer>
-    </body>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.8/js/materialize.min.js"></script>
+        <script src="index.js"></script>
+    </footer>
+</body>
 
 </html>

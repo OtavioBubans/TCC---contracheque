@@ -29,15 +29,15 @@ public class CCWebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(final HttpSecurity httpSecurity) throws Exception {
         httpSecurity.authorizeRequests()
-                .antMatchers("/", "/login/autenticar", "/js/*", "/css/*").permitAll().anyRequest().authenticated()
+                .antMatchers("/", "/login/autenticar","/js/*", "/css/*").permitAll().anyRequest().authenticated()
                 .anyRequest()
                 .authenticated()
                 .and()
                 .formLogin()
                 .loginPage("/login")
                 .defaultSuccessUrl("/home", true)
-                .permitAll()
                 .failureHandler(customAuthenticationHandler)
+                .permitAll()
                 .and()
                 .logout()
                 .logoutUrl("/logout")

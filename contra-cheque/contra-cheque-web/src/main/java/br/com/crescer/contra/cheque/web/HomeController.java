@@ -200,7 +200,7 @@ public class HomeController {
         c.setTime(new Date());
         List<String> diasSemana = Arrays.asList("domingo", "segunda-feira", "terca-feira", "quarta-feira", "quinta-feira", "sexta-feira", "sabado");
         int dia = c.get(Calendar.DAY_OF_WEEK);
-        String diaSemana = diasSemana.get(dia);
+        String diaSemana = diasSemana.get(dia-1);
         int hora = c.get(Calendar.HOUR_OF_DAY);
         Acesso acessoAtual = acessoService.findByIdColaboradorAndDiaSemanaAndHora(colaboradorLogado, diaSemana, hora);
         if (acessoAtual == null) {
@@ -253,7 +253,7 @@ public class HomeController {
                 if (percentualAcesso < 0.15) {
                     adicionarInvalidez(ipLogado);
                 }
-            };
+            }
         }
 
     }

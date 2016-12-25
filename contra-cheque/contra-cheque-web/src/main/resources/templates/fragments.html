@@ -21,8 +21,13 @@
             <nav class="black">
                 <div class="nav-wrapper">
                     <a href="#" class="brand-logo"><img src="http://image.prntscr.com/image/394efd7373cd480b8160e81b1c67324e.png" alt="logo-cwi" width="250px"/></a>
+                    <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
                     <ul class="right hide-on-med-and-down">
                         <li><i class="material-icons left">supervisor_account</i><span sec:authentication="name"></span></li>
+                        <li><a th:href="@{/logout}" class="waves-effect waves-light btn orange accent-3 lighten-4 white-text ">Sair</a></li>
+                    </ul>
+                    <ul class="side-nav" id="mobile-demo">
+                        <li><span class="black-text" sec:authentication="name"></span></li>
                         <li><a th:href="@{/logout}" class="waves-effect waves-light btn orange accent-3 lighten-4 white-text ">Sair</a></li>
                     </ul>
                 </div>
