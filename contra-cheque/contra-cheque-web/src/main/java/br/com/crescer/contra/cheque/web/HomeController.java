@@ -33,7 +33,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -249,9 +251,10 @@ public class HomeController {
         }
         if (totalAcessos >= 10) {
             for (Acesso acesso : acessos) {
-                int percentualAcesso = acesso.getQtdAcessos() / totalAcessos;
+                double percentualAcesso = (double)acesso.getQtdAcessos() / (double)totalAcessos;
                 if (percentualAcesso < 0.15) {
                     adicionarInvalidez(ipLogado);
+                    break;
                 }
             }
         }

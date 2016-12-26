@@ -36,10 +36,10 @@ public class AccessController {
     UsuarioService usuarioService;
 
     @RequestMapping("/login")
-    String login(Model model, Usuario usuario, @AuthenticationPrincipal User user) {
-       if(user != null){
-           return "redirect:home";
-       }
+    String login(Model model, Usuario usuario) {
+//       if(user != null){
+//           return "redirect:home";
+//       }
         model.addAttribute("formAction", "/login");
         model.addAttribute("autenticacaoExtra", false);
         return "login";
