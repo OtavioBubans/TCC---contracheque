@@ -43,19 +43,6 @@ public class ImportacaoDeArquivoService {
         return new RegraDeNegocioException(mensagem);
     }
 
-    public Stream<String> lerArquivo(String caminho) throws RegraDeNegocioException {
-
-        Path path = Paths.get(caminho);
-        Stream<String> retorno = null;
-        try {
-            retorno = Files.lines(path);
-        } catch (IOException ex) {
-            throw new RegraDeNegocioException("Ocorreu um problema na leitura do arquivo, verifique e tente novamente");
-        }
-
-        return retorno;
-    }
-
     public List<Lancamento> importarArquivo(Stream<String> arquivo, Date dataLancamento) throws RegraDeNegocioException {
         List<Lancamento> listaLancamentos = new ArrayList<>();
         Long idAtual = null;
