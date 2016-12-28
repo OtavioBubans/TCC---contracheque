@@ -15,7 +15,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class DateService {
 
-    public Date DataSelecionada(String mes, Long ano) throws RegraDeNegocioException {
+    public Date dataSelecionada(String mes, Long ano) throws RegraDeNegocioException {
         Date dataAtual = new Date();
         Long mesCadastrado = verificaMes(mes);
         SimpleDateFormat formatoData = new SimpleDateFormat("dd/MM/yyyy");

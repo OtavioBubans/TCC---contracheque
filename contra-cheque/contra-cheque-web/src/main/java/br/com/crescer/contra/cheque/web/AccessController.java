@@ -20,10 +20,6 @@ import static org.springframework.web.bind.annotation.RequestMethod.GET;
 import static org.springframework.web.bind.annotation.RequestMethod.POST;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-/**
- *
- * @author matha
- */
 @Controller
 public class AccessController {
 
