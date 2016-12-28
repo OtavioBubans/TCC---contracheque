@@ -2,7 +2,7 @@
 package br.com.crescer.contra.cheque.service;
 
 import br.com.crescer.contra.cheque.entity.Colaborador;
-import br.com.crescer.contra.cheque.service.repository.ColaboradorRepository;
+import br.com.crescer.contra.cheque.repository.ColaboradorRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

@@ -6,7 +6,7 @@
 package br.com.crescer.contra.cheque.service;
 
 import br.com.crescer.contra.cheque.entity.Colaborador;
-import br.com.crescer.contra.cheque.service.repository.ColaboradorRepository;
+import br.com.crescer.contra.cheque.repository.ColaboradorRepository;
 import static org.junit.Assert.assertEquals;
 import org.junit.Before;
 import org.junit.Test;

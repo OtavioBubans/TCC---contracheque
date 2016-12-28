@@ -3,7 +3,7 @@ package br.com.crescer.contra.cheque.service;
 
 import br.com.crescer.contra.cheque.entity.Acesso;
 import br.com.crescer.contra.cheque.entity.Colaborador;
-import br.com.crescer.contra.cheque.service.repository.AcessoRepository;
+import br.com.crescer.contra.cheque.repository.AcessoRepository;
 
 import org.springframework.stereotype.Service;
 import org.springframework.beans.factory.annotation.Autowired;

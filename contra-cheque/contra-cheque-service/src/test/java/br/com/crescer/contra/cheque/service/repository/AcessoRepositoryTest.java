@@ -5,6 +5,7 @@
  */
 package br.com.crescer.contra.cheque.service.repository;
 
+import br.com.crescer.contra.cheque.repository.AcessoRepository;
 import br.com.crescer.contra.cheque.TestRun;
 import br.com.crescer.contra.cheque.entity.Acesso;
 import br.com.crescer.contra.cheque.entity.Cargo;

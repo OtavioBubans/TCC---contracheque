@@ -3,7 +3,7 @@ package br.com.crescer.contra.cheque.service;
 import br.com.crescer.contra.cheque.entity.Colaborador;
 import br.com.crescer.contra.cheque.entity.Lancamento;
 import br.com.crescer.contra.cheque.service.exceptions.RegraDeNegocioException;
-import br.com.crescer.contra.cheque.service.repository.LancamentoRepository;
+import br.com.crescer.contra.cheque.repository.LancamentoRepository;
 import java.util.Date;
 import java.util.List;
 import java.util.stream.Stream;

@@ -10,7 +10,7 @@ import br.com.crescer.contra.cheque.entity.Cargo;
 import br.com.crescer.contra.cheque.entity.CentroCusto;
 import br.com.crescer.contra.cheque.entity.Colaborador;
 import br.com.crescer.contra.cheque.entity.Usuario;
-import br.com.crescer.contra.cheque.service.repository.AcessoRepository;
+import br.com.crescer.contra.cheque.repository.AcessoRepository;
 import java.util.Date;
 import static org.junit.Assert.assertEquals;
 import org.junit.Before;

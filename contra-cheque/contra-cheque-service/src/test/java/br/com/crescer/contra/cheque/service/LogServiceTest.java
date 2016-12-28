@@ -8,7 +8,7 @@ package br.com.crescer.contra.cheque.service;
 import br.com.crescer.contra.cheque.entity.Colaborador;
 import br.com.crescer.contra.cheque.entity.Log;
 import br.com.crescer.contra.cheque.entity.enumeration.TipoOperacaoLog;
-import br.com.crescer.contra.cheque.service.repository.LogRepository;
+import br.com.crescer.contra.cheque.repository.LogRepository;
 import static org.junit.Assert.assertEquals;
 import org.junit.Before;
 import org.junit.Test;
