@@ -32,10 +32,6 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
 import org.springframework.security.access.annotation.Secured;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -74,12 +70,15 @@ public class HomeController {
 
     @Autowired
     DateService dateService;
+    
+    @Autowired
+    UserDetailsUtils user;
 
     @Secured({"ROLE_USER"})
     @RequestMapping("/home")
     String home(Model model) {
         registrarAcesso();
-        String role = usuarioLogado().getFuncao();
+        String role = user.usuarioLogado().getFuncao();
         model.addAttribute("anos", dateService.popularAnosAdmin());
         model.addAttribute("meses", dateService.popularMeses());
         if (role.equals("admin")) {
@@ -131,7 +130,7 @@ public class HomeController {
     @RequestMapping(value = "/home", method = RequestMethod.POST)
     String home(Model model, String mes, Long ano, RedirectAttributes redirectAttributes) throws RegraDeNegocioException {
         Date dataPesquisada = dateService.DataSelecionada(mes, ano);
-        Colaborador colaborador = usuarioLogado().getColaborador();
+        Colaborador colaborador = user.usuarioLogado().getColaborador();
         List<Lancamento> listaDescontos = lancamentoService.pesquisarPorUsuarioMesETipo(colaborador, dataPesquisada, 'D');
         List<Lancamento> listaProventos = lancamentoService.pesquisarPorUsuarioMesETipo(colaborador, dataPesquisada, 'P');
         SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
@@ -139,8 +138,8 @@ public class HomeController {
             redirectAttributes.addFlashAttribute("msg", "Não foram encontrados registros nessa consulta");
             return "redirect: home";
         }
-        model.addAttribute("usuario", usuarioLogado().getColaborador());
-        model.addAttribute("admissao", formato.format(usuarioLogado().getColaborador().getAdminssao()));
+        model.addAttribute("usuario", colaborador);
+        model.addAttribute("admissao", formato.format(colaborador.getAdminssao()));
         model.addAttribute("descontos", listaDescontos);
         model.addAttribute("proventos", listaProventos);
         model.addAttribute("totalProventos", lancamentoService.pesquisarPorUsuarioMesECodigo(colaborador, dataPesquisada, "911"));
@@ -190,14 +189,14 @@ public class HomeController {
             redirectAttributes.addFlashAttribute("msg", ex.getMessage());
             return "redirect:home";
         }
-        registrarOperacao(usuarioLogado().getColaborador(), TipoOperacaoLog.IMPORTACAO, null);
+        registrarOperacao(user.usuarioLogado().getColaborador(), TipoOperacaoLog.IMPORTACAO, null);
         redirectAttributes.addFlashAttribute("success", "Arquivo importado com sucesso");
 
         return "redirect:home";
     }
 
     private void registrarAcesso() {
-        Colaborador colaboradorLogado = usuarioLogado().getColaborador();
+        Colaborador colaboradorLogado = user.usuarioLogado().getColaborador();
         Calendar c = new GregorianCalendar();
         c.setTime(new Date());
         List<String> diasSemana = Arrays.asList("domingo", "segunda-feira", "terca-feira", "quarta-feira", "quinta-feira", "sexta-feira", "sabado");
@@ -262,21 +261,15 @@ public class HomeController {
     }
 
     private void adicionarInvalidez(String ip) {
-        Usuario usuarioLogado = usuarioLogado();
+        Usuario usuarioLogado = user.usuarioLogado();
         int loginsSuspeitos = usuarioLogado.getLoginsSuspeitos();
         usuarioLogado.setLoginsSuspeitos(loginsSuspeitos + 1);
         if (loginsSuspeitos == 1) {
-            Email novoEmail = new Email(usuarioLogado.getEmail(), ip, usuarioLogado().getColaborador().getNome());
+            Email novoEmail = new Email(usuarioLogado.getEmail(), ip, usuarioLogado.getColaborador().getNome());
             emailService.enviarEmail(novoEmail);
         } else {
             usuarioService.save(usuarioLogado);
         }
-    }
-
-    private Usuario usuarioLogado() {
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        String username = auth.getName();
-        return usuarioService.findByEmail(username);
     }
 
     private String pegarIpLogado() {
